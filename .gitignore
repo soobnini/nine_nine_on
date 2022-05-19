@@ -2,9 +2,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,windows,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,windows,macos
 
+
 ### Eclipse ###
 .metadata
 bin/
+target/
 tmp/
 *.tmp
 *.bak
@@ -37,7 +39,8 @@ local.properties
 .buildpath
 
 # sbteclipse plugin
-.target
+.
+
 
 # Tern plugin
 .tern-project
