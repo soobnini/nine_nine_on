@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -48,12 +48,13 @@
 	width: 30px;
 	height: 30px;
 }
+
 #shareicons {
 	object-fit: contain;
 	width: 50px;
 	height: 50px;
-	 border-radius: 10%;
-	 margin: 20px;
+	border-radius: 10%;
+	margin: 20px;
 }
 
 .row {
@@ -63,7 +64,7 @@
 </head>
 <body>
 
-
+	<div th:replace="fragments/common :: header"></div>
 	<div class="container">
 		<div class="row">
 			<!-- 책 이미지 -->
@@ -125,10 +126,12 @@
 					</br>
 				</div>
 				<div id="row">
-					<div class="col" align = "center">
-						<img src="naver.png" alt="네이버" id=shareicons><img src="kakao.png" alt="카카오" id=shareicons>
-						<img src="twitter.png" alt="트위터" id=shareicons><img src="url.jpg" alt="url" id=shareicons>
-						
+					<div class="col" align="center">
+						<img src="naver.png" alt="네이버" id=shareicons><img
+							src="kakao.png" alt="카카오" id=shareicons> <img
+							src="twitter.png" alt="트위터" id=shareicons><img
+							src="url.jpg" alt="url" id=shareicons>
+
 					</div>
 				</div>
 			</div>

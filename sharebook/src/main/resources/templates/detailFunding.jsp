@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -76,6 +76,7 @@
 	border: 1.5px solid #70D047;
 	color: #468f36;
 }
+
 .list-group-item {
 	color: #468f36;
 }
@@ -83,7 +84,7 @@
 </head>
 <body>
 
-
+	<div th:replace="fragments/common :: header"></div>
 	<div class="container">
 		<div class="row">
 			<!-- 책 이미지 -->
