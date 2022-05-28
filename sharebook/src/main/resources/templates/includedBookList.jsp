@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>이웃 책장 : 종이책 공유 플랫폼</title>
@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="css/bookList.css">
 </head>
 <body>
-	<div th:replace="fragments/common :: header"></div>
 	<div id="result-book">
 		<!-- ****************************** -->
 		<!-- ********* option 부분 나중에 수정 *********** -->
