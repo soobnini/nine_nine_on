@@ -31,5 +31,5 @@ public class Community implements Serializable{
 	/*댓글 리스트
 	 * @OneToMany(mappedBy="community") private List<Comment> commentList;
 	 */
-	
+	public Community() {}//기본 생성자
 }

@@ -32,5 +32,5 @@ public class Member implements Serializable{
 	/*댓글 리스트
 	 * @OneToMany(mappedBy="member") private List<Comment> commentList;
 	 */
-	
+	public Member() {}//기본 생성자
 }
