@@ -11,11 +11,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Member")
 @Data
+@AllArgsConstructor 
+@NoArgsConstructor
 public class Community implements Serializable{
 	@Id
 	private int community_id;
@@ -31,5 +35,4 @@ public class Community implements Serializable{
 	/*댓글 리스트
 	 * @OneToMany(mappedBy="community") private List<Comment> commentList;
 	 */
-	public Community() {}//기본 생성자
 }

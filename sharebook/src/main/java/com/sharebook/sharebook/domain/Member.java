@@ -9,11 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Member")
 @Data
+@AllArgsConstructor 
+@NoArgsConstructor
 public class Member implements Serializable{
 	@Id
 	private int member_id;
@@ -32,5 +36,4 @@ public class Member implements Serializable{
 	/*댓글 리스트
 	 * @OneToMany(mappedBy="member") private List<Comment> commentList;
 	 */
-	public Member() {}//기본 생성자
 }

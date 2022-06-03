@@ -9,10 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Comment")
+@AllArgsConstructor 
+@NoArgsConstructor
 @Data
 public class Comment implements Serializable{
 	@Id
@@ -25,5 +29,4 @@ public class Comment implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="member_id")
 	private Member member;
-	public Comment() {}//기본 생성자
 }
