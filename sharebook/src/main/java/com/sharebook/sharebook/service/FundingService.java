@@ -1,4 +1,4 @@
-package com.sharebook.sharebook.repository;
+package com.sharebook.sharebook.service;
 
 import java.util.List;
 
