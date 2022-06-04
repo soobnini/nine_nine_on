@@ -1,4 +1,4 @@
-package com.sharebook.sharebook.dao;
+package com.sharebook.sharebook.service;
 
 import java.util.List;
 import java.util.Optional;
