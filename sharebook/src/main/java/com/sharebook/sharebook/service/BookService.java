@@ -12,7 +12,7 @@ import com.sharebook.sharebook.repository.BookRepository;
 @Service
 public class BookService {
 	@Autowired
-	private BookRepository bookRepository;
+	public BookRepository bookRepository;
 	
 	public void setBookRepository(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;

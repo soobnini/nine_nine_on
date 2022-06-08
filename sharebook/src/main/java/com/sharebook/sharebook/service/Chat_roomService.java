@@ -15,11 +15,11 @@ import com.sharebook.sharebook.repository.MessageRepository;
 @Service
 public class Chat_roomService {
 	@Autowired
-	private Chat_roomRepository chat_roomRepository;
+	public Chat_roomRepository chat_roomRepository;
 	@Autowired
-	private MembershipRepository membershipRepository;
+	public MembershipRepository membershipRepository;
 	@Autowired
-	private MessageRepository messageRepository;
+	public MessageRepository messageRepository;
 	
 	public void setChat_roomService(Chat_roomRepository chat_roomRepository,
 			MembershipRepository membershipRepository, MessageRepository messageRepository) {

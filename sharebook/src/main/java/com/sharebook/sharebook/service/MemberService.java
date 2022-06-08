@@ -14,7 +14,7 @@ import com.sharebook.sharebook.repository.MemberRepository;
 @Service
 public class MemberService {
 	@Autowired
-	private MemberRepository memberRepository;
+	public MemberRepository memberRepository;
 
 	public void setMemberRepository(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
