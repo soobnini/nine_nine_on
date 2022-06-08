@@ -34,6 +34,13 @@ public class BookService {
 	/*
 	 * Book Return Method 
 	 */
+	public Book findBookById(int bookId) {
+		Optional<Book> book = bookRepository.findById(bookId);
+		if(book.isPresent())
+			return book.get();
+		return null;
+	}
+	
 	public Book findBookByTitle(String title) {
 		Optional<Book> book = bookRepository.findBookByTitle(title);
 		if(book.isPresent())
