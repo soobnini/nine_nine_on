@@ -16,13 +16,13 @@ import com.sharebook.sharebook.repository.RewardRepository;
 public class FundingService {
 	
 	@Autowired
-	private FundingRepository fundingRepository;
+	public FundingRepository fundingRepository;
 	
 	@Autowired
-	private Funding_orderRepository funding_orderRepository;
+	public Funding_orderRepository funding_orderRepository;
 	
 	@Autowired
-	private RewardRepository rewardRepository;
+	public RewardRepository rewardRepository;
 	
 	public void insertFunding(Funding funding) {
 		fundingRepository.save(funding);

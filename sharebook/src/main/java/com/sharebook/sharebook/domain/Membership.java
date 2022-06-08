@@ -1,5 +1,7 @@
 package com.sharebook.sharebook.domain;
 
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -8,11 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Data
-@AllArgsConstructor 
-@NoArgsConstructor
-public class Membership {
+@Embeddable
+class MembershipPK {
 	//	참여한 채팅방의 id (FK)
 	@ManyToOne
 	@JoinColumn(name="chat_room_id")
@@ -21,4 +20,13 @@ public class Membership {
 	@ManyToOne
 	@JoinColumn(name="member_id")
 	int member_id;
+}
+
+@Entity
+@Data
+@AllArgsConstructor 
+@NoArgsConstructor
+public class Membership {
+	@EmbeddedId
+	MembershipPK id;
 }

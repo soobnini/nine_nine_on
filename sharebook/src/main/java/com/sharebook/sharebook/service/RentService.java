@@ -12,7 +12,7 @@ import com.sharebook.sharebook.repository.RentRepository;
 public class RentService {
 	
 	@Autowired
-	RentRepository rentRepository;
+	public RentRepository rentRepository;
 	
 	public void insertRent(Rent rent) {
 		rentRepository.save(rent);
