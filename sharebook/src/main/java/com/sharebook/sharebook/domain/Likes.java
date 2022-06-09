@@ -1,5 +1,7 @@
 package com.sharebook.sharebook.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -10,15 +12,15 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@SuppressWarnings("serial")
 @Embeddable
-class LikesPK {
-	@ManyToOne
-	@JoinColumn(name="MEMBER_ID")
+@EqualsAndHashCode
+class LikesPK implements Serializable {
 	private int member_id;
-	@ManyToOne
-	@JoinColumn(name="BOOK_ID")
+
 	private int book_id;
 }
 
@@ -29,6 +31,5 @@ class LikesPK {
 @Table(name="LIKES")
 public class Likes {
 	@EmbeddedId
-	@Column(name="LIKES_ID")
 	private LikesPK id;
 }
