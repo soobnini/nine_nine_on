@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Chat_room;
+import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Membership;
 import com.sharebook.sharebook.domain.Message;
 import com.sharebook.sharebook.repository.Chat_roomRepository;
@@ -46,11 +47,11 @@ public class Chat_roomService {
 	/*
 	 * List Return Method 
 	 */
-	public List<Membership> findMembershipListByMember(int member_id){
-		return membershipRepository.findMembershipByMember_id(member_id);
+	public List<Membership> findMembershipListByMember(Member member){
+		return membershipRepository.findAllByMember(member);
 	}
 	
-	public List<Message> findMessageListByMember(int member_id){
-		return messageRepository.findMessageByMember_id(member_id);
+	public List<Message> findMessageListByMember(Member member){
+		return messageRepository.findAllByMember(member);
 	}
 }
