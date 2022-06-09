@@ -35,6 +35,5 @@ public class Reward implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="FUNDING_ID")
-	@Column(name="FUNDING_ID")
-	private int funding_id;	// FK
+	private Funding funding;
 }

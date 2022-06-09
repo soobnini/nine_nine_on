@@ -11,6 +11,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
@@ -45,6 +47,7 @@ public class Funding implements Serializable {
 	@Column(name="DEADLINE")
 	private Date deadline;
 
-	@Column(name="MEMBER_ID")
-	private int member_id;	// FK
+	@ManyToOne
+	@JoinColumn(name="MEMBER_ID")
+	private Member member;
 }
