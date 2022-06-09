@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Rent;
 import com.sharebook.sharebook.repository.RentRepository;
 
@@ -26,8 +27,8 @@ public class RentService {
 		rentRepository.delete(rent);
 	}
 	
-	public List<Rent> getRentList(int member_id) {
-		return rentRepository.findByMember_id(member_id);
+	public List<Rent> getRentList(Member member) {
+		return rentRepository.findByMember(member);
 	}
 	
 	public boolean isOverdue(Rent rent) {

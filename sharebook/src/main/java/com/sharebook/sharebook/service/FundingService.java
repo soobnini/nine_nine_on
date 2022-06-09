@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Funding_order;
+import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Reward;
 import com.sharebook.sharebook.repository.FundingRepository;
 import com.sharebook.sharebook.repository.Funding_orderRepository;
@@ -68,8 +69,8 @@ public class FundingService {
 		return fundingRepository.findAll();
 	}
 	
-	public List<Reward> getRewardList(int funding_id) {
-		return rewardRepository.findByFunding_id(funding_id);
+	public List<Reward> getRewardList(Funding funding) {
+		return rewardRepository.findByFunding(funding);
 	}
 	
 	public List<Funding> searchFundingListByTitle(String title) {
@@ -80,16 +81,16 @@ public class FundingService {
 		return fundingRepository.findByAuthorContaining(author);
 	}
 	
-	public List<Funding> searchFundingListByMember_id(int member_id) {
-		return fundingRepository.findByMember_id(member_id);
+	public List<Funding> searchFundingListByMember_id(Member member) {
+		return fundingRepository.findByMember(member);
 	}
 	
-	public List<Funding_order> searchFunding_orderListByFunding_id(int funding_id) {
-		return funding_orderRepository.findByFunding_id(funding_id);
+	public List<Funding_order> searchFunding_orderListByFunding_id(Funding funding) {
+		return funding_orderRepository.findByFunding(funding);
 	}
 	
-	public List<Funding_order> searchFunding_orderListByMember_id(int member_id) {
-		return funding_orderRepository.findByMember_id(member_id);
+	public List<Funding_order> searchFunding_orderListByMember_id(Member member) {
+		return funding_orderRepository.findByMember(member);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Book;
+import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.repository.BookRepository;
 
 @Service
@@ -59,10 +60,10 @@ public class BookService {
 	 * List Return Method 
 	 */
 	public List<Book> findBookList(){
-		return bookRepository.findBook();
+		return (List<Book>)bookRepository.findAll();
 	}
 	
-	public List<Book> findBookListByMember(int member_id){
-		return bookRepository.findBookByMember_id(member_id);
+	public List<Book> findBookListByMember(Member member){
+		return bookRepository.findAllByMember(member);
 	}
 }

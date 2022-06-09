@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Funding_order;
+import com.sharebook.sharebook.domain.Member;
 
 public interface Funding_orderRepository extends JpaRepository<Funding_order, Integer> {
-	List<Funding_order> findByFunding_id(int funding_id);
+	List<Funding_order> findByFunding(Funding funding);
 	
-	List<Funding_order> findByMember_id(int member_id);
+	List<Funding_order> findByMember(Member member);
 }

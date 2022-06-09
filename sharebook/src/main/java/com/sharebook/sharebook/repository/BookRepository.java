@@ -3,9 +3,11 @@ package com.sharebook.sharebook.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.sharebook.sharebook.domain.Book;
+import com.sharebook.sharebook.domain.Member;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
 	/*
@@ -17,6 +19,5 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 	/*
 	 * List Return Method 
 	 */
-	List<Book> findBook();
-	List<Book> findBookByMember_id(int member_id);
+	List<Book> findAllByMember(Member member);
 }
