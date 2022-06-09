@@ -2,10 +2,12 @@ package com.sharebook.sharebook.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,18 +17,24 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor 
 @NoArgsConstructor
+@Table(name="MESSAGE")
 public class Message {
 	@Id
+	@Column(name="MESSAGE_ID")
 	int message_id;
+	
+	@Column(name="SENT_TIME")
 	Date sent_time;
+	
+	@Column(name="CONTENT")
 	String content;
 	
 	//	메시지 전송자(FK)
 	@ManyToOne
-	@JoinColumn(name="member_id")
+	@JoinColumn(name="MEMBER_ID")
 	int member_id;
 	//	메시지가 전송된 채팅방 id(FK)
 	@ManyToOne
-	@JoinColumn(name="chat_room_id")
+	@JoinColumn(name="CHAT_ROOM_ID")
 	int chat_room_id;
 }
