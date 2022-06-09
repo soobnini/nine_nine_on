@@ -19,6 +19,8 @@ import lombok.NoArgsConstructor;
 class MembershipPK implements Serializable {
 	Chat_room chat_room;
 	Member member;
+	
+	public MembershipPK() {}
 }
 
 @Entity
