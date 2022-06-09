@@ -1,5 +1,7 @@
 package com.sharebook.sharebook.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -10,18 +12,17 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@SuppressWarnings("serial")
 @Embeddable
-class MembershipPK {
+@EqualsAndHashCode
+class MembershipPK implements Serializable {
 	//	참여한 채팅방의 id (FK)
-	@ManyToOne
-	@JoinColumn(name="CHAT_ROOM_ID")
 	int chat_room_id;
 	
 	//	참여자의 id (FK)
-	@ManyToOne
-	@JoinColumn(name="MEMBER_ID")
 	int member_id;
 }
 
@@ -32,6 +33,5 @@ class MembershipPK {
 @Table(name="MEMBERSHIP")
 public class Membership {
 	@EmbeddedId
-	@Column(name="MEMBERSHIP_ID")
 	MembershipPK id;
 }
