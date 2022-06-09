@@ -42,6 +42,5 @@ public class Book {
 	//	책 등록한 사람 (FK)
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
-	@Column(name="MEMBER_ID")
-	int member_id;
+	Member member;
 }
