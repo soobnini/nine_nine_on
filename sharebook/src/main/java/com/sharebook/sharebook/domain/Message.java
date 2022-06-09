@@ -32,9 +32,9 @@ public class Message {
 	//	메시지 전송자(FK)
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
-	int member_id;
+	Member member;
 	//	메시지가 전송된 채팅방 id(FK)
 	@ManyToOne
 	@JoinColumn(name="CHAT_ROOM_ID")
-	int chat_room_id;
+	Chat_room chat_room;
 }
