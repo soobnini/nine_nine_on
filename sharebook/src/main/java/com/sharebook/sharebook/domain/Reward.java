@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
@@ -31,6 +33,8 @@ public class Reward implements Serializable {
 	@Column(name="IMAGE")
 	private String image;
 
+	@ManyToOne
+	@JoinColumn(name="FUNDING_ID")
 	@Column(name="FUNDING_ID")
 	private int funding_id;	// FK
 }
