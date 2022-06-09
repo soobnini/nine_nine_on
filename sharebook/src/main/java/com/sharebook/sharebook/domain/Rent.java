@@ -31,12 +31,10 @@ public class Rent {
 	private Date end_day;
 	
 	@OneToOne
-	@JoinColumn(name="BOOK_ID")
-	@Column(name="BOOK_ID")
-	private int book_id;
+	@JoinColumn(name="book_id")
+	private Book book;
 	
 	@ManyToOne
-	@JoinColumn(name="MEMBER_ID")
-	@Column(name="MEMBER_ID")
-	private int member_id;
+	@JoinColumn(name="member_id")
+	private Member member;
 }

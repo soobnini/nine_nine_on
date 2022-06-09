@@ -1,11 +1,8 @@
 package com.sharebook.sharebook.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -13,26 +10,27 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@SuppressWarnings("serial")
-@Embeddable
-@EqualsAndHashCode
-class Funding_orderPK implements Serializable {
-	private int funding_id; // PK
-
-	private int member_id; // FK
-	
-	private int reward_id; // FK
-}
-
+@Entity
 @Data
 @AllArgsConstructor 
 @NoArgsConstructor
-@Entity
 @Table(name="FUNDING_ORDER")
 public class Funding_order {
-	@EmbeddedId
-	private Funding_orderPK id;
+	@Id
+	@Column(name="FUNDING_ORDER_ID")
+	private int funding_order_id;
+	
+	@ManyToOne
+	@JoinColumn(name="funding_id")
+	private Funding funding; // PK
+	
+	@OneToOne
+	@JoinColumn(name="member_id")
+	private Member member; // FK
+	
+	@ManyToOne
+	@JoinColumn(name="reward_id")
+	private Reward reward; // FK
 }
