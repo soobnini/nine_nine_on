@@ -16,7 +16,6 @@ import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.service.MemberService;
 
 @Controller
-@SessionAttributes("userSession")
 public class LoginController {
 	
 	@Autowired
@@ -77,26 +76,6 @@ public class LoginController {
 	@GetMapping("/book/login.do")
 	public String login () {
 		return "login";
-	}
-	
-	@PostMapping("/book/login.do")
-	public ModelAndView handleRequest(
-			@RequestParam("id") String id,
-			@RequestParam("password") String password,
-			Model model) throws Exception {
-
-		Member member = memberService.findByEmailAndPassword(id, password);
-		if (member == null) {
-			return new ModelAndView("Error", "message", 
-					"Invalid username or password.  Signon failed.");
-		}
-		else {
-			UserSession userSession = new UserSession(member);
-
-			model.addAttribute("userSession", userSession);
-
-			return new ModelAndView("main");
-		}
 	}
 	
 	@GetMapping("/book/logout.do")
