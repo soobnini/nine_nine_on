@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sharebook.sharebook.domain.Comment;
+import com.sharebook.sharebook.domain.Comments;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.service.CommunityService;
@@ -42,7 +42,7 @@ public class CommunityController {
 	@RequestMapping("/detail.do")
 	public String viewDetail(@RequestParam("commId") int communityId, ModelMap model) throws Exception {
 		Community comm = communityService.getComm(communityId);
-		List<Comment> comments = communityService.findCommentByCommunity(comm);
+		List<Comments> comments = communityService.findCommentByCommunity(comm);
 		model.addAttribute("Post", comm);
 		model.addAttribute("Comments", comments);
 		return "detailCommunity";
@@ -72,7 +72,7 @@ public class CommunityController {
 	public String createComment(@RequestParam("communityId") int cid,@RequestParam("content") String content) {
 		//로그인 확인
 		Community comm = communityService.getComm(cid);
-		Comment comment = new Comment();
+		Comments comment = new Comments();
 		comment.setCommunity(comm);
 		comment.setContent(content);
 		//comment.setMember(member);userseesion에서 가져오기

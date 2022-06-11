@@ -15,13 +15,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @Entity
-@Table(name="COMMENT")
+@Table(name="COMMENTS")
 @AllArgsConstructor 
 @NoArgsConstructor
 @Data
-public class Comment implements Serializable{
+public class Comments implements Serializable{
 	@Id
-	@Column(name="COMMENT_ID")
+	@Column(name="COMMENTS_ID")
 	private int comment_id;
 	
 	@Column(name="CONTENT")

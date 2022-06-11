@@ -12,10 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.sharebook.sharebook.domain.Comment;
+import com.sharebook.sharebook.domain.Comments;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Member;
-import com.sharebook.sharebook.repository.CommentRepository;
+import com.sharebook.sharebook.repository.CommentsRepository;
 import com.sharebook.sharebook.repository.CommunityRepository;
 
 @Service
@@ -23,17 +23,14 @@ public class CommunityService {
 	@Autowired
 	private CommunityRepository communityRepository;
 
-	public void setCommunityRepository(CommunityRepository communityRepository) {
-		this.communityRepository = communityRepository;
-	}
-	
 	@Autowired
-	private CommentRepository commentRepository;
-	
-	
-	public void setCommentRepository(CommentRepository commentRepository) {
-		this.commentRepository = commentRepository;
+	private CommentsRepository commentsRepository;
+
+	public void setCommunityRepository(CommunityRepository communityRepository, CommentsRepository commentsRepository) {
+		this.communityRepository = communityRepository;
+		this.commentsRepository = commentsRepository;
 	}
+
 
 	@Transactional
 	public int createCommunity(Community community) {
@@ -88,12 +85,12 @@ public class CommunityService {
 		return communityRepository.findByCategory(category);
 	}//카테고리별 리스트
 	
-	public List<Comment> findCommentByCommunity(Community community) {
-		return commentRepository.findAllByCommunity(community);
+	public List<Comments> findCommentByCommunity(Community community) {
+		return commentsRepository.findAllByCommunity(community);
 	}//댓글 리스트
 	
 	@Transactional
-	public void createComment(Comment comment) {
-		commentRepository.save(comment);
+	public void createComment(Comments comment) {
+		commentsRepository.save(comment);
 	}// 댓글 작성
 }
