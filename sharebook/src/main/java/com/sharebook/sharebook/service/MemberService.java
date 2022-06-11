@@ -45,4 +45,9 @@ public class MemberService {
 	public List<Member> getNearMembers(String address1, String address2) {
 		return memberRepository.findByAddress1AndAddress2(address1, address2);
 	}//가까운 유저 리스트
+	
+	public Member findByEmailAndPassword(String email, String password) {
+		return memberRepository.findByEmailAndPassword(email, password);
+	}
+
 }
