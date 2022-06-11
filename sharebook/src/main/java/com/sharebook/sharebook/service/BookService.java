@@ -19,8 +19,9 @@ public class BookService {
 	@Autowired
 	public LikesRepository likesRepository;
 	
-	public void setBookRepository(BookRepository bookRepository) {
+	public void setBookService(BookRepository bookRepository, LikesRepository likesRepository) {
 		this.bookRepository = bookRepository;
+		this.likesRepository = likesRepository;
 	}
 	
 	/*
