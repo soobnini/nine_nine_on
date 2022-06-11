@@ -1,28 +1,26 @@
 package com.sharebook.sharebook.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.util.WebUtils;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sharebook.sharebook.dao.MemberCommand;
 import com.sharebook.sharebook.domain.Member;
-import com.sharebook.sharebook.repository.MemberRepository;
-import com.sharebook.sharebook.service.MemberFormValidator;
-import com.sharebook.sharebook.service.ShareBookFacade;
+import com.sharebook.sharebook.service.MemberService;
 
 @Controller
+@SessionAttributes("userSession")
 public class LoginController {
 	
 	@Autowired
-	private MemberRepository memberRepository;
+	private MemberService memberService;
 	
 	/*
 	@Autowired
@@ -60,21 +58,8 @@ public class LoginController {
 	public String register (MemberCommand memberCommand) {
 		// 입력 값 검증 코드 추가 필요
 
-		// @GeneratedValue 추가 필요
-		Member member = new Member(6, memberCommand.getEmail(),
-				memberCommand.getPassword(),
-				memberCommand.getName(), 
-				memberCommand.getNickname(),
-				memberCommand.getPhone(),
-				memberCommand.getAddress1(),
-				memberCommand.getAddress2(),
-				36.5f);
-		memberRepository.save(member);
-		
-		/*
-		// @GeneratedValue 추가 필요
 		Member member = new Member();
-		member.setMember_id(6);
+		member.setMember_id(0);
 		member.setEmail(memberCommand.getEmail());
 		member.setPassword(memberCommand.getPassword());
 		member.setName(memberCommand.getName());
@@ -83,7 +68,9 @@ public class LoginController {
 		member.setAddress1(memberCommand.getAddress1());
 		member.setAddress2(memberCommand.getAddress2());
 		member.setTemperature(36.5f);
-		*/
+		
+		memberService.createMember(member);
+		
 		return "login";
 	}
 	
@@ -91,4 +78,32 @@ public class LoginController {
 	public String login () {
 		return "login";
 	}
+	
+	@PostMapping("/book/login.do")
+	public ModelAndView handleRequest(
+			@RequestParam("id") String id,
+			@RequestParam("password") String password,
+			Model model) throws Exception {
+
+		Member member = memberService.findByEmailAndPassword(id, password);
+		if (member == null) {
+			return new ModelAndView("Error", "message", 
+					"Invalid username or password.  Signon failed.");
+		}
+		else {
+			UserSession userSession = new UserSession(member);
+
+			model.addAttribute("userSession", userSession);
+
+			return new ModelAndView("main");
+		}
+	}
+	
+	@GetMapping("/book/logout.do")
+	public String handleRequest(HttpSession session) throws Exception {
+		session.removeAttribute("userSession");
+		session.invalidate();
+		return "main";
+	}
+	
 }

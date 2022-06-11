@@ -9,4 +9,6 @@ import com.sharebook.sharebook.domain.Member;
 
 public interface MemberRepository extends CrudRepository<Member, Integer> {
 	List<Member> findByAddress1AndAddress2(String address1,String address2) throws DataAccessException;
+	
+	Member findByEmailAndPassword(String email, String password) throws DataAccessException;
 }

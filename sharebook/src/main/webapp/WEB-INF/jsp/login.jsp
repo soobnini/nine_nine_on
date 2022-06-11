@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="targetUrl"><c:url value="/book/login.do" /></c:set>
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -17,17 +22,17 @@
 	<div th:replace="fragments/common :: header"></div>
 	<div class="container py-5 w-25">
 		<main class="form-signin mx-auto">
-			<form class="d-block">
+			<form action="${targetUrl}" method="post" class="d-block">
 				<img class="mb-4 w-25" src="./images/ex_image.png" alt="">
 				<h1 class="h2 mb-3 fw-normal fw-bold">이웃 책장</h1>
 
 				<div class="form-floating">
 					<input type="email" class="form-control" id="floatingInput"
-						placeholder="name@example.com"> <label for="floatingInput">아이디</label>
+						placeholder="name@example.com" name="id"> <label for="floatingInput" >아이디</label>
 				</div>
 				<div class="form-floating">
 					<input type="password" class="form-control" id="floatingPassword"
-						placeholder="Password"> <label for="floatingPassword">비밀번호</label>
+						placeholder="Password" name="password"> <label for="floatingPassword">비밀번호</label>
 				</div>
 
 				<div class="checkbox mb-3">
