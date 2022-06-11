@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @EqualsAndHashCode
 class MembershipPK implements Serializable {
-	Chat_room chat_room;
+	Chat_room chatRoom;
 	Member member;
 	
 	public MembershipPK() {}
@@ -33,7 +33,7 @@ public class Membership {
 	@Id
 	@ManyToOne
 	@JoinColumn(name="CHAT_ROOM_ID")
-	Chat_room chat_room;
+	Chat_room chatRoom;
 	@Id
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")

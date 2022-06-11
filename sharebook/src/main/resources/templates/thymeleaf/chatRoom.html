@@ -27,94 +27,42 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-
-<link rel="stylesheet" href="css/chatRoom.css">
-<!-- css 추후 추가 필요 -->
+<link th:href="@{/css/chatRoom.css}" rel="stylesheet" />
 </head>
-
 <body>
-	<div th:replace="fragments/common :: header"></div>
+	<div th:replace="thymeleaf/fragments/header.html :: header"></div>
 	<div class="container">
 		<section id="main"
 			class="col-lg-12 col-md-12 col-sm-12 col-12 mx-auto">
 			<div style="width: 100%; display: table;">
 				<div id="totalDiv" style="display: table-row;">
 					<div id="leftDiv" style="width: 30%; display: table-cell;">
-
 						<!-- Left Div  -->
-						<table id="peopleListTable">
-							<tr>
-								<td rowspan="2"><img src="momo.jpg" id="peopleImage"></td>
-								<td>김모모</td>
+						<table id="peopleListTable" th:each="mem : ${otherMemberList}">
+							<tr th:onclick="|location.href='@{/book/dm/1/3.do}'|">
+								<td rowspan="2"><img src="/images/momo.jpg"
+									id="peopleImage"></td>
+								<td th:text="${mem.nickname}"></td>
 							</tr>
 							<tr>
 								<td>김모모는 너무 귀여워</td>
-							</tr>
-							<tr>
-								<td colspan="2"><hr></td>
-							</tr>
-							<tr>
-								<td rowspan="2"><img src="momo.jpg" id="peopleImage"></td>
-								<td>김모모</td>
-							</tr>
-							<tr>
-								<td>김모모는 너무 귀여워</td>
-							</tr>
-							<tr>
-								<td colspan="2"><hr></td>
-							</tr>
-							<tr>
-								<td rowspan="2"><img src="momo.jpg" id="peopleImage"></td>
-								<td>김모모</td>
-							</tr>
-							<tr>
-								<td>김모모는 너무 귀여워</td>
-							</tr>
-							<tr>
-								<td colspan="2"><hr></td>
 							</tr>
 						</table>
 					</div>
 					<div id="rightDiv" style="display: table-cell;">
-
 						<!-- Right Div -->
 						<!-- <div class="rightBubble"></div>
             <div class="leftBubble"></div>
             <div class="rightBubble"></div>
             <div class="leftBubble"></div> -->
-						<div id="chatDiv">
+						<div id="chatDiv" th:if="${messageList}" )>
 							<table id="chatTable" cellspacing="0" cellpadding="0">
-								<tr>
-									<td><div class="leftBubble"></div></td>
+								<tr th:each="message : ${messageList}">
+									<td th:if="${message.member.member_id} ne 1"><div
+											class="leftBubble" th:text="${message.content}"></div></td>
+									<td th:if="${message.member.member_id} eq 1"><div
+											class="rightBubble" th:text="${message.content}"></div></td>
 								</tr>
-								<tr>
-									<td><div class="leftBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="rightBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="leftBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="leftBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="rightBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="rightBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="rightBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="leftBubble"></div></td>
-								</tr>
-								<tr>
-									<td><div class="leftBubble"></div></td>
-								</tr>
-
 							</table>
 							<table id="rentTable">
 								<tr>
@@ -123,17 +71,17 @@
 									<td><button class="btn btn-danger">아니오</button></td>
 								</tr>
 							</table>
-
-							<form id="chatRoom" method="POST" action="">
+							<form id="chatRoom" method="POST"
+								th:action="@{/book/dm/1/3/send.do}">
 								<table id="sentTable">
 									<tr id="sentMessage">
-										<td id="messageContent"><input type="text" name="message"
-											class="form-control">
-										</textarea></td>
+										<td id="messageContent"><input type="text" name="content"
+											class="form-control"></td>
 										<td id="messageSend"><input type="submit" value="보내기"
-											onClick="" class="btn btn-light" id="submitButton"></td>
+											class="btn btn-light" id="submitButton"></td>
 									</tr>
 								</table>
+							</form>
 						</div>
 					</div>
 				</div>

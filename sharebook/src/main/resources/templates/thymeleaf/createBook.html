@@ -28,16 +28,17 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
+<link th:href="@{/css/createBook.css}" rel="stylesheet" />
 <!-- css 추후 추가 필요 -->
 </head>
 
 <body>
-	<!-- <div th:replace="~{fragments/header.html :: header}"></div> -->
+	<div th:replace="thymeleaf/fragments/header.html :: header"></div>
 	<div class="container">
 		<section id="main" class="col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
 			<div id="titlefont">책 등록</div>
 
-			<form name="createBook" method="POST" action="">
+			<form name="createBook" method="POST" th:action="@{/book/create.do}">
 				<table>
 					<tr>
 						<td>책 이름</td>
@@ -59,7 +60,7 @@
 								class="form-control" placeholder="내용을 입력해주세요"></textarea></td>
 					</tr>
 				</table>
-				<input type="submit" value="책 등록" onClick="" class="btn btn-primary"
+				<input type="submit" value="책 등록" class="btn btn-primary"
 					id="submitButton">
 			</form>
 		</section>

@@ -8,33 +8,36 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+<link th:href="@{/css/header.css}" rel="stylesheet" />
 </head>
 <body>
-	<header th:fragment="header" id="main-header" class="p-3 mb-3 border-bottom">
+	<header th:fragment="header" id="main-header"
+		class="p-3 mb-3 border-bottom">
 		<div class="container">
 			<!-- main icon -->
 			<div id="main-icon-container"
 				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 				<a href="/"
 					class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-					<img src="images/book.png" width="30" />
+					<img src="/images/book.png" width="30" />
 				</a>
 				<!-- main menu bar -->
 				<ul id="main-menu-bar"
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 					<li><a href="#" class="nav-link px-2 link-dark"
 						style="color: #70D047"><b>이웃책장</b></a></li>
-					<li><a href="#" class="nav-link px-2 link-secondary">책</a></li>
-					<li><a href="#" class="nav-link px-2 link-secondary">책 등록</a></li>
+					<li><a th:href="@{/book/search.do}" class="nav-link px-2 link-secondary">책</a></li>
+					<li><a th:href="@{/book/view/create.do}" class="nav-link px-2 link-secondary">책 등록</a></li>
 					<li><a href="#" class="nav-link px-2 link-secondary">펀딩</a></li>
 					<li><a href="#" class="nav-link px-2 link-secondary">커뮤니티</a></li>
-					<li><a href="#" class="nav-link px-2 link-secondary">DM</a></li>
+					<li><a th:href="@{/book/dm/1.do}" class="nav-link px-2 link-secondary">DM</a></li>
 				</ul>
 				<!-- main search bar -->
 				<form id="main-search-container"
-					class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-					<input type="search" class="form-control" placeholder="책 또는 저자 검색"
-						aria-label="Search">
+					class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST"
+					th:action="@{/book/search.do}">
+					<input type="search" name="keyword" class="form-control"
+						placeholder="책 또는 저자 검색" aria-label="Search">
 				</form>
 				<!-- main profile icon and dropdown -->
 				<div id="main-profile-container" class="dropdown text-end">
