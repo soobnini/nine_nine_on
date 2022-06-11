@@ -6,8 +6,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +24,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Member implements Serializable{
 	@Id
+//	@SequenceGenerator(name="MEMBER_SEQ_GENERATOR", sequenceName="MEMBER_SEQ", initialValue=1, allocationSize=10)
+//	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MEMBER_SEQ_GENERATOR")
 	@Column(name="MEMBER_ID")
 	private int member_id;
 	
@@ -54,4 +59,8 @@ public class Member implements Serializable{
 	/*댓글 리스트
 	 * @OneToMany(mappedBy="member") private List<Comment> commentList;
 	 */
+	
+	public Member getMember() {
+		return getMember();
+	}
 }

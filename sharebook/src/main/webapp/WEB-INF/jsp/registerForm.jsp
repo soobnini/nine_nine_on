@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="targetUrl"><c:url value="/book/register.do" /></c:set>
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -16,48 +22,54 @@
 <body>
 	<div th:replace="fragments/common :: header"></div>
 	<div class="container w-75 py-5">
-		<form>
+		<form action="${targetUrl}" method="post">
 			<div class="row mb-3">
-				<label for="inputName" class="col-sm-2 col-form-label">이름</label>
+				<label for="inputId" class="col-sm-2 col-form-label">아이디(이메일)</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="name">
-				</div>
-			</div>
-			<div class="row mb-3">
-				<label for="inputId" class="col-sm-2 col-form-label">아이디</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="id">
+					<input type="text" class="form-control" name="email">
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputPassword" class="col-sm-2 col-form-label">비밀번호</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" id="password">
+					<input type="password" class="form-control" name="password">
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputPasswordCheck" class="col-sm-2 col-form-label">비밀번호
 					확인</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" id="passwordCheck">
+					<input type="password" class="form-control" name="passwordCheck">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label for="inputName" class="col-sm-2 col-form-label">이름</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="name">
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputNickname" class="col-sm-2 col-form-label">닉네임</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="nikname">
+					<input type="text" class="form-control" name="nickname">
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputTel" class="col-sm-2 col-form-label">전화번호</label>
 				<div class="col-sm-10">
-					<input type="tel" class="form-control" id="tel">
+					<input type="tel" class="form-control" name="phone">
 				</div>
 			</div>
 			<div class="row mb-3">
-				<label for="inputAddress" class="col-sm-2 col-form-label">주소</label>
+				<label for="inputAddress" class="col-sm-2 col-form-label">주소1</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="address">
+					<input type="text" class="form-control" name="address1">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label for="inputAddress" class="col-sm-2 col-form-label">주소2</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="address2">
 				</div>
 			</div>
 			<div class="d-grid gap-2 col-2 mx-auto">
