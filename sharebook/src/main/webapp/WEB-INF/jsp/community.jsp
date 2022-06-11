@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +15,18 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div th:replace="fragments/common :: header"></div>
 	<div class="container w-75 py-5">
-		<a class="btn btn-primary" href="#" role="button">게시글 작성</a>
+		<a class="btn btn-primary" href='<c:url value="/book/community/uploadCommunity.do"></c:url>'role="button">게시글 작성</a>
 		<div class="dropdown float-end">
 			<button class="btn btn-secondary dropdown-toggle" type="button"
 				id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">분류</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				<li><a class="dropdown-item" href="#">질문</a></li>
+				<li><a class="dropdown-item" href='<c:url value="/book/community/view/0/0.do"></c:url>'>질문</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="#">토론</a></li>
+				<li><a class="dropdown-item" href='<c:url value="/book/community/view/1/0.do"></c:url>'>토론</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="#">모집</a></li>
+				<li><a class="dropdown-item" href='<c:url value="/book/community/view/2/0.do"></c:url>'>모집</a></li>
 			</ul>
 		</div>
 
@@ -42,7 +42,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<c:forEach var="comm" items="${communities}">
+					<tr>
+						<th><c:out value="${comm.communityId}" /></th>
+						<td><c:choose>
+
+								<c:when test="${comm.category == '0'}"> 질문 </c:when>
+
+								<c:when test="${comm.category == '1'}"> 토론 </c:when>
+								
+								<c:when test="${comm.category == '2'}"> 모집 </c:when>
+
+						</c:choose></td>
+						<td><a href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${comm.communityId}"/></c:url>'><c:out value="${comm.title}" /></a></td>
+						<td><c:out value="${comm.member.name}" /></td>
+						<td><c:out value="${comm.upload_date}" /></td>
+						<td><c:out value="${comm.views}" /></td>
+					</tr>
+				</c:forEach>
+				<!-- <tr>
 					<th>1</th>
 					<td>모집</td>
 					<td>비극의 결말에서</td>
@@ -65,7 +83,7 @@
 					<td>이달의 소녀</td>
 					<td>2022-04-25</td>
 					<td>12</td>
-				</tr>
+				</tr> -->
 			</tbody>
 		</table>
 		<div class="text-center">

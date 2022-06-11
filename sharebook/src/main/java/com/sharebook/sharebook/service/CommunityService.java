@@ -1,11 +1,15 @@
 package com.sharebook.sharebook.service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Comment;
@@ -18,22 +22,22 @@ import com.sharebook.sharebook.repository.CommunityRepository;
 public class CommunityService {
 	@Autowired
 	private CommunityRepository communityRepository;
-	
-	@Autowired
-	private CommentRepository commentRepository;
-	
 
 	public void setCommunityRepository(CommunityRepository communityRepository) {
 		this.communityRepository = communityRepository;
 	}
+	
+	@Autowired
+	private CommentRepository commentRepository;
+	
 	
 	public void setCommentRepository(CommentRepository commentRepository) {
 		this.commentRepository = commentRepository;
 	}
 
 	@Transactional
-	public void createCommunity(Community community) {
-		communityRepository.save(community);// 글 생성
+	public int createCommunity(Community community) {
+		return communityRepository.save(community).getCommunityId();// 글 생성
 	}
 
 	@Transactional
@@ -45,10 +49,28 @@ public class CommunityService {
 	public void deleteCommunity(Community community) {
 		communityRepository.delete(community);// delete
 	}
+	
+	public Community getComm(int community_id) {
+		return communityRepository.getById(community_id);
+	}
 
 	public Iterable<Community> getAllCommunity() {
 		return communityRepository.findAll();
 	}//전체 글 리스트
+	
+	public List<Community> findPageCommunities(int preq){
+		 Page<Community> communityPage = communityRepository.findAll(PageRequest.of(preq, 10, Sort.by("communityId").descending()));
+		 List<Community> posts = communityPage.getContent();
+		return posts;
+	}//pagenation을 위한
+	
+	public List<Community> findPageCommCategory(int category, int preq){
+		 Pageable p = PageRequest.of(preq, 10, Sort.by("communityId").descending());
+		 Page<Community> communityPage = communityRepository.findAllByCategory(category, p);
+		 List<Community> posts = communityPage.getContent();
+		return posts;
+	}//카테고리별pagenation을 위한
+	
 
 	public List<Community> findCommunityByTitle(String title) {
 		return communityRepository.findByTitle(title);
@@ -67,7 +89,7 @@ public class CommunityService {
 	}//카테고리별 리스트
 	
 	public List<Comment> findCommentByCommunity(Community community) {
-		return commentRepository.findByCommunity(community);
+		return commentRepository.findAllByCommunity(community);
 	}//댓글 리스트
 	
 	@Transactional

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,27 +15,28 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div th:replace="fragments/common :: header"></div>
+
 	<div class="container w-75 py-5">
 		<table class="table mt-3">
 			<tr>
 				<th class="col-md-1 px-2 py-3">제목</th>
-				<td class="px-2 py-3">그거,, 아세요,,?</td>
+				<td class="px-2 py-3"><c:out value="${Post.title}" /></td>
 			</tr>
 			<tr>
 				<th class="col-md-1 px-2 py-3">분류</th>
-				<td class="px-2 py-3">질문</td>
+				<td class="px-2 py-3"><c:choose>
+
+						<c:when test="${Post.category == '0'}"> 질문 </c:when>
+
+						<c:when test="${Post.category == '1'}"> 토론 </c:when>
+
+						<c:when test="${Post.category == '2'}"> 모집 </c:when>
+
+					</c:choose></td>
 			</tr>
 			<tr>
 				<th class="col-md-1 px-2 py-3">내용</th>
-				<td class="px-2 py-3">눈을 감으면 여긴 Open space 우릴 이어줄 무한한 공간이 돼
-					자연스럽게 따라가면 돼 같은 꿈에서 기다린 그곳으로 아득했었던 널 향한 모든 게 선명해져 갈 It’s almost
-					magical 천천히 Getting Closer 두근대는 이 느낌 신비로운 Universe 달을 가득 비추어 지금 너의
-					떨린 숨결마저 잡힐 듯 가까워 우리만의 Universe 더 선명해진 모든 걸 가슴 벅차게 펼쳐 둘 순간을 Make it
-					come true Ooh Make it happen to you Make it happen to you Ooh Make
-					it happen to you Make it happen to you 네 방 창가에 닿고 싶던 밤 빛을 달리고 거리를 더
-					좁혀 내 궤도마저 네게 기울어진 순간을 위해 태어난 것만 같이 전하고 싶었던 널 향한 모든 게 투명해져 갈 It’s
-					almost miracle 밤새워 Getting Closer 나를 비춘 네 눈빛 Yeah</td>
+				<td class="px-2 py-3"><c:out value="${Post.content}" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="text-end border-0"><a
@@ -57,28 +59,15 @@
 		</form>
 
 		<table class="table mt-3">
+		<c:forEach var="comment" items="${Comments}">
 			<tr>
-				<td class="col-md-2">코카콜라
+				<th>
+				<td class="col-md-2"><c:out value="${comment.member.name}" /></td>
 				</th>
-				<td class="col-md-8">흥미롭군요.. 아주..</td>
-				<td class="text-center">2022-04-25</td>
+				<td class="col-md-8"><c:out value="${comment.content}" /></td>
+				<td class="text-center"><c:out value="${comment.date}" /></td>
 			</tr>
-			<tr>
-				<td>프로맥스
-				</th>
-				<td>글쿠나</td>
-				<td class="text-center">2022-04-25</td>
-			</tr>
-			<tr>
-				<td>지니멜론
-				</th>
-				<td>
-					냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠
-					냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠
-					냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠냠
-				</td>
-				<td class="text-center">2022-04-26</td>
-			</tr>
+			</c:forEach>
 		</table>
 		<div class="text-center">
 			<ul class="list-group list-group-horizontal justify-content-center">

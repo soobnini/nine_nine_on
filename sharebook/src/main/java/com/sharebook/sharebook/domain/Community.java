@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Community implements Serializable{
 	@Id
 	@Column(name="COMMUNITY_ID")
-	private int community_id;
+	private int communityId;
 	
 	@Column(name="TITLE")
 	private String title;

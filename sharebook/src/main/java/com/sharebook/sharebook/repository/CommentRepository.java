@@ -10,6 +10,6 @@ import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Member;
 
 public interface CommentRepository extends CrudRepository<Comment, Integer>{
-	List<Comment> findByMember(Member member)throws DataAccessException;//작성자별
-	List<Comment> findByCommunity(Community community)throws DataAccessException;
+	List<Comment> findAllByMember(Member member)throws DataAccessException;//작성자별
+	List<Comment> findAllByCommunity(Community community)throws DataAccessException;
 }
