@@ -1,6 +1,7 @@
 package com.sharebook.sharebook.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class Chat_roomService {
 	/*
 	 * CRUDRepository Method 
 	 */
-	public Chat_room saveChat_room(Chat_room chat_room) {
+	public Chat_room saveChatRoom(Chat_room chat_room) {
 		return chat_roomRepository.save(chat_room);
 	}
 	
@@ -45,10 +46,33 @@ public class Chat_roomService {
 	}
 	
 	/*
+	 * find Method
+	 */
+	public Chat_room findChatRoomById(int chat_room_id) {
+		Optional<Chat_room> chat_room = chat_roomRepository.findById(chat_room_id);
+		if(chat_room.isPresent()) {
+			 return chat_room.get();
+		}
+		return null;
+	}
+	
+	public Membership findMembershipByMember(Member member) {
+		Optional<Membership> membership = membershipRepository.findByMember(member);
+		if(membership.isPresent()) {
+			 return membership.get();
+		}
+		return null;
+	}
+	
+	/*
 	 * List Return Method 
 	 */
 	public List<Membership> findMembershipListByMember(Member member){
 		return membershipRepository.findAllByMember(member);
+	}
+	
+	public List<Membership> findMembershipListByChatRoom(Chat_room chat_room){
+		return membershipRepository.findAllByChatRoom(chat_room);
 	}
 	
 	public List<Message> findMessageListByMember(Member member){

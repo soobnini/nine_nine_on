@@ -2,9 +2,12 @@ package com.sharebook.sharebook.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +22,8 @@ import lombok.NoArgsConstructor;
 public class Book {
 	@Id
 	@Column(name="BOOK_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BOOK_SEQ")
+	@SequenceGenerator(name="BOOK_SEQ", allocationSize=1)
 	int book_id;
 	
 	@Column(name="TITLE")
