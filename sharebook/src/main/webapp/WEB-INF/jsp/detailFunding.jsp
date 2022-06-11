@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -84,7 +85,7 @@
 </head>
 <body>
 
-	<div th:replace="fragments/common :: header"></div>
+	<!-- <div th:replace="fragments/common :: header"></div> -->
 	<div class="container">
 		<div class="row">
 			<!-- 책 이미지 -->
@@ -97,37 +98,37 @@
 			<div class="col-6">
 				<div class="row d-flex align-items-end">
 					<div class="col-8">
-						<span id=title>Title들어가는 자리</span>
+						<span id=title><c:out value="${funding.title}"/></span>
 					</div>
 					<div class="col">
-						<img src="view.gif" alt="조회수" id=icons><span id=content>
-							80 </span> <img src="like.jpg" alt="좋아요" id=icons><span id=content>
-							80 </span>
+						<img src="/images/view.gif" alt="조회수" id=icons><span id=content>
+							<c:out value="${funding.views}"/> </span> <img src="like.jpg" alt="좋아요" id=icons><span id=content>
+							좋아요수...? </span>
 					</div>
 				</div>
 				<div class="row">
-					</br>
+					<br>
 				</div>
 				<div class="row d-flex align-items-end">
 					<div class="col-3">
 						<span id=content>저자</span>
 					</div>
 					<div class="col">
-						<span id=title2>셰익스피어</span>
+						<span id=title2><c:out value="${funding.author}"/></span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-3">
 						<span id=content>설명</span>
 					</div>
-					<div class="col">설명...어쩌구저쩌구무슨책입니다....ㅇㅇ...글자수 제한 넣어야하나??</div>
+					<div class="col"><c:out value="${funding.description}"/></div>
 				</div>
 				<div class="row d-flex align-items-end">
 					<div class="col-3">
 						<span id=content>올린 사람</span>
 					</div>
 					<div class="col">
-						<span id=title2>홍길동(36.5 ºC)</span>
+						<span id=title2><c:out value="${funding.member.name}"/>(<c:out value="${funding.member.temperature}"/> ºC)</span>
 					</div>
 				</div>
 				<div class="row d-flex align-items-end">
@@ -135,17 +136,17 @@
 						<span id=content>지역</span>
 					</div>
 					<div class="col">
-						<span id=title2>서울</span>
+						<span id=title2><c:out value="${funding.member.address1}"/></span>
 					</div>
 				</div>
 				<div id="row">
-					</br>
+					<br>
 					<div class="d-grid gap-2 col-8 mx-auto">
 						<button class="btn btn-success btn-lg" type="button">
 							<input type="text" id=price name="price" /> 원 후원하기
 						</button>
 					</div>
-					</br>
+					<br>
 				</div>
 				<div id="row">
 					<div class="col" align="center">
@@ -162,45 +163,19 @@
 		<!-- reward목록 -->
 		<div class="row">
 			<div class="row">
+				<c:forEach var="reward" items="${rewardList}">
 				<div class="col-4">
 					<div class="card" style="width: 18rem;">
 						<img src="sample.jpg" class="card-img-top" alt="리워드 이미지">
 						<div class="card-body">
-							<h5 class="card-title">10000원 후원</h5>
+							<h5 class="card-title"><c:out value="${reward.price}"/>원 후원</h5>
 						</div>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">아이템1</li>
-							<li class="list-group-item">아이템2</li>
-							<li class="list-group-item">아이템3</li>
+							<li class="list-group-item"><c:out value="${reward.prize}"/></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-4">
-					<div class="card" style="width: 18rem;">
-						<img src="sample.jpg" class="card-img-top" alt="리워드 이미지">
-						<div class="card-body">
-							<h5 class="card-title">20000원 후원</h5>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">아이템1</li>
-							<li class="list-group-item">아이템2</li>
-							<li class="list-group-item">아이템3</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card" style="width: 18rem;">
-						<img src="sample.jpg" class="card-img-top" alt="리워드 이미지">
-						<div class="card-body">
-							<h5 class="card-title">30000원 후원</h5>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">아이템1</li>
-							<li class="list-group-item">아이템2</li>
-							<li class="list-group-item">아이템3</li>
-						</ul>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

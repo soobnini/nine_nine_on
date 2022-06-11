@@ -8,9 +8,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Data
@@ -18,9 +21,14 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @SuppressWarnings("serial")
 @Entity
+@SequenceGenerator(name="REWARD_SEQ_GENERATOR",
+					sequenceName="REWARD_SEQ",
+					initialValue=1, allocationSize=1)
 @Table(name="REWARD")
 public class Reward implements Serializable {
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,
+					generator="REWARD_SEQ_GENERATOR")
 	@Column(name="REWARD_ID")
 	private int reward_id;	// PK
 

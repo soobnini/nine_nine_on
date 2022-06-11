@@ -10,9 +10,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Data
@@ -20,9 +23,14 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @SuppressWarnings("serial")
 @Entity
+@SequenceGenerator(name="FUNDING_SEQ_GENERATOR",
+					 sequenceName="FUNDING_SEQ",
+					 initialValue=1, allocationSize=1)
 @Table(name="FUNDING")
 public class Funding implements Serializable {
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,
+            		generator="FUNDING_SEQ_GENERATOR")
 	@Column(name="FUNDING_ID")
 	private int funding_id;	// PK
 
