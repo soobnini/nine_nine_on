@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="fixMemberUrl"><c:url value="/book/mypage/member.do" /></c:set>
 <c:set var="likesListUrl"><c:url value="/book/mypage/likes.do" /></c:set>
@@ -137,7 +138,7 @@
 			<div class="col-10">
 				<table class="table table-hover mt-3">
 				 	<c:choose>
-				 		<c:when test="${category == 'book'}">
+				 		<c:when test="${category == 'likes'}">
 				            <thead>
 				                <tr>
 				                    <th>번호</th>
@@ -149,11 +150,11 @@
 				            <tbody>
 				                <c:forEach var="bookList" items="${bookList}">
 									<tr>
-										<th><c:out value="${bookList.book_id}" /></th>
+										<th><c:out value="${bookList.book.book_id}" /></th>
 										
-										<td><a href='<c:url value="/book/view/${bookList.book_id}.do"></c:url>'><c:out value="${bookList.title}" /></a></td>
-										<td><c:out value="${bookList.author}" /></td>
-										<td><c:out value="${bookList.views}" /></td>
+										<td><a href='<c:url value="/book/view/${bookList.book.book_id}.do"></c:url>'><c:out value="${bookList.book.title}" /></a></td>
+										<td><c:out value="${bookList.book.author}" /></td>
+										<td><c:out value="${bookList.book.views}" /></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -175,8 +176,8 @@
 										<th><c:out value="${rentList.rent_id}" /></th>
 										
 										<td><a href='<c:url value="/book/view/${rentList.book.book_id}.do"></c:url>'><c:out value="${rentList.book.title}" /></a></td>
-										<td><c:out value="${rentList.book.author}" /></td>
-										<td><c:out value="${rentList.start_day}" /></td>
+										<td><c:out value="${rentList.book.author}" /> </td> 
+										<td><c:out value="${rentList.start_day}" /> </td>
 										<td><c:out value="${rentList.end_day}" /></td>
 									</tr>
 								</c:forEach>
@@ -196,7 +197,7 @@
 									<tr>
 										<th><c:out value="${fundingList.funding_id}" /></th>
 										
-										<td><a href='<c:url value="/book/view/${fundingList.funding_id}.do"></c:url>'><c:out value="${fundingList.title}" /></a></td>
+										<td><a href='<c:url value="/book/funding/${fundingList.funding_id}.do"></c:url>'><c:out value="${fundingList.title}" /></a></td>
 										<td><c:out value="${fundingList.author}" /></td>
 									</tr>
 								</c:forEach>
@@ -217,7 +218,7 @@
 				            <tbody>
 				                <c:forEach var="communityList" items="${communityList}">
 									<tr>
-										<th><c:out value="${communityList.community_id}" /></th>
+										<th><c:out value="${communityList.communityId}" /></th>
 										<td>
 											<c:choose>
 												<c:when test="${communityList.category == '0'}"> 질문 </c:when>
@@ -226,9 +227,9 @@
 											</c:choose>
 										</td>
 										
-										<td><a href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${communityList.community_id}"/></c:url>'><c:out value="${communityList.title}" /></a></td>
-										<td><c:out value="${communityList.member.name}" /></td>
-										<td><c:out value="${communityList.upload_date}" /></td>
+										<td><a href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${communityList.communityId}"/></c:url>'><c:out value="${communityList.title}" /></a></td>
+										<td><c:out value="${communityList.member.name}" /></td>  
+										<td><c:out value="${communityList.upload_date}" /> </td>
 										<td><c:out value="${communityList.views}" /></td>
 									</tr>
 								</c:forEach>

@@ -19,6 +19,7 @@ import java.util.List;
 import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Funding;
+import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Rent;
 
@@ -63,9 +64,23 @@ public class MypageController {
 	
 	@GetMapping("/book/mypage/member.do")
 	public ModelAndView showMemberModifyPage (HttpServletRequest request) {
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("myPage");
-		mav.addObject("category","member");
+		
+	
+		if (userSession == null) { // 로그인이 안되어있는 경우
+			mav.setViewName("login");
+		}
+		else { // 로그인이 되어있는 경우
+			Member member = memberService.getMember(userSession.getMember().getMember_id());
+
+			mav.setViewName("myPage");
+			mav.addObject("name", member.getName());
+			mav.addObject("temperature", member.getTemperature());
+			mav.addObject("category","member");
+		}	
+		
 		return mav;
 	}
 	
@@ -86,7 +101,7 @@ public class MypageController {
 			mav.addObject("temperature", member.getTemperature());
 			mav.addObject("category","likes");
 			
-			List<Book> bookList = bookService.findLikesListByBook(member);
+			List<Likes> bookList = bookService.findLikesListByMember(member);
 			System.out.println(bookList.size());
 			System.out.println(bookList);
 			mav.addObject("bookList", bookList);
