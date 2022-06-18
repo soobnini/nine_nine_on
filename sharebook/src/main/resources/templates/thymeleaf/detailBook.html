@@ -30,14 +30,18 @@
 						<span id="title" th:text="${book.title}"></span>
 					</div>
 					<div class="col">
-						<img src="/images/view.png" alt="조회수" id=icons>
-						<span id=content th:text="${book.views}"></span>
-						<img src="/images/blank_likes.png" alt="좋아요" id=icons>
-						<span id=content th:text="${likesCount}"></span> <!-- 나중에 likes 추가해야함 -->
+						<img src="/images/view.png" alt="조회수" id=icons> <span
+							id=content th:text="${book.views}"></span> <span id="likes-span">
+							<img src="/images/blank_likes.png" alt="좋아요" id=icons
+							th:unless="${isLike}"
+							th:onclick="|location.href='@{/book/like/{bookId}.do(bookId=${book.book_id})}'|">
+							<img src="/images/filled_likes.png" alt="좋아요" id=icons
+							th:if="${isLike}"> <span id=content th:text="${likesCount}"></span>
+						</span>
 					</div>
 				</div>
 				<div class="row">
-					<br/>
+					<br />
 				</div>
 				<div class="row d-flex align-items-end">
 					<div class="col-3">
@@ -66,23 +70,24 @@
 						<span id=content>지역</span>
 					</div>
 					<div class="col">
-						<span id=title2 th:text="${book.member.address1}"></span>
-						<span id=title2 th:text="${book.member.address2}"></span>
+						<span id=title2 th:text="${book.member.address1}"></span> <span
+							id=title2 th:text="${book.member.address2}"></span>
 					</div>
 				</div>
 				<div id="row">
 					<br />
 					<div class="d-grid gap-2 col-8 mx-auto">
-						<button class="btn btn-success btn-lg" type="button" th:onclick="|location.href='@{/book/dm/1.do}'|">대여하기(DM)</button>
+						<button class="btn btn-success btn-lg" type="button"
+							th:onclick="|location.href='@{/book/dm/{otherMemberId}/{bookId}.do(otherMemberId=${book.member.member_id})(bookId=${book.book_id})}'|">대여하기(DM)</button>
 					</div>
 					<br />
 				</div>
 				<div id="row">
 					<div class="col" align="center">
-						<img src="/images/naver.png" alt="네이버" id=shareicons>
-						<img src="/images/kakao.png" alt="카카오" id=shareicons>
-						<img src="/images/twitter.png" alt="트위터" id=shareicons>
-						<img src="/images/url.png" alt="url" id=shareicons>
+						<img src="/images/naver.png" alt="네이버" id=shareicons> <img
+							src="/images/kakao.png" alt="카카오" id=shareicons> <img
+							src="/images/twitter.png" alt="트위터" id=shareicons> <img
+							src="/images/url.png" alt="url" id=shareicons>
 					</div>
 				</div>
 			</div>
