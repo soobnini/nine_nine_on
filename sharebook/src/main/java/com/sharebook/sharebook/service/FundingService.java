@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Funding_order;
+import com.sharebook.sharebook.domain.Likes_funding;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Reward;
 import com.sharebook.sharebook.repository.FundingRepository;
 import com.sharebook.sharebook.repository.Funding_orderRepository;
+import com.sharebook.sharebook.repository.Likes_fundingRepository;
 import com.sharebook.sharebook.repository.RewardRepository;
 
 @Service("fundingService")
@@ -23,6 +25,9 @@ public class FundingService {
 	public Funding_orderRepository funding_orderRepository;
 	
 	@Autowired
+	public Likes_fundingRepository likes_fundingRepository;
+	
+	@Autowired
 	public RewardRepository rewardRepository;
 	
 	public void insertFunding(Funding funding) {
@@ -31,6 +36,10 @@ public class FundingService {
 	
 	public void insertFunding_order(Funding_order funding_order) {
 		funding_orderRepository.save(funding_order);
+	}
+	
+	public void insertLikes_funding(Likes_funding likes_funding) {
+		likes_fundingRepository.save(likes_funding);
 	}
 	
 	public void insertReward(Reward reward) {
@@ -45,6 +54,10 @@ public class FundingService {
 		funding_orderRepository.save(funding_order);
 	}
 	
+	public void updateLikes_funding(Likes_funding likes_funding) {
+		likes_fundingRepository.save(likes_funding);
+	}
+	
 	public void updateReward(Reward reward) {
 		rewardRepository.save(reward);
 	}
@@ -57,6 +70,10 @@ public class FundingService {
 		funding_orderRepository.delete(funding_order);
 	}
 	
+	public void deleteLikes_funding(Likes_funding likes_funding) {
+		likes_fundingRepository.delete(likes_funding);
+	}
+	
 	public void deleteReward(Reward reward) {
 		rewardRepository.delete(reward);
 	}
@@ -65,8 +82,32 @@ public class FundingService {
 		return fundingRepository.getById(funding_id);
 	}
 	
+	public Funding_order getFunding_order(int funding_order_id) {
+		return funding_orderRepository.getById(funding_order_id);
+	}
+	
+	public Likes_funding getLikes_funding(Funding funding, Member member) {
+		return likes_fundingRepository.findByFundingAndMember(funding, member);
+	}
+	
+	public Reward getReward(int reward_id) {
+		return rewardRepository.getById(reward_id);
+	}
+	
 	public List<Funding> getFundingList() {
 		return fundingRepository.findAll();
+	}
+	
+	public List<Likes_funding> getLikes_fundingList(Funding funding) {
+		return likes_fundingRepository.findByFunding(funding);
+	}
+	
+	public int getLikes_fundingCount(Funding funding) {
+		return likes_fundingRepository.findByFunding(funding).size();
+	}
+	
+	public List<Likes_funding> getLikes_fundingList(Member member) {
+		return likes_fundingRepository.findByMember(member);
 	}
 	
 	public List<Reward> getRewardList(Funding funding) {

@@ -36,7 +36,8 @@
 				<ul class="result-list">
 			</c:if>
 			<li class="result-list-content">
-				<img src="/images/sampleBook01.jpg" class="result-list-img">
+				<a href='<c:url value="/book/funding/${funding.funding_id}.do"></c:url>'>
+				<img src="/images/sampleBook01.jpg" class="result-list-img"></a>
 				<h6 class="item-list-img-title">
 					<b><c:out value="${funding.title}"/></b>
 				</h6>
