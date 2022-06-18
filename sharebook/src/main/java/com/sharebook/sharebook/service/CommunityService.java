@@ -55,17 +55,16 @@ public class CommunityService {
 		return communityRepository.findAll();
 	}//전체 글 리스트
 	
-	public List<Community> findPageCommunities(int preq){
+	public Page<Community> findPageCommunities(int preq){
 		 Page<Community> communityPage = communityRepository.findAll(PageRequest.of(preq, 10, Sort.by("communityId").descending()));
-		 List<Community> posts = communityPage.getContent();
-		return posts;
+			/* List<Community> posts = communityPage.getContent(); */
+		return communityPage;
 	}//pagenation을 위한
 	
-	public List<Community> findPageCommCategory(int category, int preq){
+	public Page<Community> findPageCommCategory(int category, int preq){
 		 Pageable p = PageRequest.of(preq, 10, Sort.by("communityId").descending());
 		 Page<Community> communityPage = communityRepository.findAllByCategory(category, p);
-		 List<Community> posts = communityPage.getContent();
-		return posts;
+		return communityPage;
 	}//카테고리별pagenation을 위한
 	
 
