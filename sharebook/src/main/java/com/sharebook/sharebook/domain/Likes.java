@@ -14,20 +14,19 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
 @SuppressWarnings("serial")
-@EqualsAndHashCode
+@Data
+@AllArgsConstructor 
+@NoArgsConstructor
 class LikesPK implements Serializable {
 //	private int member_id;
 //	private int book_id;
 	
-	Member member;
-	Book book;
-	
-	public LikesPK() { }
+	int member;
+	int book;
 }
 
 @Entity
@@ -41,12 +40,12 @@ public class Likes {
 //	@Id private int book_id;
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(targetEntity = Member.class)
 	@JoinColumn(name="member_id")
 	Member member;
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(targetEntity = Book.class)
 	@JoinColumn(name="book_id")
 	Book book;
 }

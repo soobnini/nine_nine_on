@@ -91,6 +91,22 @@ public class BookService {
 		return bookRepository.findAllByMember(member);
 	}
 	
+	public List<Book> findRecommendBookList(){
+		return bookRepository.findFirst3ByOrderByViewsDesc();
+	}
+	
+	public List<Book> findNearBookList(Member member){
+		return bookRepository.findAllByMember_Address1AndMember_Address2(member.getAddress1(), member.getAddress2());
+	}
+	
+	public List<Book> findBookListByTitle(String title){
+		return bookRepository.findAllByTitleContaining(title);
+	}
+	
+	public List<Book> findBookListByAuthor(String author){
+		return bookRepository.findAllByAuthorContaining(author);
+	}
+	
 	public List<Likes> findLikesListByMember(Member member){
 		return likesRepository.findAllByMember(member);
 	}
@@ -98,5 +114,4 @@ public class BookService {
 	public List<Likes> findLikesListByBook(Book book){
 		return likesRepository.findAllByBook(book);
 	}
-	
 }

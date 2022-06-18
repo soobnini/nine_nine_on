@@ -36,7 +36,10 @@
 				</h6>
 				<p class="result-list-img-writer" th:text="${book.author}"></p>
 				<p class="result-list-img-desc" th:text="${book.member.nickname}"></p>
-				<p class="result-list-img-desc" th:text="${book.member.address1}"></p></li>
+				<p class="result-list-img-desc" th:text="${book.member.address1}"></p>
+				<div th:if="${bookStat.index} % 5 eq 0"><br></div>
+				</li>
+				<!-- stat으로 나머지 사용해서 br 출력 -->
 		</ul>
 	</div>
 </body>
