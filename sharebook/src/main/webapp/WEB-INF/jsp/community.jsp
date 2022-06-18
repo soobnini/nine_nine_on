@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +24,11 @@
 				id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">분류</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				<li><a class="dropdown-item" href='<c:url value="/book/community/view/0/0.do"></c:url>'>질문</a></li>
+				<li><a class="dropdown-item" href='<c:url value="/book/community/viewCategory/0/0.do"></c:url>'>질문</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href='<c:url value="/book/community/view/1/0.do"></c:url>'>토론</a></li>
+				<li><a class="dropdown-item" href='<c:url value="/book/community/viewCategory/1/0.do"></c:url>'>토론</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href='<c:url value="/book/community/view/2/0.do"></c:url>'>모집</a></li>
+				<li><a class="dropdown-item" href='<c:url value="/book/community/viewCategory/2/0.do"></c:url>'>모집</a></li>
 			</ul>
 		</div>
 
@@ -60,37 +62,23 @@
 						<td><c:out value="${comm.views}" /></td>
 					</tr>
 				</c:forEach>
-				<!-- <tr>
-					<th>1</th>
-					<td>모집</td>
-					<td>비극의 결말에서</td>
-					<td>DAY6</td>
-					<td>2022-04-20</td>
-					<td>6</td>
-				</tr>
-				<tr>
-					<th>2</th>
-					<td>토론</td>
-					<td>뭔가 잘못됐어</td>
-					<td>권진아</td>
-					<td>2022-04-22</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<th>3</th>
-					<td>질문</td>
-					<td>Why not?</td>
-					<td>이달의 소녀</td>
-					<td>2022-04-25</td>
-					<td>12</td>
-				</tr> -->
 			</tbody>
 		</table>
 		<div class="text-center">
 			<ul class="list-group list-group-horizontal justify-content-center">
-				<li class="list-group-item"><a href="#">1</a></li>
-				<li class="list-group-item"><a href="#">2</a></li>
-				<li class="list-group-item"><a href="#">3</a></li>
+			<c:set var="str" value="<%request.getRequestURL().toString();%>" />
+			<c:choose>
+			<c:when test="${fn:contains(str, 'Category')}">
+				<c:forEach var = "i" begin = "1" end ="${pagenum}">
+					<li class="list-group-item"><a href="<c:url value="/book/community/viewCategory/${comm.category}/${i - 1}.do"/>"><c:out value="${i}" /></a></li>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var = "i" begin = "1" end ="${pagenum}">
+					<li class="list-group-item"><a href="<c:url value="/book/community/view/${i - 1}.do"/>"><c:out value="${i}" /></a></li>
+				</c:forEach>
+			</c:otherwise>
+			</c:choose>
 			</ul>
 		</div>
 	</div>

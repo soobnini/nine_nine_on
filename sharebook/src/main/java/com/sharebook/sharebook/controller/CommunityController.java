@@ -1,15 +1,25 @@
 package com.sharebook.sharebook.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 
+import com.sharebook.sharebook.controller.UserSession;
 import com.sharebook.sharebook.domain.Comments;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Member;
@@ -24,18 +34,24 @@ public class CommunityController {
 	@RequestMapping("/view/{page}.do")
 	public String viewCommunity(@PathVariable int page, ModelMap model)
 			throws Exception {
-		List<Community> result = communityService.findPageCommunities(page);
+		Page<Community> resultPage = communityService.findPageCommunities(page);
+		List<Community> result = resultPage.getContent();
+		int pagenum = resultPage.getTotalPages();
 		if (result != null)
 			model.addAttribute("communities", result);
+			model.addAttribute("pagenum", pagenum);
 		return "community";
 	}// 전체 community글목록
 
-	@RequestMapping("/view/{categoryId}/{page}.do")
+	@RequestMapping("/viewCategory/{categoryId}/{page}.do")
 	public String viewCategoryCommunity(@PathVariable int categoryId, @PathVariable int page, ModelMap model)
 			throws Exception {
-		List<Community> result = communityService.findPageCommCategory(categoryId, page);
+		Page<Community> resultPage = communityService.findPageCommCategory(categoryId, page);
+		List<Community> result = resultPage.getContent();
+		int pagenum = resultPage.getTotalPages();
 		if (result != null)
 			model.addAttribute("communities", result);
+			model.addAttribute("pagenum", pagenum);
 		return "community";
 	}// 카테고리 별 글목록
 
@@ -49,36 +65,52 @@ public class CommunityController {
 	}//커뮤니티 상세 페이지
 	
 	@RequestMapping("/uploadCommunity.do")
-	public String form() {
+	public String form(HttpServletRequest request) {
 		//로그인 확인
-		return "createCommunity";
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		if(userSession == null)
+			return "login";
+		else {
+			return "createCommunity";
+		}
 	}//글 작성-forwarding
 	
 	@RequestMapping("/upload.do")
-	public String uploadCommunity(@RequestParam("title") String title,@RequestParam("category") int category,@RequestParam("content") String content) {
+	public String uploadCommunity(HttpServletRequest request, @RequestParam("title") String title,@RequestParam("category") int category,@RequestParam("content") String content, RedirectAttributes redirectAttributes) {
 		Community comm = new Community();
 		comm.setCategory(category);
 		comm.setTitle(title);
 		comm.setContent(content);
-		//comm.setMember(memeber);세션에서 가지고 오기
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		Member member = userSession.getMember();
+		comm.setMember(member);
 		//comm.setUpload_date(now);
 		comm.setViews(0);
 		int communityId = communityService.createCommunity(comm);
-		String uri ="detail/"+ String.valueOf(communityId)+".do";
+		redirectAttributes.addAttribute("commId", communityId);
+		String uri ="redirect:/detail.do";
 		return uri;
 	}//글 작성-나중에 입력값 검증 넣어야(걍 form에서 못넘어가게해도 될거같은디)
 	
 	@RequestMapping("/createComment.do")
-	public String createComment(@RequestParam("communityId") int cid,@RequestParam("content") String content) {
+	public String createComment(HttpServletRequest request,@RequestParam("commId") int cid,@RequestParam("content") String content,  RedirectAttributes redirectAttributes) {
 		//로그인 확인
 		Community comm = communityService.getComm(cid);
 		Comments comment = new Comments();
 		comment.setCommunity(comm);
 		comment.setContent(content);
-		//comment.setMember(member);userseesion에서 가져오기
-		//comment.setUpload_date(now);현재 시간으로 설정
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		Member member = userSession.getMember();//userSession으로부터 멤버 객체 가져오기
+		comment.setMember(member);
+		LocalDateTime now = LocalDateTime.now();
+		Timestamp upTime = Timestamp.valueOf(now);
+		comment.setUpload_date(upTime);
 		communityService.createComment(comment);
-		return "redirect:detail/"+String.valueOf(cid);
+		redirectAttributes.addAttribute("commId", cid);
+		return "redirect:detail.do";
 	}//댓글 작성-로그인 확인 넣기
 	
 	@RequestMapping("/delete.do")

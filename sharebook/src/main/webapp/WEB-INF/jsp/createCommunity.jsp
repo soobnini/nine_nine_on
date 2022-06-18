@@ -23,11 +23,15 @@
 					<input type="text" class="form-control" id="title">
 				</div>
 			</div>
-			<div class="row mb-3">
-				<label for="inputCategory" class="col-sm-2 col-form-label">분류</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="category">
-				</div>
+			<div class="form-group">
+				<label for="inputCategory">분류</label> <select class="form-control"
+					id="category">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
 			</div>
 			<div class="row mb-3">
 				<label for="inputContent" class="col-sm-2 col-form-label">내용</label>

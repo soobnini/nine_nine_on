@@ -46,11 +46,12 @@
 			</tr>
 		</table>
 
-		<form class="pt-2 ps-2">
+		<form method = "post" action = "/book/community/createComment.do" class="pt-2 ps-2">
 			<div class="row mb-3">
 				<label for="inputComment" class="col-sm-2 col-form-label"><strong>댓글</strong></label>
 				<div class="col-sm-8">
-					<textarea class="form-control" id="comment" rows="1"></textarea>
+					<input type="hidden" name = "commId" value="${Post.communityId}"/>
+					<textarea class="form-control" name="content" id="comment" rows="1"></textarea>
 				</div>
 				<div class="d-grid gap-2 col-2 mx-auto">
 					<button type="submit" class="btn btn-primary">작성</button>
