@@ -10,8 +10,10 @@ function addReward() {
   var newCell3 = newRow2.insertCell(0);
   var newCell4 = newRow2.insertCell(1);
 
-  newCell1.innerHTML = "리워드 " + i++;
+  newCell1.innerHTML = "리워드 " + i;
   newCell2.innerHTML = "<input type='number' name='reward" + i + "' placeholder='리워드 금액' class='form-control'>";
   newCell3.innerHTML = "";
-  newCell4.innerHTML = "<textarea  name='description' rows='5' class='form-control' placeholder='리워드 내용'></textarea>";
+  newCell4.innerHTML = "<textarea  name='reward" + i + "_description' rows='5' class='form-control' placeholder='리워드 내용'></textarea>";
+  
+  i++;
 }
