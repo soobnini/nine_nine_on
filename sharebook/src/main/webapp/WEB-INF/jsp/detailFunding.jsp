@@ -76,6 +76,7 @@
 .card {
 	border: 1.5px solid #70D047;
 	color: #468f36;
+	margin: 10px;
 }
 
 .list-group-item {
@@ -91,19 +92,33 @@
 			<!-- 책 이미지 -->
 			<div class="col-5">
 				<div id=bookImage>
-					<img src="woongrang.jpg" alt="책 이미지" id=bookimg>
+					<img src="/images/sampleBook01.jpg" alt="책 이미지" id=bookimg>
 				</div>
 			</div>
 			<!-- 책정보 -->
 			<div class="col-6">
 				<div class="row d-flex align-items-end">
+					<div class="col">
+						<c:choose>
+							<c:when test="${dDay >= 0}">
+								<span id=content>펀딩 종료까지 <c:out value="${dDay}"/>일 남았어요</span>
+							</c:when>
+							<c:otherwise>
+								<span id=content>펀딩이 종료되었어요</span>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+				<div class="row d-flex align-items-end">
 					<div class="col-8">
 						<span id=title><c:out value="${funding.title}"/></span>
 					</div>
 					<div class="col">
-						<img src="/images/view.gif" alt="조회수" id=icons><span id=content>
-							<c:out value="${funding.views}"/> </span> <img src="like.jpg" alt="좋아요" id=icons><span id=content>
-							좋아요수...? </span>
+						<img src="/images/view.png" alt="조회수" id=icons><span id=content>
+							<c:out value="${funding.views}"/> </span>
+						<a href='<c:url value="/book/funding/${funding.funding_id}/likes.do"></c:url>'>
+						<img src="${likes}" alt="좋아요" id=icons></a><span id=content>
+								<c:out value="${likesCount}"/> </span>
 					</div>
 				</div>
 				<div class="row">
@@ -142,7 +157,7 @@
 				<div id="row">
 					<br>
 					<div class="d-grid gap-2 col-8 mx-auto">
-						<button class="btn btn-success btn-lg" type="button">
+						<button class="btn btn-success btn-lg" type="button" onclick="fundingOrder()">
 							<input type="text" id=price name="price" /> 원 후원하기
 						</button>
 					</div>
@@ -150,13 +165,13 @@
 				</div>
 				<div id="row">
 					<div class="col" align="center">
-						<img src="naver.png" alt="네이버" id=shareicons><img
-							src="kakao.png" alt="카카오" id=shareicons> <img
-							src="twitter.png" alt="트위터" id=shareicons><img
-							src="url.jpg" alt="url" id=shareicons>
+						<img src="/images/naver.png" alt="네이버" id=shareicons><img
+							src="/images/kakao.png" alt="카카오" id=shareicons> <img
+							src="/images/twitter.png" alt="트위터" id=shareicons><img
+							src="/images/url.png" alt="url" id=shareicons>
 
 					</div>
-					</br>
+					<br>
 				</div>
 			</div>
 		</div>
@@ -166,7 +181,7 @@
 				<c:forEach var="reward" items="${rewardList}">
 				<div class="col-4">
 					<div class="card" style="width: 18rem;">
-						<img src="sample.jpg" class="card-img-top" alt="리워드 이미지">
+						<img src="${reward.image}" class="card-img-top" alt="리워드 이미지">
 						<div class="card-body">
 							<h5 class="card-title"><c:out value="${reward.price}"/>원 후원</h5>
 						</div>
@@ -186,5 +201,15 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
+		
+	<script>
+		/* 후원 버튼 클릭 시 동작 */
+		function fundingOrder() {
+			let price = document.getElementById('price').value;
+			if (price != '') {
+				alert(price + '원 후원이 완료되었습니다.');
+			}
+		}
+	</script>
 </body>
 </html>
