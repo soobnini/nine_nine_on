@@ -23,7 +23,7 @@
 	<div class="container py-5 w-25">
 		<main class="form-signin mx-auto">
 			<form action="${targetUrl}" method="post" class="d-block">
-				<img class="mb-4 w-25" src="./images/ex_image.png" alt="">
+				<!--  <img class="mb-4 w-25" src="./images/ex_image.png" alt="">  -->
 				<h1 class="h2 mb-3 fw-normal fw-bold">이웃 책장</h1>
 
 				<div class="form-floating">
@@ -45,11 +45,11 @@
 			<div class="row">
 				<div class="col">
 					<a href="#"><img class="w-100 my-3"
-						src="./images/kakao_login.png" alt=""></a>
+						src="/images/kakao_login.png" alt=""></a>
 				</div>
 				<div class="col">
 					<a href="#"><img class="w-100 my-3"
-						src="./images/naver_login.png" alt=""></a>
+						src="/images/naver_login.png" alt=""></a>
 				</div>
 			</div>
 		</main>
