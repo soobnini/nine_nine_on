@@ -157,9 +157,12 @@
 				<div id="row">
 					<br>
 					<div class="d-grid gap-2 col-8 mx-auto">
-						<button class="btn btn-success btn-lg" type="button" onclick="fundingOrder()">
-							<input type="text" id=price name="price" /> 원 후원하기
-						</button>
+						<form id="createFundingOrder" method="GET" action="/book/funding/order.do">
+							<button class="btn btn-success btn-lg" type="button" onclick="fundingOrder()">
+								<input type="text" onkeypress="onlyNumber();" id=price name="price" /> 원 후원하기
+							</button>
+							<input type="hidden" name="fundingId" value="${funding.funding_id}" />
+						</form>
 					</div>
 					<br>
 				</div>
@@ -173,6 +176,15 @@
 					</div>
 					<br>
 				</div>
+			</div>
+		</div>
+		<div class="row">
+		<!-- achievementRate에 따라 색칠되는 비율이 다르도록 수정 -->
+			<div class="card" style="text-align: center; background: linear-gradient(90deg, #AAEBAA 80%, #ffffff 50%);">
+				<span id="title">
+					목표 금액은 <c:out value="${funding.goal_amount}"/>원이에요<br>
+					목표 달성률은 <c:out value="${achievementRate}"/>%에요
+				</span>
 			</div>
 		</div>
 		<!-- reward목록 -->
@@ -203,12 +215,35 @@
 		crossorigin="anonymous"></script>
 		
 	<script>
+		/* 후원 금액 입력 시 숫자만 입력 가능하도록 동작 */
+		function onlyNumber() {
+			if (event.keyCode >= 48 && event.keyCode <= 57) {
+				event.returnValue = true;
+			} else {
+				event.returnValue = false;
+			}
+		}
+	
 		/* 후원 버튼 클릭 시 동작 */
 		function fundingOrder() {
-			let price = document.getElementById('price').value;
-			if (price != '') {
-				alert(price + '원 후원이 완료되었습니다.');
+			let price = document.getElementById('price').value.trim();
+			
+			if (price == '') {
+				return;
+			} else {
+				price = parseInt(price);
 			}
+			
+			if (price <= 0) {
+				alert('올바른 금액을 입력해주세요');
+			} else {
+				if (confirm(price + '원을 후원하시겠습니까?')) {
+					
+					alert(price + '원 후원이 완료되었습니다');
+				}
+			}
+			
+			document.getElementById('price').value = '';
 		}
 	</script>
 </body>

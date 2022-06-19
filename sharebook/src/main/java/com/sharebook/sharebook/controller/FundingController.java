@@ -120,6 +120,9 @@ public class FundingController {
 		}
 		modelAndView.addObject("likes", likes);
 		
+//		Funding_order 정보 이용하여 achivememntRate 비율 계산하도록 수정
+		modelAndView.addObject("achievementRate", 80);
+		
 		return modelAndView;
 	}
 	
@@ -131,15 +134,6 @@ public class FundingController {
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		Member member = userSession.getMember();
 		
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		System.out.println("%%%%%%%%");
-		
 		Likes_funding likes_funding = fundingService.getLikes_funding(funding, member);
 		if (likes_funding != null) {
 			fundingService.deleteLikes_funding(likes_funding);
@@ -147,6 +141,15 @@ public class FundingController {
 			likes_funding = new Likes_funding(member, funding);
 			fundingService.insertLikes_funding(likes_funding);
 		}
+		
+		return "redirect:/book/funding/" + fundingId + ".do";
+	}
+	
+	@PostMapping("/book/funding/order.do")
+	public String orderFunding(HttpServletRequest request) throws ParseException {
+		int fundingId = Integer.parseInt(request.getParameter("fundingId"));
+		
+//		order 기능 구현
 		
 		return "redirect:/book/funding/" + fundingId + ".do";
 	}
