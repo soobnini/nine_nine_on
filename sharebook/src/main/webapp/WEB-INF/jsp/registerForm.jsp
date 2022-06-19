@@ -20,62 +20,74 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div th:replace="fragments/common :: header"></div>
-	<div class="container w-75 py-5">
-		<form action="${targetUrl}" method="post">
-			<div class="row mb-3">
+	<div th:replace="thymelaef/fragments/header.html :: header"></div>
+	<div class="container w-75 py-5">	 
+	 <form:form modelAttribute="memberCommand" action="${targetUrl}" method="post">
+		 
+			 <div class="row mb-3">
 				<label for="inputId" class="col-sm-2 col-form-label">아이디(이메일)</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="email">
+					<form:input path="email" class="form-control" />
+					<form:errors path="email" />
 				</div>
-			</div>
-			<div class="row mb-3">
+			 </div>
+			 
+			 <div class="row mb-3">
 				<label for="inputPassword" class="col-sm-2 col-form-label">비밀번호</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" name="password">
+					<form:password path="password" class="form-control" />
+					<form:errors path="password" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputPasswordCheck" class="col-sm-2 col-form-label">비밀번호
 					확인</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" name="passwordCheck">
+					<form:password path="passwordCheck" class="form-control" />
+					<form:errors path="passwordCheck" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputName" class="col-sm-2 col-form-label">이름</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="name">
+					<form:input path="name" class="form-control" />
+					<form:errors path="name" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputNickname" class="col-sm-2 col-form-label">닉네임</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="nickname">
+					<form:input path="nickname" class="form-control" />
+					<form:errors path="nickname" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputTel" class="col-sm-2 col-form-label">전화번호</label>
 				<div class="col-sm-10">
-					<input type="tel" class="form-control" name="phone">
+					<form:input path="phone" class="form-control" />
+					<form:errors path="phone" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputAddress" class="col-sm-2 col-form-label">주소1</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="address1">
+					<form:input path="address1" class="form-control" />
+					<form:errors path="address1" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputAddress" class="col-sm-2 col-form-label">주소2</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="address2">
+					<form:input path="address2" class="form-control" />
+					<form:errors path="address2" />
 				</div>
 			</div>
 			<div class="d-grid gap-2 col-2 mx-auto">
 				<button type="submit" class="btn btn-primary">가입 완료</button>
 			</div>
-		</form>
+	
+		</form:form>
+	 	
 	</div>
 
 	<script
