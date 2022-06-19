@@ -53,6 +53,9 @@ public class Member implements Serializable{
 	@Column(name="TEMPERATURE")
 	private float temperature;
 	
+	@Column(name="IMAGE")
+	private String image;
+	
 	/*커뮤니티 리스트 JOIN
 	 * @OneToMany(mappedBy="member") private List<Community> communityList;
 	 */

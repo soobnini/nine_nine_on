@@ -1,7 +1,9 @@
 package com.sharebook.sharebook.dao;
 
+import java.io.Serializable;
 
-public class MemberCommand {
+@SuppressWarnings("serial")
+public class MemberCommand implements Serializable {
 
 	private String email;
 	private String password;
@@ -12,6 +14,7 @@ public class MemberCommand {
 	private String address1;
 	private String address2;
 	private float temperature;
+	private String image;
 
 	public String getEmail() {
 		return email;
@@ -84,6 +87,13 @@ public class MemberCommand {
 	public void setTemperature(float temperature) {
 		this.temperature = temperature;
 	}
-	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
 }

@@ -5,20 +5,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="fixMemberUrl"><c:url value="/book/mypage/member.do" /></c:set>
+<c:set var="checkMemberUrl"><c:url value="/book/mypage/member/check.do" /></c:set>
+<c:set var="updateMemberUrl"><c:url value="/book/mypage/member/update.do" /></c:set>
 <c:set var="likesListUrl"><c:url value="/book/mypage/likes.do" /></c:set>
 <c:set var="bookListUrl"><c:url value="/book/mypage/rent.do" /></c:set>
 <c:set var="fundingListUrl"><c:url value="/book/mypage/funding.do" /></c:set>
 <c:set var="communityListUrl"><c:url value="/book/mypage/community.do" /></c:set>
-
-<!-- 
-<li class="nav-item"><a class="nav-link active"
-	aria-current="page" href="#"></a><p><span id = navlink>회원정보 수정</span></p></li>
-<li class="nav-item"><a class="nav-link" href="#"></a><p><span id = navlink>찜 목록(♥)</span></p></li>
-<li class="nav-item"><a class="nav-link" href="#"></a><p><span id = navlink>대여 리스트</span></p></li>
-<li class="nav-item"><a class="nav-link" href="#"></a><p><span id = navlink>참여한 펀딩</span></p></li>
-<li class="nav-item"><a class="nav-link" href="#"></a><p><span id = navlink>커뮤니티 활동 내역</span></p></li>
- -->
 
 <!DOCTYPE html>
 <html>
@@ -92,7 +84,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-3">
-				<div id=circle><img src="Asset 53.png" alt="프로필 이미지" id = profile></div>
+				<div id=circle><img src="${member.image}" alt="프로필 이미지" id = profile></div>
 			</div>
 			<div class="col-8">
 				<div class="row">
@@ -100,13 +92,13 @@
 				</div>
 				<div class="row">
 					<div class="col-6" id =deg2>
-						<strong>나의 온도 &nbsp;&nbsp;&nbsp;<span id=deg><c:out value="${temperature}" /> </span></strong> ºC
+						<strong>나의 온도 &nbsp;&nbsp;&nbsp;<span id=deg><c:out value="${member.temperature}" /> </span></strong> ºC
 					</div>
 				</div>
 				
 				<div class="row">
 					<div id= nick>
-						<c:out value="${name}" />
+						<c:out value="${member.name}" />
 					</div>
 				</div>
 			</div>
@@ -117,8 +109,8 @@
 			<div class="col" style="text-align : center">
 				<ul class="nav flex-column">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="${fixMemberUrl}"></a><p><span id = navlink>
-							<a href='<c:url value="${fixMemberUrl}"></c:url>'>회원정보 수정</a>
+						aria-current="page" href="${checkMemberUrl}"></a><p><span id = navlink>
+							<a href='<c:url value="${checkMemberUrl}"></c:url>'>회원정보 수정</a>
 						</span></p></li>
 					<li class="nav-item"><a class="nav-link" href="${likesListUrl}"></a><p><span id = navlink>
 						<a href='<c:url value="${likesListUrl}"></c:url>'>찜 목록(♥)</a>
@@ -138,6 +130,104 @@
 			<div class="col-10">
 				<table class="table table-hover mt-3">
 				 	<c:choose>
+				 		<c:when test="${category == 'memberCheck'}">
+				 			<div class="container py-5 w-50">
+								<main class="form-signin mx-auto">
+									<form action="${checkMemberUrl}" method="post" class="d-block">
+										<h1 class="h3 mb-3 fw-normal fw-bold">정보를 안전하게 보호하기 위해<br>비밀번호를 다시 한 번 확인합니다</h1>
+						
+										<div class="form-floating">
+											<input type="email" class="form-control" id="floatingInput"
+												placeholder="name@example.com" name="id"> <label for="floatingInput" >아이디</label>
+
+										</div>
+										<div class="form-floating">
+											<input type="password" class="form-control" id="floatingPassword"
+												placeholder="Password" name="password"> <label for="floatingPassword">비밀번호</label><br>
+										</div>
+										
+										<button class="w-100 btn btn-lg btn-primary" type="submit">확인</button><br>
+									</form>
+									<div class="row">
+										<div class="col">
+											<a href="#"><img class="w-100 my-3"
+												src="/images/kakao_login.png" alt=""></a>
+										</div>
+										<div class="col">
+											<a href="#"><img class="w-100 my-3"
+												src="/images/naver_login.png" alt=""></a>
+										</div>
+									</div>
+								</main>
+							</div>
+				 		</c:when>
+				 		
+				 		<c:when test="${category == 'memberUpdate'}">
+				 			<div class="container w-75 py-5">
+								<form action="${updateMemberUrl}" method="post" enctype="multipart/form-data">
+									<div class="row mb-3">
+										<label for="inputId" class="col-sm-2 col-form-label">아이디(이메일)</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="email" value="${member.email}" readonly>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputPassword" class="col-sm-2 col-form-label">새 비밀번호</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" name="password">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputPasswordCheck" class="col-sm-2 col-form-label">새 비밀번호
+											확인</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" name="passwordCheck">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputName" class="col-sm-2 col-form-label">이름</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="name" value="${member.name}" >
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputNickname" class="col-sm-2 col-form-label">닉네임</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="nickname" value="${member.nickname}">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputTel" class="col-sm-2 col-form-label">전화번호</label>
+										<div class="col-sm-10">
+											<input type="tel" class="form-control" name="phone" value="${member.phone}">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputAddress" class="col-sm-2 col-form-label">주소1</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="address1" value="${member.address1}">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputAddress" class="col-sm-2 col-form-label">주소2</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="address2" value="${member.address2}">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputAddress" class="col-sm-2 col-form-label">프로필 사진 수정</label>
+										<div class="col-sm-10">
+											<!-- <input type="text" class="form-control" name="address2" value="${member.image}">   -->
+											<input type="file" name="uploadImage" />
+										</div>
+									</div>
+									<div class="d-grid gap-2 col-3 mx-auto">
+										<button type="submit" class="btn btn-primary">회원정보 수정</button>
+									</div>
+								</form>
+							</div>
+				 		</c:when>
+				 		
 				 		<c:when test="${category == 'likes'}">
 				            <thead>
 				                <tr>
