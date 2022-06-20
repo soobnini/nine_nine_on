@@ -39,10 +39,12 @@
 				<td class="px-2 py-3"><c:out value="${Post.content}" /></td>
 			</tr>
 			<tr>
+			<c:if test="${isMine}">
 				<td colspan="2" class="text-end border-0"><a
-					class="btn btn-primary m-1" href="#" role="button">수정</a> <a
-					class="btn btn-primary m-1 float-end" href="#" role="button">삭제</a>
+					class="btn btn-primary m-1" href='<c:url value="/book/community/delete.do"><c:param name="cid" value="${Post.communityId}"/></c:url>' role="button">삭제</a> <a
+					class="btn btn-primary m-1 float-end" href='<c:url value="/book/community/updateCommunity.do"><c:param name="cid" value="${Post.communityId}"/></c:url>' role="button">수정</a>
 				</td>
+			</c:if>
 			</tr>
 		</table>
 
@@ -70,13 +72,7 @@
 			</tr>
 			</c:forEach>
 		</table>
-		<div class="text-center">
-			<ul class="list-group list-group-horizontal justify-content-center">
-				<li class="list-group-item"><a href="#">1</a></li>
-				<li class="list-group-item"><a href="#">2</a></li>
-				<li class="list-group-item"><a href="#">3</a></li>
-			</ul>
-		</div>
+		
 	</div>
 
 	<script

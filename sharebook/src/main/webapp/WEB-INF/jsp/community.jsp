@@ -18,17 +18,25 @@
 </head>
 <body>
 	<div class="container w-75 py-5">
-		<a class="btn btn-primary" href='<c:url value="/book/community/uploadCommunity.do"></c:url>'role="button">게시글 작성</a>
+		<a class="btn btn-primary"
+			href='<c:url value="/book/community/uploadCommunity.do"></c:url>'
+			role="button">게시글 작성</a>
 		<div class="dropdown float-end">
 			<button class="btn btn-secondary dropdown-toggle" type="button"
 				id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">분류</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-				<li><a class="dropdown-item" href='<c:url value="/book/community/viewCategory/0/0.do"></c:url>'>질문</a></li>
+				<li><a class="dropdown-item"
+					href='<c:url value="/book/community/view/0.do"></c:url>'>전체</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href='<c:url value="/book/community/viewCategory/1/0.do"></c:url>'>토론</a></li>
+				<li><a class="dropdown-item"
+					href='<c:url value="/book/community/viewCategory/0/0.do"></c:url>'>질문</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href='<c:url value="/book/community/viewCategory/2/0.do"></c:url>'>모집</a></li>
+				<li><a class="dropdown-item"
+					href='<c:url value="/book/community/viewCategory/1/0.do"></c:url>'>토론</a></li>
+				<li><hr class="dropdown-divider"></li>
+				<li><a class="dropdown-item"
+					href='<c:url value="/book/community/viewCategory/2/0.do"></c:url>'>모집</a></li>
 			</ul>
 		</div>
 
@@ -48,37 +56,51 @@
 					<tr>
 						<th><c:out value="${comm.communityId}" /></th>
 						<td><c:choose>
-
 								<c:when test="${comm.category == '0'}"> 질문 </c:when>
 
 								<c:when test="${comm.category == '1'}"> 토론 </c:when>
-								
-								<c:when test="${comm.category == '2'}"> 모집 </c:when>
 
-						</c:choose></td>
-						<td><a href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${comm.communityId}"/></c:url>'><c:out value="${comm.title}" /></a></td>
-						<td><c:out value="${comm.member.name}" /></td>
+								<c:when test="${comm.category == '2'}"> 모집 </c:when>
+							</c:choose></td>
+						<td><a
+							href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${comm.communityId}"/></c:url>'><c:out
+									value="${comm.title}" /></a></td>
+						<td><c:out value="${comm.member.nickname}" /></td>
 						<td><c:out value="${comm.upload_date}" /></td>
 						<td><c:out value="${comm.views}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<form action='/book/community/search.do' method='GET' class='form-group'>
+			<div class="form-horizontal">
+				<input type="text" name="keyWord" class="form-control"
+					placeholder="Search..."
+					style="width: 280px; max-width: 280px; display: inline-block" />
+				<button type="submit" class="btn btn-primary"
+					style="margin-left: -8px; margin-top: -3px;">검색</button>
+			</div>
+		</form>
 		<div class="text-center">
 			<ul class="list-group list-group-horizontal justify-content-center">
-			<c:set var="str" value="<%request.getRequestURL().toString();%>" />
-			<c:choose>
-			<c:when test="${fn:contains(str, 'Category')}">
-				<c:forEach var = "i" begin = "1" end ="${pagenum}">
-					<li class="list-group-item"><a href="<c:url value="/book/community/viewCategory/${comm.category}/${i - 1}.do"/>"><c:out value="${i}" /></a></li>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var = "i" begin = "1" end ="${pagenum}">
-					<li class="list-group-item"><a href="<c:url value="/book/community/view/${i - 1}.do"/>"><c:out value="${i}" /></a></li>
-				</c:forEach>
-			</c:otherwise>
-			</c:choose>
+				<c:set var="str" value="<%request.getRequestURL().toString();%>" />
+				<c:choose>
+					<c:when test="${fn:contains(str, 'Category')}">
+						<c:forEach var="i" begin="1" end="${pagenum}">
+							<li class="list-group-item"><a
+								href="<c:url value="/book/community/viewCategory/${comm.category}/${i - 1}.do"/>"><c:out
+										value="${i}" /></a></li>
+						</c:forEach>
+					</c:when>
+					
+					<c:otherwise>
+						<c:forEach var="i" begin="1" end="${pagenum}">
+							<li class="list-group-item"><a
+								href="<c:url value="/book/community/view/${i - 1}.do"/>"><c:out
+										value="${i}" /></a></li>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</div>

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Comments;
@@ -38,12 +39,13 @@ public class CommunityService {
 	}
 
 	@Transactional
-	public void updateCommunity(Community community) {
-		communityRepository.save(community);// pk 설정시 자동으로 merge 실행(update)
+	public int updateCommunity(Community community) {
+		return communityRepository.save(community).getCommunityId();// pk 설정시 자동으로 merge 실행(update)
 	}
 	
 	@Transactional
-	public void deleteCommunity(Community community) {
+	public void deleteCommunity(Community community, int cid) {
+		commentsRepository.removeAllByCommunity(cid);
 		communityRepository.delete(community);// delete
 	}
 	
@@ -71,8 +73,8 @@ public class CommunityService {
 	public List<Community> findCommunityByTitle(String title) {
 		return communityRepository.findByTitle(title);
 	}//제목으로 찾기
-	@Transactional
-	public List<Community> findCommunityByKeyword(String Keyword) {
+	
+	public List<Community> findCommunityByKeyword( String Keyword) {
 		return communityRepository.findByTitleContaining(Keyword);
 	}//제목 키워드로 찾기
 	
