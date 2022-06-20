@@ -252,5 +252,65 @@
         Kakao.init('476a4c18380b56b521177a94457bb719');
         Kakao.isInitialized();
     </script>
+    
+    <script>
+	    const prefix = 'http://localhost:8080/book/funding/';
+	    const book_Id = '${funding.funding_id}';
+	    const suffix = '.do';
+	    const shareUrl = prefix + book_Id + suffix;
+	    const title = '${funding.title}';
+	    const description = '${funding.description}';
+	
+	    function shareKakao() {
+	      // shareImage는 추후 수정 필요
+	      var shareImage = 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg';
+	      const shareTitle = title;
+	      const shareDes = description;
+	
+	      Kakao.Link.sendDefault({
+	        objectType: 'feed',
+	        content: {
+	          title: shareTitle,
+	          description: shareDes,
+	          imageUrl: shareImage,
+	          link: {
+	            mobileWebUrl: shareUrl,
+	            webUrl: shareUrl
+	          },
+	        },
+	        buttons: [
+	          {
+	            title: '펀딩 확인하기',
+	            link: {
+	              mobileWebUrl: shareUrl,
+	              webUrl: shareUrl
+	            },
+	          }
+	        ]
+	      });
+	    }
+	
+		    
+	    function shareTwitter() {
+	        var sendText = "이웃책장";
+	        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + shareUrl);
+	    }
+	    
+	    function shareFacebook() {
+	    	var sendUrl = shareUrl; // 전달할 URL
+	        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+	    }
+
+	    function shareURL() {
+	      var url = shareUrl;
+	      var textarea = document.createElement("textarea");
+	      document.body.appendChild(textarea);
+	      textarea.value = url;
+	      textarea.select();
+	      document.execCommand("copy");
+	      document.body.removeChild(textarea);
+	      alert("URL이 복사되었습니다.");
+	    }
+    </script>
 </body>
 </html>
