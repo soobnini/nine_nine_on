@@ -84,10 +84,10 @@
 				</div>
 				<div id="row">
 					<div class="col" align="center">
-						<img src="/images/naver.png" alt="네이버" id=shareicons> <img
-							src="/images/kakao.png" alt="카카오" id=shareicons> <img
-							src="/images/twitter.png" alt="트위터" id=shareicons> <img
-							src="/images/url.png" alt="url" id=shareicons>
+						<img src="/images/naver.png" alt="네이버" id=shareicons> 
+						<img src="/images/kakao.png" alt="카카오" id=shareicons onclick="js:shareKakao()"> 
+							<img src="/images/twitter.png" alt="트위터" id=shareicons onclick="js:shareTwitter()"> 
+							<img src="/images/url.png" alt="url" id=shareicons onclick="js:shareURL()">
 					</div>
 				</div>
 			</div>
@@ -99,4 +99,71 @@
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
 </body>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        Kakao.init('476a4c18380b56b521177a94457bb719');
+        Kakao.isInitialized();
+    </script>
+    
+    <script>
+  	 	/*<![CDATA[*/
+	    const prefix = "http://localhost:8080/book/view/";
+	    const book_Id = [[${book.book_id}]];
+	    const suffix = ".do";
+	    const shareUrl = prefix + book_Id + suffix;
+	    const title = '[[${book.title}]]';
+	    const description = '[[${book.description}]]';
+	    /*]]>*/
+	
+	    function shareKakao() {
+	      // shareImage는 추후 수정 필요
+	      var shareImage = 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg';
+	      const shareTitle = title;
+	      const shareDes = description;
+	
+	      Kakao.Link.sendDefault({
+	        objectType: 'feed',
+	        content: {
+	          title: shareTitle,
+	          description: shareDes,
+	          imageUrl: shareImage,
+	          link: {
+	            mobileWebUrl: shareUrl,
+	            webUrl: shareUrl
+	          },
+	        },
+	        buttons: [
+	          {
+	            title: '펀딩 확인하기',
+	            link: {
+	              mobileWebUrl: shareUrl,
+	              webUrl: shareUrl
+	            },
+	          }
+	        ]
+	      });
+	    }
+	
+		    
+	    function shareTwitter() {
+	        var sendText = "이웃책장";
+	        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + shareUrl);
+	    }
+	    
+	    function shareFacebook() {
+	    	var sendUrl = shareUrl; // 전달할 URL
+	        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+	    }
+
+	    function shareURL() {
+	      var url = shareUrl;
+	      var textarea = document.createElement("textarea");
+	      document.body.appendChild(textarea);
+	      textarea.value = url;
+	      textarea.select();
+	      document.execCommand("copy");
+	      document.body.removeChild(textarea);
+	      alert("URL이 복사되었습니다.");
+	    }
+    </script>
 </html>
