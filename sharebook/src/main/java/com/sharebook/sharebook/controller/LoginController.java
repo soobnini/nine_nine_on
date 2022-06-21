@@ -85,7 +85,7 @@ public class LoginController {
 	public String handleRequest(HttpSession session) throws Exception {
 		session.removeAttribute("userSession");
 		session.invalidate();
-		return "thymeleaf/main";
+		return "redirect:/book.do";
 	}
 	
 }

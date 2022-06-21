@@ -1,0 +1,46 @@
+#circle {
+	width: 200px;
+	height: 200px;
+	border: 5px solid #70D047;
+	border-radius: 50%;
+	margin: 15px;
+}
+
+#deg {
+	font-size: 50px;
+	color: #ff9442;
+}
+
+#deg2 {
+	font-size: 20px;
+	color: #468f36;
+}
+#nick{
+	font-size: 30px;
+	color:#37732a
+}
+
+#mainC {
+	border: 2px solid #70D047;
+	height: 800px;
+}
+.nav-item{
+	border-bottom: 2px solid #70D047;
+	
+}
+.nav-item:hover{
+	border-bottom: 2px solid #70D047;
+	background-color:#ecfccc;
+	color: #ffffff;
+}
+#navlink{
+	color: #2f6620;
+	font-size:18px;
+}
+
+#profile{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
