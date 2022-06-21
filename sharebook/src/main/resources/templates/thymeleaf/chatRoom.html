@@ -40,13 +40,15 @@
 					<div id="leftDiv" style="width: 30%; display: table-cell;">
 						<!-- Left Div  -->
 						<table id="peopleListTable" th:each="mem : ${otherMemberList}">
-							<tr th:onclick="|location.href='@{/book/dm/1/3.do}'|">
+							<tr
+								th:onclick="|location.href='@{/book/dm/{memberId}/{otherMemberId}.do(memberId=${member.member_id}, otherMemberId=${mem.member_id})}'|">
 								<td rowspan="2"><img src="/images/momo.jpg"
 									id="peopleImage"></td>
 								<td th:text="${mem.nickname}"></td>
 							</tr>
 							<tr>
-								<td>김모모는 너무 귀여워</td>
+								<td class="people-address"
+									th:text="|${mem.address1} ${mem.address2} 거주 중|"></td>
 							</tr>
 						</table>
 					</div>
@@ -57,29 +59,34 @@
             <div class="rightBubble"></div>
             <div class="leftBubble"></div> -->
 						<div id="chatDiv" th:if="${messageList}" )>
-							<table id="chatTable" cellspacing="0" cellpadding="0">
-								<tr th:each="message : ${messageList}">
-									<td th:if="${message.member.member_id} ne 1"><div
-											class="leftBubble" th:text="${message.content}"></div></td>
-									<td th:if="${message.member.member_id} eq 1"><div
-											class="rightBubble" th:text="${message.content}"></div></td>
-								</tr>
-							</table>
-							<table id="rentTable">
+							<div id="chat-screen">
+								<table id="chatTable" cellspacing="0" cellpadding="0">
+									<tr th:each="message : ${messageList}">
+										<td th:if="${message.member.member_id} ne ${member.member_id}"><div
+												class="leftBubble" th:text="${message.content}"></div></td>
+										<td th:if="${message.member.member_id} eq ${member.member_id}"><div
+												class="rightBubble" th:text="${message.content}"></div></td>
+									</tr>
+								</table>
+							</div>
+							<table id="rentTable"
+								th:if="${book.member.member_id} eq ${member.member_id}">
 								<tr>
 									<td><div>대여 신청을 확정하시겠습니까?</div></td>
-									<td><button class="btn btn-primary">네</button></td>
+									<td><button class="btn btn-primary"
+											th:onclick="|location.href='@{/book/dm/{memberId}/{otherMemberId}/rent.do(memberId=${member.member_id}, otherMemberId=${otherMember.member_id})}'|">네</button></td>
 									<td><button class="btn btn-danger">아니오</button></td>
 								</tr>
 							</table>
 							<form id="chatRoom" method="POST"
-								th:action="@{/book/dm/1/3/send.do}">
+								th:action="@{/book/dm/{memberId}/{otherMemberId}/send.do(memberId=${member.member_id}, otherMemberId=${otherMember.member_id})}">
 								<table id="sentTable">
 									<tr id="sentMessage">
 										<td id="messageContent"><input type="text" name="content"
 											class="form-control"></td>
 										<td id="messageSend"><input type="submit" value="보내기"
-											class="btn btn-light" id="submitButton"></td>
+											class="btn btn-light" id="submitButton"
+											style="background: #70D047; border: 1px solid #70D047;"></td>
 									</tr>
 								</table>
 							</form>

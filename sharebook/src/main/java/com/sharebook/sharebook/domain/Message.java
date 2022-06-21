@@ -41,5 +41,5 @@ public class Message {
 	//	메시지가 전송된 채팅방 id(FK)
 	@ManyToOne
 	@JoinColumn(name="CHAT_ROOM_ID")
-	Chat_room chat_room;
+	Chat_room chatRoom;
 }

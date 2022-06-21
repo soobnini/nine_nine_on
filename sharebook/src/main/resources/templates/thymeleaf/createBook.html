@@ -38,7 +38,7 @@
 		<section id="main" class="col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
 			<div id="titlefont">책 등록</div>
 
-			<form name="createBook" method="POST" th:action="@{/book/create.do}">
+			<form name="createBook" method="POST" th:action="@{/book/create.do}" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td>책 이름</td>
