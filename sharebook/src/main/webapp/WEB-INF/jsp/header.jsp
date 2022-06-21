@@ -70,11 +70,9 @@
 					<!-- ****************************** -->
 					<ul class="dropdown-menu text-small"
 						aria-labelledby="dropdownUser1" style="">
-						<li><a class="dropdown-item" href="#">마이 페이지</a></li>
-						<li><a class="dropdown-item" href="#">찜 목록</a></li>
-						<li><a class="dropdown-item" href="#">대여 리스트</a></li>
+						<li><a class="dropdown-item" href="/book/mypage.do">마이 페이지</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">Log Out</a></li>
+						<li><a class="dropdown-item" href="/book/logout.do">Log Out</a></li>
 					</ul>
 				</div>
 			</div>
