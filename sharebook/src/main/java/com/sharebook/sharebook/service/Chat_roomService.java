@@ -78,4 +78,8 @@ public class Chat_roomService {
 	public List<Message> findMessageListByMember(Member member){
 		return messageRepository.findAllByMember(member);
 	}
+	
+	public List<Message> findMessageListByMemberAndChatRoom(Member member, Chat_room chat_room){
+		return messageRepository.findAllByMemberAndChatRoom(member, chat_room);
+	}
 }
