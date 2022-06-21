@@ -52,6 +52,12 @@ public class BookController implements ApplicationContextAware {
 		System.out.println(this.uploadDir);
 	}
 	
+	@RequestMapping("/")
+	public ModelAndView handleRequest() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/book.do");
+		return mav;
+	}
 
 	@RequestMapping("/book.do")
 	public ModelAndView viewMain(HttpServletRequest request) {
