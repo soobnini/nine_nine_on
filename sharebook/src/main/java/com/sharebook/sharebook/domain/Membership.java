@@ -15,12 +15,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
-@EqualsAndHashCode
+@Data
+@AllArgsConstructor 
+@NoArgsConstructor
 class MembershipPK implements Serializable {
-	Chat_room chatRoom;
-	Member member;
-	
-	public MembershipPK() {}
+	int chatRoom;
+	int member;
 }
 
 @Entity
@@ -31,11 +31,11 @@ class MembershipPK implements Serializable {
 @IdClass(MembershipPK.class)
 public class Membership {
 	@Id
-	@ManyToOne
+	@ManyToOne(targetEntity = Chat_room.class)
 	@JoinColumn(name="CHAT_ROOM_ID")
 	Chat_room chatRoom;
 	@Id
-	@ManyToOne
+	@ManyToOne(targetEntity = Member.class)
 	@JoinColumn(name="MEMBER_ID")
 	Member member;
 }
