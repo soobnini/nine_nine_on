@@ -53,9 +53,9 @@
 				<!-- main search bar -->
 				<form id="main-search-container"
 					class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST"
-					action="/book/search.do">
+					action="/book/funding/search.do">
 					<input type="search" name="keyword" class="form-control"
-						placeholder="책 또는 저자 검색" aria-label="Search">
+						placeholder="펀딩 제목 또는 펀딩 저자 검색" aria-label="Search">
 				</form>
 				<!-- main profile icon and dropdown -->
 				<div id="main-profile-container" class="dropdown text-end">
