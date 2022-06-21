@@ -47,7 +47,7 @@ public class SessionController {
 		else {
 			UserSession userSession = new UserSession(member);
 			model.addAttribute("userSession", userSession);
-			mav.setViewName("thymeleaf/main");
+			mav.setViewName("redirect:/book.do");
 		}
 		return mav;
 	}
