@@ -26,78 +26,18 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-
+	crossorigin="anonymous">	
+	 
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+	
+<link rel="stylesheet" href="/css/mypage.css" />
+<script type="text/javascript" src="/js/mypage.js" ></script>
 <title>myPage</title>
-<style type="text/css">
-#circle {
-	width: 200px;
-	height: 200px;
-	border: 5px solid #70D047;
-	border-radius: 50%;
-	margin: 15px;
-}
 
-#deg {
-	font-size: 50px;
-	color: #ff9442;
-}
-
-#deg2 {
-	font-size: 20px;
-	color: #468f36;
-}
-#nick{
-	font-size: 30px;
-	color:#37732a
-}
-
-#mainC {
-	border: 2px solid #70D047;
-	height: 800px;
-}
-.nav-item{
-	border-bottom: 2px solid #70D047;
-	
-}
-.nav-item:hover{
-	border-bottom: 2px solid #70D047;
-	background-color:#ecfccc;
-	color: #ffffff;
-}
-#navlink{
-	color: #2f6620;
-	font-size:18px;
-}
-
-#profile{
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-          
-</style>
-
-<script>
-	function loginAction() {
-		if (loginForm.floatingInput.value == "") {
-			alert("아이디를 입력해주세요");
-			loginForm.floatingInput.focus();
-			return false;
-		}	
-		if (loginForm.floatingPassword.value == "") {
-			alert("비밀번호를 입력해주세요");
-			loginForm.floatingPassword.focus();
-			return false;
-		}	
-		loginForm.submit();
-	}
-	
-	function withdrawal() {
-		return confirm("정말 삭제하시겠습니까?");
-	}
-</script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -175,18 +115,6 @@
 										
 										<input type="button" value="확인" onClick="loginAction()" class="w-100 btn btn-lg btn-primary"><br>
 									</form>
-									<!-- 
-									<div class="row">
-										<div class="col">
-											<a href="#"><img class="w-100 my-3"
-												src="/images/kakao_login.png" alt=""></a>
-										</div>
-										<div class="col">
-											<a href="#"><img class="w-100 my-3"
-												src="/images/naver_login.png" alt=""></a>
-										</div>
-									</div>
-									 -->
 								</main>
 							</div>
 				 		</c:when>
@@ -258,139 +186,28 @@
 				 		</c:when>
 				 		
 				 		<c:when test="${category == 'likesBook'}">
-				            <thead>
-				                <tr>
-				                    <th>번호</th>
-				                    <th>제목</th>
-				                    <th>저자</th>
-				                    <th>조회</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                <c:forEach var="bookList" items="${bookList}">
-									<tr>
-										<th><c:out value="${bookList.book.book_id}" /></th>
-										
-										<td><a href='<c:url value="/book/view/${bookList.book.book_id}.do"></c:url>'><c:out value="${bookList.book.title}" /></a></td>
-										<td><c:out value="${bookList.book.author}" /></td>
-										<td><c:out value="${bookList.book.views}" /></td>
-									</tr>
-								</c:forEach>
-							</tbody>
+				 			<%@ include file="includedBookLikeList.jsp"%>
 						</c:when>
 						
 						<c:when test="${category == 'likesFunding'}">
-				            <thead>
-				                <tr>
-				                    <th>번호</th>
-				                    <th>제목</th>
-				                    <th>저자</th>
-				                    <th>조회</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                <c:forEach var="findingOrderList" items="${FundingOrderList}">
-									<tr>
-										<th><c:out value="${findingOrderList.funding.funding_id}" /></th>
-										<td><a href='<c:url value="/book/funding/${findingOrderList.funding.funding_id}.do"></c:url>'><c:out value="${findingOrderList.funding.title}" /></a></td>
-										<td><c:out value="${findingOrderList.funding.author}" /></td>
-										<td><c:out value="${findingOrderList.funding.views}" /></td>
-									</tr>
-								</c:forEach>
-							</tbody>
+							<%@ include file="includedFudingLikeList.jsp"%>
 						</c:when>
 						
 						<c:when test="${category == 'rent'}">
-				            <thead>
-				                <tr>
-				                    <th>번호</th>
-				                    <th>제목</th>
-				                    <th>저자</th>
-				                    <th>대출 시작일</th>
-				                    <th>대출 마감일</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                <c:forEach var="rentList" items="${rentList}">
-									<tr>
-										<th><c:out value="${rentList.rent_id}" /></th>
-										
-										<td><a href='<c:url value="/book/view/${rentList.book.book_id}.do"></c:url>'><c:out value="${rentList.book.title}" /></a></td>
-										<td><c:out value="${rentList.book.author}" /> </td> 
-										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${rentList.start_day}"/> </td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${rentList.end_day}"/> </td>
-									</tr>
-								</c:forEach>
-							</tbody>
+							<%@ include file="includedRentList.jsp"%>
 						</c:when>
 						
 						<c:when test="${category == 'funding'}">
-				            <thead>
-				                <tr>
-				                    <th>번호</th>
-				                    <th>제목</th>
-				                    <th>저자</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                <c:forEach var="fundingList" items="${fundingList}">
-									<tr>
-										<th><c:out value="${fundingList.funding_id}" /></th>
-										
-										<td><a href='<c:url value="/book/funding/${fundingList.funding_id}.do"></c:url>'><c:out value="${fundingList.title}" /></a></td>
-										<td><c:out value="${fundingList.author}" /></td>
-									</tr>
-								</c:forEach>
-							</tbody>
+							<%@ include file="includedFundingList.jsp"%>
 						</c:when>
 				 		
 						<c:when test="${category == 'community'}">
-				            <thead>
-				                <tr>
-				                    <th>번호</th>
-				                    <th>분류</th>
-				                    <th>제목</th>
-				                    <th>작성자</th>
-				                    <th>작성일</th>
-				                    <th>조회</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                <c:forEach var="communityList" items="${communityList}">
-									<tr>
-										<th><c:out value="${communityList.communityId}" /></th>
-										<td>
-											<c:choose>
-												<c:when test="${communityList.category == '0'}"> 질문 </c:when>
-												<c:when test="${communityList.category == '1'}"> 토론 </c:when>
-												<c:when test="${communityList.category == '2'}"> 모집 </c:when>
-											</c:choose>
-										</td>
-										
-										<td><a href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${communityList.communityId}"/></c:url>'><c:out value="${communityList.title}" /></a></td>
-										<td><c:out value="${communityList.member.name}" /></td>  
-										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${communityList.upload_date}"/> </td>
-										<td><c:out value="${communityList.views}" /></td>
-									</tr>
-								</c:forEach>
-							</tbody>
+							<%@ include file="includedCommunityList.jsp"%>
 						</c:when>
 					</c:choose>
-		        
 		        </table>
-		        
-		        
 			</div>
 		</div>
 	</div>
-
-
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
-
-
 </body>
 </html>

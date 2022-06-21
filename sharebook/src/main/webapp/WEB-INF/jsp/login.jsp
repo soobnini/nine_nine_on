@@ -10,22 +10,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="/js/login.js" ></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <title>로그인</title>
-<script>
-	function loginAction() {
-		if (loginForm.floatingInput.value == "") {
-			alert("아이디를 입력해주세요");
-			loginForm.floatingInput.focus();
-			return false;
-		}	
-		if (loginForm.floatingPassword.value == "") {
-			alert("비밀번호를 입력해주세요");
-			loginForm.floatingPassword.focus();
-			return false;
-		}	
-		loginForm.submit();
-	}
-</script>
 </head>
 	<%@ include file="header.jsp"%>
 	<div class="container py-5 w-25">
@@ -53,24 +43,7 @@
 			</form>
 			<hr>
 			<div><a href="${registerUrl}">회원가입</a></div>
-			<!-- 
-			<div class="row">
-				<div class="col">
-					<a href="#"><img class="w-100 my-3"
-						src="/images/kakao_login.png" alt=""></a>
-				</div>
-				<div class="col">
-					<a href="#"><img class="w-100 my-3"
-						src="/images/naver_login.png" alt=""></a>
-				</div>
-			</div>
-			 -->
 		</main>
 	</div>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
 </body>
 </html>
