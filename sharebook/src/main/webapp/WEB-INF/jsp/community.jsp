@@ -17,6 +17,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<%@ include file="header.jsp"%>
 	<div class="container w-75 py-5">
 		<a class="btn btn-primary"
 			href='<c:url value="/book/community/uploadCommunity.do"></c:url>'

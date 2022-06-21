@@ -15,7 +15,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div th:replace="fragments/common :: header"></div>
+	<%@ include file="header.jsp"%>
 	<div class="container w-75 py-5">
 		<form method ="post" action = "/book/community/upload.do">
 			<div class="row mb-3">
