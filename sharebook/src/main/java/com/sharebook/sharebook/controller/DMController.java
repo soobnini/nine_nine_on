@@ -71,6 +71,22 @@ public class DMController {
 	/*
 	 * DM 페이지로 이동
 	 */
+	@RequestMapping("/book/dm.do")
+	public ModelAndView viewDMByHeader(HttpServletRequest request) {
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		ModelAndView mav = new ModelAndView();
+
+		if (userSession == null) { // 로그인이 안되어있는 경우
+			mav.setViewName("login");
+		} else { // 로그인이 되어있는 경우
+			Member member = memberService.getMember(userSession.getMember().getMember_id());
+
+			mav.setViewName("redirect:/book/dm/" + member.getMember_id() + ".do");
+		}
+		
+		return mav;
+	}
+	
 	@RequestMapping(value = "/book/dm/{memberId}.do", method = RequestMethod.GET)
 	public ModelAndView viewDM(@PathVariable int memberId) {
 		Member member = memberService.getMember(memberId);
