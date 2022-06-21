@@ -27,7 +27,7 @@
 			 <div class="row mb-3">
 				<label for="inputId" class="col-sm-2 col-form-label">아이디(이메일)</label>
 				<div class="col-sm-10">
-					<form:input path="email" class="form-control" />
+					<form:input path="email" class="form-control" placeholder="ex) name@example.com" />
 					<form:errors path="email" />
 				</div>
 			 </div>
@@ -64,21 +64,21 @@
 			<div class="row mb-3">
 				<label for="inputTel" class="col-sm-2 col-form-label">전화번호</label>
 				<div class="col-sm-10">
-					<form:input path="phone" class="form-control" />
+					<form:input path="phone" class="form-control" placeholder="ex) 010-0000-0000" />
 					<form:errors path="phone" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputAddress" class="col-sm-2 col-form-label">주소1</label>
 				<div class="col-sm-10">
-					<form:input path="address1" class="form-control" />
+					<form:input path="address1" class="form-control" placeholder="ex) 서울특별시" />
 					<form:errors path="address1" />
 				</div>
 			</div>
 			<div class="row mb-3">
 				<label for="inputAddress" class="col-sm-2 col-form-label">주소2</label>
 				<div class="col-sm-10">
-					<form:input path="address2" class="form-control" />
+					<form:input path="address2" class="form-control" placeholder="ex) 성북구" />
 					<form:errors path="address2" />
 				</div>
 			</div>

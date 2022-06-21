@@ -5,12 +5,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="targetUrl"><c:url value="/book/login.do" /></c:set>
+<c:set var="registerUrl"><c:url value="/book/register.do" /></c:set>
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로그인</title>
+<script>
+	function loginAction() {
+		if (loginForm.floatingInput.value == "") {
+			alert("아이디를 입력해주세요");
+			loginForm.floatingInput.focus();
+			return false;
+		}	
+		if (loginForm.floatingPassword.value == "") {
+			alert("비밀번호를 입력해주세요");
+			loginForm.floatingPassword.focus();
+			return false;
+		}	
+		loginForm.submit();
+	}
+</script>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -22,7 +38,7 @@
 	<div th:replace="fragments/common :: header"></div>
 	<div class="container py-5 w-25">
 		<main class="form-signin mx-auto">
-			<form action="${targetUrl}" method="post" class="d-block">
+			<form action="${targetUrl}" method="post" class="d-block" name="loginForm">
 				<!--  <img class="mb-4 w-25" src="./images/ex_image.png" alt="">  -->
 				<h1 class="h2 mb-3 fw-normal fw-bold">이웃 책장</h1>
 
@@ -33,15 +49,19 @@
 				<div class="form-floating">
 					<input type="password" class="form-control" id="floatingPassword"
 						placeholder="Password" name="password"> <label for="floatingPassword">비밀번호</label>
-				</div>
-
+				</div><br>
+				<!-- 
 				<div class="checkbox mb-3">
 					<label> <input type="checkbox" value="remember-me">
 						아이디 저장
 					</label>
 				</div>
-				<button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+				 -->
+				<input type="button" value="로그인" onClick="loginAction()" class="w-100 btn btn-lg btn-primary">  
 			</form>
+			<hr>
+			<div><a href="${registerUrl}">회원가입</a></div>
+			<!-- 
 			<div class="row">
 				<div class="col">
 					<a href="#"><img class="w-100 my-3"
@@ -52,6 +72,7 @@
 						src="/images/naver_login.png" alt=""></a>
 				</div>
 			</div>
+			 -->
 		</main>
 	</div>
 

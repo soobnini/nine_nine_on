@@ -7,10 +7,12 @@
 
 <c:set var="checkMemberUrl"><c:url value="/book/mypage/member/check.do" /></c:set>
 <c:set var="updateMemberUrl"><c:url value="/book/mypage/member/update.do" /></c:set>
-<c:set var="likesListUrl"><c:url value="/book/mypage/likes.do" /></c:set>
+<c:set var="bookLikesListUrl"><c:url value="/book/mypage/likes/book.do" /></c:set>
+<c:set var="fundingLikesListUrl"><c:url value="/book/mypage/likes/funding.do" /></c:set>
 <c:set var="bookListUrl"><c:url value="/book/mypage/rent.do" /></c:set>
 <c:set var="fundingListUrl"><c:url value="/book/mypage/funding.do" /></c:set>
 <c:set var="communityListUrl"><c:url value="/book/mypage/community.do" /></c:set>
+<c:set var="WithdrawaltUrl"><c:url value="/book/mypage/withdrawal.do" /></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -77,6 +79,25 @@
           
 </style>
 
+<script>
+	function loginAction() {
+		if (loginForm.floatingInput.value == "") {
+			alert("아이디를 입력해주세요");
+			loginForm.floatingInput.focus();
+			return false;
+		}	
+		if (loginForm.floatingPassword.value == "") {
+			alert("비밀번호를 입력해주세요");
+			loginForm.floatingPassword.focus();
+			return false;
+		}	
+		loginForm.submit();
+	}
+	
+	function withdrawal() {
+		return confirm("정말 삭제하시겠습니까?");
+	}
+</script>
 </head>
 <body>
 
@@ -112,8 +133,11 @@
 						aria-current="page" href="${checkMemberUrl}"></a><p><span id = navlink>
 							<a href='<c:url value="${checkMemberUrl}"></c:url>'>회원정보 수정</a>
 						</span></p></li>
-					<li class="nav-item"><a class="nav-link" href="${likesListUrl}"></a><p><span id = navlink>
-						<a href='<c:url value="${likesListUrl}"></c:url>'>찜 목록(♥)</a>
+					<li class="nav-item"><a class="nav-link" href="${bookLikesListUrl}"></a><p><span id = navlink>
+						<a href='<c:url value="${bookLikesListUrl}"></c:url>'>책 찜 목록(♥)</a>
+					</span></p></li>
+					<li class="nav-item"><a class="nav-link" href="${fundingLikesListUrl}"></a><p><span id = navlink>
+						<a href='<c:url value="${fundingLikesListUrl}"></c:url>'>펀딩 찜 목록(♥)</a>
 					</span></p></li>
 					<li class="nav-item"><a class="nav-link" href="${bookListUrl}"></a><p><span id = navlink>
 						<a href='<c:url value="${bookListUrl}"></c:url>'>대여 리스트</a>
@@ -124,6 +148,9 @@
 					<li class="nav-item"><a class="nav-link" href="${communityListUrl}"></a><p><span id = navlink>
 						<a href='<c:url value="${communityListUrl}"></c:url>'>커뮤니티 활동 내역</a>
 					</span></p></li>
+					<li class="nav-item"><a class="nav-link" href="${WithdrawaltUrl}" onclick="return withdrawal();"></a><p><span id = navlink onclick="return withdrawal();">
+						<a href='<c:url value="${WithdrawaltUrl}"></c:url>'>회원 탈퇴</a>
+					</span></p></li>
 				</ul>
 			</div>
 			<!-- main -->
@@ -133,7 +160,7 @@
 				 		<c:when test="${category == 'memberCheck'}">
 				 			<div class="container py-5 w-50">
 								<main class="form-signin mx-auto">
-									<form action="${checkMemberUrl}" method="post" class="d-block">
+									<form action="${checkMemberUrl}" method="post" class="d-block" name="loginForm">
 										<h1 class="h3 mb-3 fw-normal fw-bold">정보를 안전하게 보호하기 위해<br>비밀번호를 다시 한 번 확인합니다</h1>
 						
 										<div class="form-floating">
@@ -146,8 +173,9 @@
 												placeholder="Password" name="password"> <label for="floatingPassword">비밀번호</label><br>
 										</div>
 										
-										<button class="w-100 btn btn-lg btn-primary" type="submit">확인</button><br>
+										<input type="button" value="확인" onClick="loginAction()" class="w-100 btn btn-lg btn-primary"><br>
 									</form>
+									<!-- 
 									<div class="row">
 										<div class="col">
 											<a href="#"><img class="w-100 my-3"
@@ -158,6 +186,7 @@
 												src="/images/naver_login.png" alt=""></a>
 										</div>
 									</div>
+									 -->
 								</main>
 							</div>
 				 		</c:when>
@@ -228,7 +257,7 @@
 							</div>
 				 		</c:when>
 				 		
-				 		<c:when test="${category == 'likes'}">
+				 		<c:when test="${category == 'likesBook'}">
 				            <thead>
 				                <tr>
 				                    <th>번호</th>
@@ -245,6 +274,27 @@
 										<td><a href='<c:url value="/book/view/${bookList.book.book_id}.do"></c:url>'><c:out value="${bookList.book.title}" /></a></td>
 										<td><c:out value="${bookList.book.author}" /></td>
 										<td><c:out value="${bookList.book.views}" /></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</c:when>
+						
+						<c:when test="${category == 'likesFunding'}">
+				            <thead>
+				                <tr>
+				                    <th>번호</th>
+				                    <th>제목</th>
+				                    <th>저자</th>
+				                    <th>조회</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				                <c:forEach var="findingOrderList" items="${FundingOrderList}">
+									<tr>
+										<th><c:out value="${findingOrderList.funding.funding_id}" /></th>
+										<td><a href='<c:url value="/book/funding/${findingOrderList.funding.funding_id}.do"></c:url>'><c:out value="${findingOrderList.funding.title}" /></a></td>
+										<td><c:out value="${findingOrderList.funding.author}" /></td>
+										<td><c:out value="${findingOrderList.funding.views}" /></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -267,8 +317,8 @@
 										
 										<td><a href='<c:url value="/book/view/${rentList.book.book_id}.do"></c:url>'><c:out value="${rentList.book.title}" /></a></td>
 										<td><c:out value="${rentList.book.author}" /> </td> 
-										<td><c:out value="${rentList.start_day}" /> </td>
-										<td><c:out value="${rentList.end_day}" /></td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${rentList.start_day}"/> </td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${rentList.end_day}"/> </td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -319,7 +369,7 @@
 										
 										<td><a href='<c:url value="/book/community/detail.do"><c:param name="commId" value="${communityList.communityId}"/></c:url>'><c:out value="${communityList.title}" /></a></td>
 										<td><c:out value="${communityList.member.name}" /></td>  
-										<td><c:out value="${communityList.upload_date}" /> </td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${communityList.upload_date}"/> </td>
 										<td><c:out value="${communityList.views}" /></td>
 									</tr>
 								</c:forEach>
