@@ -3,6 +3,7 @@ package com.sharebook.sharebook.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Funding;
@@ -96,6 +97,21 @@ public class FundingService {
 	
 	public List<Funding> getFundingList() {
 		return fundingRepository.findAll();
+	}
+	
+	public List<Funding> getFundingListSorted(int sortType) {
+		switch (sortType) {
+		case 1:
+			return fundingRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
+		case 2:
+			return fundingRepository.findAll(Sort.by(Sort.Direction.ASC, "author"));
+		case 3:
+			return fundingRepository.findAll(Sort.by(Sort.Direction.ASC, "deadline"));
+		case 4:
+			return fundingRepository.findAll(Sort.by(Sort.Direction.DESC, "views"));
+		default:
+			return fundingRepository.findAll();
+		}
 	}
 	
 	public List<Likes_funding> getLikes_fundingList(Funding funding) {
