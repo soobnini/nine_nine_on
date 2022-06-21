@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -17,6 +17,15 @@
 
 <title>펀딩상세</title>
 <style type="text/css">
+:root {
+	--achievementRate: 11%;
+}
+
+#achieve {
+	text-align: center;
+	background: linear-gradient(to right, #AAEBAA var(--achievementRate), #ffffff var(--achievementRate));
+}
+
 #bookImage {
 	width: 400px;
 	height: 500px;
@@ -84,7 +93,7 @@
 }
 </style>
 </head>
-<body>
+	<%@ include file="header_funding.jsp"%>
 
 	<!-- <div th:replace="fragments/common :: header"></div> -->
 	<div class="container">
@@ -92,7 +101,7 @@
 			<!-- 책 이미지 -->
 			<div class="col-5">
 				<div id=bookImage>
-					<img src="/images/sampleBook01.jpg" alt="책 이미지" id=bookimg>
+					<img src="${funding.image}" alt="책 이미지" id=bookimg>
 				</div>
 			</div>
 			<!-- 책정보 -->
@@ -157,12 +166,15 @@
 				<div id="row">
 					<br>
 					<div class="d-grid gap-2 col-8 mx-auto">
-						<form id="createFundingOrder" method="GET" action="/book/funding/order.do">
+						<form id="createFundingOrder" method="POST" action="/book/funding/order.do">
 							<button class="btn btn-success btn-lg" type="button" onclick="fundingOrder()">
 								<input type="text" onkeypress="onlyNumber();" id=price name="price" /> 원 후원하기
 							</button>
 							<input type="hidden" name="fundingId" value="${funding.funding_id}" />
 						</form>
+						<input type="hidden" id="orderSuccess" value="${orderSuccess}" />
+						<input type="hidden" id="orderSuccessPrice" value="${orderSuccessPrice}" />
+						<input type="hidden" id="getReward" value="${getReward}" />
 					</div>
 					<br>
 				</div>
@@ -179,12 +191,12 @@
 			</div>
 		</div>
 		<div class="row">
-		<!-- achievementRate에 따라 색칠되는 비율이 다르도록 수정 -->
-			<div class="card" style="text-align: center; background: linear-gradient(90deg, #AAEBAA 80%, #ffffff 50%);">
+			<div class="card" id="achieve">
 				<span id="title">
 					목표 금액은 <c:out value="${funding.goal_amount}"/>원이에요<br>
 					목표 달성률은 <c:out value="${achievementRate}"/>%에요
 				</span>
+				<input type="hidden" id="achievementRate" value="${achievementRate}" />
 			</div>
 		</div>
 		<!-- reward목록 -->
@@ -239,12 +251,30 @@
 			} else {
 				if (confirm(price + '원을 후원하시겠습니까?')) {
 					
-					alert(price + '원 후원이 완료되었습니다');
 				}
 			}
 			
-			document.getElementById('price').value = '';
+			document.getElementById('createFundingOrder').submit();
 		}
+		
+		/* order 후 동작 */
+		let orderSuccess = document.getElementById('orderSuccess').value;
+		let orderSuccessPrice = document.getElementById('orderSuccessPrice').value;
+		let getReward = document.getElementById('getReward').value;
+		if (orderSuccess == 1) {
+			let message = orderSuccessPrice + '원 후원이 완료되었습니다';
+			if (getReward.trim() != "") {
+				message += '\n' + getReward + '를 획득하셨습니다';
+			}
+			message += '\n감사합니다';
+			alert(message);
+		} else if (orderSuccess == -1) {
+			alert('후원이 완료되지 않았습니다');
+		}
+		
+		/* 달성률 그래프 설정 */
+		let achievementRate = document.getElementById('achievementRate').value;
+		document.documentElement.style.setProperty("--achievementRate", achievementRate + '%');
 	</script>
 	
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>

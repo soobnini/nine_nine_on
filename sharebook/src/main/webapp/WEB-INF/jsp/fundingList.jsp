@@ -1,34 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>이웃 책장 : 종이책 공유 플랫폼</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
 <!-- 거의 완전 똑같기 때문에 css 공유 -->
 <link rel="stylesheet" href="/css/bookList.css">
 </head>
-<body>
-	<!-- <div th:replace="fragments/common :: header"></div> -->
+	<%@ include file="header_funding.jsp"%>
 	<div id="result-book">
-		<!-- ****************************** -->
-		<!-- ********* option 부분 나중에 수정 *********** -->
-		<!-- ****************************** -->
-		<form id="result-sort-form">
-			<select id="result-sort-select">
-				<option selected>정렬 기준</option>
+		<form id="result-sort-form" method="GET" action="/book/funding.do">
+			<select id="result-sort-select" name="sortType" onchange="this.form.submit()">
+				<option disabled selected>정렬 기준</option>
 				<option value="1">가나다순</option>
 				<option value="2">저자순</option>
 				<option value="3">종료 날짜순</option>
+				<option value="4">조회순</option>
 			</select>
+			<input type="hidden" id="sortingType" value="${sortingType}" />
 		</form>
 		
  		<c:forEach var="funding" items="${fundingList}" varStatus="status">
@@ -37,7 +29,7 @@
 			</c:if>
 			<li class="result-list-content">
 				<a href='<c:url value="/book/funding/${funding.funding_id}.do"></c:url>'>
-				<img src="/images/sampleBook01.jpg" class="result-list-img"></a>
+				<img src="${funding.image}" class="result-list-img"></a>
 				<h6 class="item-list-img-title">
 					<b><c:out value="${funding.title}"/></b>
 				</h6>
@@ -50,5 +42,16 @@
 			</c:if>
 		</c:forEach>
 	</div>
+	
+	<script>
+		let sortingType = document.getElementById('sortingType').value;
+		let select = document.getElementById('result-sort-select');
+		let len = select.options.length;
+		for (let i = 0; i < len; i++) {
+			if (select.options[i].value == sortingType) {
+				select.options[i].selected = true;
+			}
+		}
+	</script>
 </body>
 </html>

@@ -30,6 +30,9 @@ public class Funding_order {
 	@Column(name="FUNDING_ORDER_ID")
 	private int funding_order_id; // PK
 	
+	@Column(name="PRICE")
+	private int price;
+	
 	@ManyToOne
 	@JoinColumn(name="funding_id")
 	private Funding funding; // FK
