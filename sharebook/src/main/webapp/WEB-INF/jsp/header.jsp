@@ -41,7 +41,7 @@
 				<!-- main menu bar -->
 				<ul id="main-menu-bar"
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 link-dark"
+					<li><a href="/book.do" class="nav-link px-2 link-dark"
 						style="color: #70D047"><b>이웃책장</b></a></li>
 					<li><a href="/book/search.do" class="nav-link px-2 link-secondary">책</a></li>
 					<li><a href="/book/view/create.do" class="nav-link px-2 link-secondary">책 등록</a></li>
