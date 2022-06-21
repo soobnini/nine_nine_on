@@ -72,7 +72,11 @@
 						aria-labelledby="dropdownUser1" style="">
 						<li><a class="dropdown-item" href="/book/mypage.do">마이 페이지</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="/book/logout.do">Log Out</a></li>
+						<% if (session.getAttribute("member") != null)  {%>
+							<li><a class="dropdown-item" href="/book/logout.do">Log Out</a></li>
+						<%} else {%>
+							<li><a class="dropdown-item" href="/book/login.do">Log In</a></li>
+						<%} %>
 					</ul>
 				</div>
 			</div>

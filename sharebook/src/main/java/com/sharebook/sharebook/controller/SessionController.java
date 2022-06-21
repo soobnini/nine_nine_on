@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class SessionController {
 	
 	@PostMapping("/book/login.do")
 	public ModelAndView handleRequest(
+			HttpSession session,
 			HttpServletResponse response,
 			@RequestParam("id") String id,
 			@RequestParam("password") String password,
@@ -49,6 +51,9 @@ public class SessionController {
 			model.addAttribute("userSession", userSession);
 			mav.setViewName("redirect:/book.do");
 		}
+		
+		session.setAttribute("member", member);
+		
 		return mav;
 	}
 
