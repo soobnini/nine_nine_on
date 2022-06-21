@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -53,6 +55,7 @@ public class Funding implements Serializable {
 	private int goal_amount;
 
 	@Column(name="DEADLINE")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date deadline;
 
 	@ManyToOne

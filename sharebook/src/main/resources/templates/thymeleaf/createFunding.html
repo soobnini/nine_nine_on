@@ -29,43 +29,77 @@
 	crossorigin="anonymous">
 
 <link rel="stylesheet" th:href="@{/css/createFunding.css}">
+<style>
+	.err { color: red; text-align: right; }
+</style>
 </head>
 
 <body>
-	<!-- <div th:replace="fragments/common :: header"></div> -->
+	<div th:replace="thymeleaf/fragments/header_funding.html :: header"></div>
 	<div class="container">
 		<section id="main" class="col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
 			<div id="titlefont">펀딩 등록</div>
 
-			<form id="createFunding" method="POST" action="/book/funding/create.do">
+			<form id="createFunding" method="POST" action="/book/funding/create.do" 
+				th:object="${funding}" enctype="multipart/form-data">
 				<table id="createFundingTable">
 					<tr>
 						<td>책 이름</td>
-						<td><input type="text" name="title"
+						<td><input type="text" name="title" th:field="*{title}"
 							placeholder="책 이름을 입력해주세요" class="form-control"></td>
 					</tr>
 					<tr>
+						<td></td>
+						<td class="err" th:if="${#fields.hasErrors('title')}" 
+									th:errors="*{title}">Title Error</td>
+					</tr>
+					<tr>
 						<td>저자</td>
-						<td><input type="text" name="author" placeholder="저자를 입력해주세요"
-							class="form-control"></td>
+						<td><input type="text" name="author" th:field="*{author}"
+							placeholder="저자를 입력해주세요" class="form-control"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="err" th:if="${#fields.hasErrors('author')}" 
+									th:errors="*{author}">Author Error</td>
 					</tr>
 					<tr>
 						<td>이미지</td>
-						<td><input type="file" name="image" class="form-control"></td>
+						<td><input type="file" name="image" th:field="*{image}" class="form-control"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="err" th:if="${#fields.hasErrors('image')}" 
+									th:errors="*{image}">Image Error</td>
 					</tr>
 					<tr>
 						<td>설명</td>
-						<td><textarea name="description" rows="10"
+						<td><textarea name="description" rows="10" th:field="*{description}"
 								class="form-control" placeholder="내용을 입력해주세요"></textarea></td>
 					</tr>
 					<tr>
+						<td></td>
+						<td class="err" th:if="${#fields.hasErrors('description')}" 
+									th:errors="*{description}">Description Error</td>
+					</tr>
+					<tr>
 						<td>목표 금액</td>
-						<td><input type="number" name="goal_amount"
+						<td><input type="number" name="goal_amount" th:field="*{goal_amount}"
 							class="form-control"></td>
 					</tr>
 					<tr>
+						<td></td>
+						<td class="err" th:if="${#fields.hasErrors('goal_amount')}" 
+									th:errors="*{goal_amount}">Goal_amount Error</td>
+					</tr>
+					<tr>
 						<td>종료 날짜</td>
-						<td><input type="date" name="deadline" class="form-control"></td>
+						<td><input type="date" name="deadline" th:field="*{deadline}" class="form-control"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="err" th:if="${#fields.hasErrors('deadline')}" 
+									th:errors="*{deadline}">Deadline Error</td>
 					</tr>
 					<tr>
 						<td>리워드 추가</td>
@@ -78,6 +112,7 @@
 			</form>
 		</section>
 	</div>
+	
 	<script type="text/javascript" th:src="@{/js/createFunding.js}" charset="UTF-8"></script>
 </body>
 
