@@ -7,7 +7,6 @@
 <c:set var="targetUrl"><c:url value="/book/register.do" /></c:set>
 
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,10 +19,10 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div th:replace="thymelaef/fragments/header.html :: header"></div>
-	<div class="container w-75 py-5">	 
+	<%@ include file="header.jsp"%>
+	<div class="container w-75 py-5">
+	<div><h2>회원가입</h2><br></div>	 
 	 <form:form modelAttribute="memberCommand" action="${targetUrl}" method="post">
-		 
 			 <div class="row mb-3">
 				<label for="inputId" class="col-sm-2 col-form-label">아이디(이메일)</label>
 				<div class="col-sm-10">

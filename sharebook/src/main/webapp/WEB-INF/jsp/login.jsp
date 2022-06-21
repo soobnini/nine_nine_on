@@ -7,7 +7,6 @@
 <c:set var="targetUrl"><c:url value="/book/login.do" /></c:set>
 <c:set var="registerUrl"><c:url value="/book/register.do" /></c:set>
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,15 +26,8 @@
 		loginForm.submit();
 	}
 </script>
-
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
 </head>
-<body class="text-center">
-	<div th:replace="fragments/common :: header"></div>
+	<%@ include file="header.jsp"%>
 	<div class="container py-5 w-25">
 		<main class="form-signin mx-auto">
 			<form action="${targetUrl}" method="post" class="d-block" name="loginForm">
