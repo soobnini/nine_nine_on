@@ -349,7 +349,7 @@ public class MypageController {
 			
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
 			
-			mav.setViewName("thymeleaf/main");
+			mav.setViewName("redirect:/book.do");
 			memberService.deleteMember(member);
 		}	
 
