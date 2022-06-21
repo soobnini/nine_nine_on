@@ -1,5 +1,9 @@
 package com.sharebook.sharebook.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,26 +41,39 @@ public class LoginController {
 	}
 	
 	@PostMapping("/book/register.do") 
-	public String register (@ModelAttribute("memberCommand") MemberCommand memberCommand,
-			BindingResult result) {
+	public ModelAndView register (HttpServletResponse response,
+			@ModelAttribute("memberCommand") MemberCommand memberCommand,
+			BindingResult result) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		
 		validator.validateMemberCommand(memberCommand, result);
-		if (result.hasErrors()) return "registerForm";
-
-		Member member = new Member();
-		member.setMember_id(0);
-		member.setEmail(memberCommand.getEmail());
-		member.setPassword(memberCommand.getPassword());
-		member.setName(memberCommand.getName());
-		member.setNickname(memberCommand.getNickname());
-		member.setPhone(memberCommand.getPhone());
-		member.setAddress1(memberCommand.getAddress1());
-		member.setAddress2(memberCommand.getAddress2());
-		member.setTemperature(36.5f);
-		member.setImage("/images/ex_image.png");
+		if (result.hasErrors()) { // 오류 있는 경우
+			mav.setViewName("registerForm");
+		}
+		else { // 오류 없는 경우
+			mav.setViewName("login");
+			
+			Member member = new Member();
+			member.setMember_id(0);
+			member.setEmail(memberCommand.getEmail());
+			member.setPassword(memberCommand.getPassword());
+			member.setName(memberCommand.getName());
+			member.setNickname(memberCommand.getNickname());
+			member.setPhone(memberCommand.getPhone());
+			member.setAddress1(memberCommand.getAddress1());
+			member.setAddress2(memberCommand.getAddress2());
+			member.setTemperature(36.5f);
+			member.setImage("/images/ex_image.png");
+			
+			memberService.createMember(member);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원가입에 성공하였습니다'); location.href='/book/login.do';</script>");
+			out.flush();
+		}
 		
-		memberService.createMember(member);
-		
-		return "login";
+		return mav;
 	}
 	
 	@GetMapping("/book/login.do")
@@ -68,7 +85,7 @@ public class LoginController {
 	public String handleRequest(HttpSession session) throws Exception {
 		session.removeAttribute("userSession");
 		session.invalidate();
-		return "main";
+		return "thymeleaf/main";
 	}
 	
 }

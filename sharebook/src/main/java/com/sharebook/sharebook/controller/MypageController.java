@@ -1,6 +1,8 @@
 package com.sharebook.sharebook.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,13 @@ import com.sharebook.sharebook.service.BookService;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import com.sharebook.sharebook.dao.MemberCommand;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Funding;
+import com.sharebook.sharebook.domain.Funding_order;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Rent;
@@ -104,13 +108,13 @@ public class MypageController {
 	
 	@PostMapping("/book/mypage/member/check.do")
 	public ModelAndView showMemberUpdatePage (HttpServletRequest request,
+			HttpServletResponse response,
 			@RequestParam("id") String id,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password) throws IOException {
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
 		
-	
 		if (userSession == null) { // 로그인이 안되어있는 경우
 			mav.setViewName("login");
 		}
@@ -119,8 +123,10 @@ public class MypageController {
 			Member isMember = memberService.findByEmailAndPassword(id, password);
 			
 			if (isMember == null || member != isMember) {
-				return new ModelAndView("Error", "message", 
-						"아이디와 비밀번호가 올바르지 않습니다.");
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('아이디와 비밀번호가 올바르지 않습니다.'); location.href='/book/mypage/member/check.do';</script>");
+				out.flush();
 			}
 			
 			mav.setViewName("myPage");
@@ -132,8 +138,10 @@ public class MypageController {
 	}
 	
 	@PostMapping("/book/mypage/member/update.do")
-	public ModelAndView showMemberUpdatePage (HttpServletRequest request, MemberCommand memberCommand,
-			@RequestParam("uploadImage") MultipartFile uploadImage) {		
+	public ModelAndView showMemberUpdatePage (HttpServletRequest request, 
+			HttpServletResponse response,
+			MemberCommand memberCommand,
+			@RequestParam("uploadImage") MultipartFile uploadImage) throws IOException {		
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
@@ -176,6 +184,11 @@ public class MypageController {
 			
 			memberService.updateMember(updateMember);
 			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원정보가 성공적으로 수정되었습니다'); location.href='/book/mypage/member/check.do';</script>");
+			out.flush();
+			
 			mav.setViewName("myPage");
 			mav.addObject("member", member);
 			mav.addObject("category","memberUpdate");
@@ -196,8 +209,8 @@ public class MypageController {
 		return filename;
 	}
 	
-	@GetMapping("/book/mypage/likes.do")
-	public ModelAndView showlikesPage (HttpServletRequest request) {
+	@GetMapping("/book/mypage/likes/book.do")
+	public ModelAndView showlikesBookPage (HttpServletRequest request) {
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
@@ -210,12 +223,36 @@ public class MypageController {
 
 			mav.setViewName("myPage");
 			mav.addObject("member", member);
-			mav.addObject("category","likes");
+			mav.addObject("category","likesBook");
 			
 			List<Likes> bookList = bookService.findLikesListByMember(member);
 			System.out.println(bookList.size());
 			System.out.println(bookList);
 			mav.addObject("bookList", bookList);
+		}	
+
+		return mav;
+	}
+	
+	@GetMapping("/book/mypage/likes/funding.do")
+	public ModelAndView showlikesFundingPage (HttpServletRequest request) {
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		ModelAndView mav = new ModelAndView();
+	
+		if (userSession == null) { // 로그인이 안되어있는 경우
+			mav.setViewName("login");
+		}
+		else { // 로그인이 되어있는 경우
+			Member member = memberService.getMember(userSession.getMember().getMember_id());
+
+			mav.setViewName("myPage");
+			mav.addObject("member", member);
+			mav.addObject("category","likesFunding");
+			
+			// 여기서부터 다시 수정
+			List<Funding_order> FundingOrderList = fundingService.searchFunding_orderListByMember_id(member);
+			mav.addObject("FundingOrderList", FundingOrderList);
 		}	
 
 		return mav;
@@ -291,6 +328,29 @@ public class MypageController {
 			System.out.println(communityList.size());
 			System.out.println(communityList);
 			mav.addObject("communityList", communityList);
+		}	
+
+		return mav;
+	}
+	
+	@GetMapping("/book/mypage/withdrawal.do")
+	public ModelAndView withdrawal (HttpServletRequest request, 
+			HttpSession session) {
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		ModelAndView mav = new ModelAndView();
+	
+		if (userSession == null) { // 로그인이 안되어있는 경우
+			mav.setViewName("login");
+		}
+		else { // 로그인이 되어있는 경우
+			session.removeAttribute("userSession");
+			session.invalidate();
+			
+			Member member = memberService.getMember(userSession.getMember().getMember_id());
+			
+			mav.setViewName("thymeleaf/main");
+			memberService.deleteMember(member);
 		}	
 
 		return mav;
