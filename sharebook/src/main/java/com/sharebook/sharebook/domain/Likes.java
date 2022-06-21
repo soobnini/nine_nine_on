@@ -22,9 +22,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 @NoArgsConstructor
 class LikesPK implements Serializable {
-//	private int member_id;
-//	private int book_id;
-	
 	int member;
 	int book;
 }
@@ -36,9 +33,6 @@ class LikesPK implements Serializable {
 @Table(name="LIKES")
 @IdClass(LikesPK.class)
 public class Likes {
-//	@Id private int member_id;
-//	@Id private int book_id;
-	
 	@Id
 	@ManyToOne(targetEntity = Member.class)
 	@JoinColumn(name="member_id")

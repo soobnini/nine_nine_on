@@ -88,6 +88,11 @@ p.book-list-img-writer {
 	color: grey;
 	display: flex;
 	justify-content: center;
-	display: table;
+}
+
+p.result-list-img-writer {
+	font-size: small;
 	color: grey;
+	display: flex;
+	justify-content: center;
 }
