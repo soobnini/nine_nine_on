@@ -114,6 +114,10 @@ public class FundingService {
 		}
 	}
 	
+	public List<Funding> getTop3FundingListSortedByDeadline() {
+		return fundingRepository.findTop3ByOrderByDeadlineAsc();
+	}
+	
 	public List<Likes_funding> getLikes_fundingList(Funding funding) {
 		return likes_fundingRepository.findByFunding(funding);
 	}

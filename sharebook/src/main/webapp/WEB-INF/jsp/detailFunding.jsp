@@ -205,7 +205,7 @@
 				<c:forEach var="reward" items="${rewardList}">
 				<div class="col-4">
 					<div class="card" style="width: 18rem;">
-						<img src="${reward.image}" class="card-img-top" alt="리워드 이미지">
+						<img src="/images/filled_likes.png" class="card-img-top" alt="리워드 이미지">
 						<div class="card-body">
 							<h5 class="card-title"><c:out value="${reward.price}"/>원 후원</h5>
 						</div>
