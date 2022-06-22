@@ -220,7 +220,31 @@ public class DMController {
 			book.setAvailable(true);
 			bookService.saveBook(book);
 			
-			rentService.deleteRent(rentService.getRentByBook(book));
+			Rent rent = rentService.getRentByBook(book);
+			
+			int overDue = rentService.isOverdue(rent);
+			if (overDue > 0) {
+				float temperature = (float) (member.getTemperature() - 0.3 * overDue);
+				temperature = (float) (Math.round(temperature * 10) / 10.0);
+				member.setTemperature(temperature);
+			} else {
+				float temperature = (float) (member.getTemperature() + 0.5);
+				temperature = (float) (Math.round(temperature * 10) / 10.0);
+				member.setTemperature(temperature);
+			}
+			System.out.println("==========");
+			System.out.println("==========");
+			System.out.println("==========");
+			System.out.println("==========");
+			System.out.println(overDue);
+			System.out.println("==========");
+			System.out.println("==========");
+			System.out.println("==========");
+			System.out.println("==========");
+			
+			memberService.updateMember(member);
+			
+			rentService.deleteRent(rent);
 
 			String rentConfirmMessage = "반납 완료했습니다. :)";
 			mav.addObject("content", rentConfirmMessage);
