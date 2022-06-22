@@ -1,10 +1,12 @@
 package com.sharebook.sharebook.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Rent;
 import com.sharebook.sharebook.repository.RentRepository;
@@ -25,6 +27,13 @@ public class RentService {
 	
 	public void deleteRent(Rent rent) {
 		rentRepository.delete(rent);
+	}
+	
+	public Rent getRentByBook(Book book) {
+		Optional<Rent> rent = rentRepository.findByBook(book);
+		if(rent.isPresent())
+			return rent.get();
+		return null;
 	}
 	
 	public List<Rent> getRentList(Member member) {
