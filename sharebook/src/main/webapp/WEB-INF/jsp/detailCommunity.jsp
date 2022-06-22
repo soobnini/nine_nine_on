@@ -65,7 +65,7 @@
 		<c:forEach var="comment" items="${Comments}">
 			<tr>
 				<th>
-				<td class="col-md-2"><c:out value="${comment.member.name}" /></td>
+				<td class="col-md-2"><c:out value="${comment.member.nickname}" /></td>
 				</th>
 				<td class="col-md-8"><c:out value="${comment.content}" /></td>
 				<td class="text-center"><c:out value="${comment.upload_date}" /></td>
