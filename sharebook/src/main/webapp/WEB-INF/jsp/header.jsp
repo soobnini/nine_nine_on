@@ -41,7 +41,7 @@
 				<!-- main menu bar -->
 				<ul id="main-menu-bar"
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 link-dark"
+					<li><a href="/book.do" class="nav-link px-2 link-dark"
 						style="color: #70D047"><b>이웃책장</b></a></li>
 					<li><a href="/book/search.do" class="nav-link px-2 link-secondary">책</a></li>
 					<li><a href="/book/view/create.do" class="nav-link px-2 link-secondary">책 등록</a></li>
@@ -72,11 +72,7 @@
 						aria-labelledby="dropdownUser1" style="">
 						<li><a class="dropdown-item" href="/book/mypage.do">마이 페이지</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<% if (session.getAttribute("member") != null)  {%>
-							<li><a class="dropdown-item" href="/book/logout.do">Log Out</a></li>
-						<%} else {%>
-							<li><a class="dropdown-item" href="/book/login.do">Log In</a></li>
-						<%} %>
+						<li><a class="dropdown-item" href="/book/logout.do">Log Out</a></li>
 					</ul>
 				</div>
 			</div>

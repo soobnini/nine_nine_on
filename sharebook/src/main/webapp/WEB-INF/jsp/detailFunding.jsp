@@ -180,7 +180,7 @@
 				</div>
 				<div id="row">
 					<div class="col" align="center">
-						<img src="/images/naver.png" alt="네이버" id=shareicons>
+						<img src="/images/facebook.jpg" alt="페이스북" id=shareicons onclick="js:shareFacebook()"> 
 						<img src="/images/kakao.png" alt="카카오" id=shareicons onclick="js:shareKakao()"> 
 						<img src="/images/twitter.png" alt="트위터" id=shareicons onclick="js:shareTwitter()">
 						<img src="/images/url.png" alt="url" id=shareicons onclick="js:shareURL()">
@@ -205,7 +205,7 @@
 				<c:forEach var="reward" items="${rewardList}">
 				<div class="col-4">
 					<div class="card" style="width: 18rem;">
-						<img src="${reward.image}" class="card-img-top" alt="리워드 이미지">
+						<img src="/images/filled_likes.png" class="card-img-top" alt="리워드 이미지">
 						<div class="card-body">
 							<h5 class="card-title"><c:out value="${reward.price}"/>원 후원</h5>
 						</div>
@@ -292,8 +292,7 @@
 	    const description = '${funding.description}';
 	
 	    function shareKakao() {
-	      // shareImage는 추후 수정 필요
-	      var shareImage = 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg';
+	      var shareImage = 'https://ifh.cc/g/ysmnbB.png';
 	      const shareTitle = title;
 	      const shareDes = description;
 	

@@ -1,8 +1,8 @@
 package com.sharebook.sharebook.domain;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -19,10 +19,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuppressWarnings("serial")
 @Entity
 @SequenceGenerator(name="FUNDING_SEQ_GENERATOR",
@@ -44,6 +45,13 @@ public class Funding implements Serializable {
 
 	@Column(name="IMAGE")
 	private String image;
+	
+	public String multipartFileIsNotNull(MultipartFile file) {
+		if (file != null) {
+			return "image";
+		}
+		return null;
+	}
 
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -61,4 +69,5 @@ public class Funding implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
 	private Member member;
+	
 }

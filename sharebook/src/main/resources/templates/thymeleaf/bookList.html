@@ -24,22 +24,18 @@
 				<option value="2">가나다순</option>
 			</select>
 		</form>
-		<!-- ****************************** -->
-		<!-- ********* 나중에 수정 *********** -->
-		<!-- ****************************** -->
 		<ul class="result-list">
 			<li class="result-list-content" th:each="book, bookStat : ${bookList}"
 				th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.book_id})}'|"><img
-				src="/images/sampleBook01.jpg" class="result-list-img">
+				th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}" class="result-list-img">
 				<h6 class="item-list-img-title">
 					<b th:text="${book.title}"></b>
 				</h6>
 				<p class="result-list-img-writer" th:text="${book.author}"></p>
 				<p class="result-list-img-desc" th:text="${book.member.nickname}"></p>
 				<p class="result-list-img-desc" th:text="${book.member.address1}"></p>
-				<div th:if="${bookStat.index} % 5 eq 0"><br></div>
+				<div th:if="${bookStat.index} % 5 eq 0"><br /></div>
 				</li>
-				<!-- stat으로 나머지 사용해서 br 출력 -->
 		</ul>
 	</div>
 	<script
