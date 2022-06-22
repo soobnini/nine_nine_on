@@ -51,20 +51,19 @@
 				<div class="carousel-item">
 					<ul class="item-list">
 						<li class="item-list-title"><h1>
-								<b>진행 중인</b>
+								<b>놓치지 마세요!</b>
 							</h1>
 							<h1>
-								<b>펀딩이 궁금하다면?</b>
+								<b>기한 임박 펀딩</b>
 							</h1></li>
-						<!-- ****************************** -->
-						<!-- ********* 나중에 수정 *********** -->
-						<!-- ****************************** -->
-						<li class="item-list-content"><img
-							src="images/sampleBook01.jpg" class="item-list-img">
+						<li class="item-list-content"
+							th:each="funding : ${fundingList}"><img
+							th:src="@{(${funding.image})}" class="item-list-img"
+							th:onclick="|location.href='@{/book/funding/{fundingId}.do(fundingId=${funding.funding_id})}'|">
 							<h5 class="item-list-img-title">
-								<b>컴퓨터 네트워킹</b>
+								<b th:text="${funding.title}"></b>
 							</h5>
-							<p class="item-list-img-writer">James F. Kurose 저</p></li>
+							<p class="item-list-img-writer" th:text="${funding.author}"></p></li>
 					</ul>
 				</div>
 			</div>

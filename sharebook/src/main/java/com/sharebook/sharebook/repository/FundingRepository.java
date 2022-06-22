@@ -14,4 +14,6 @@ public interface FundingRepository extends JpaRepository<Funding, Integer> {
 	List<Funding> findByAuthorContaining(@Param("author") String author);
 	
 	List<Funding> findByMember(Member member);
+	
+	List<Funding> findTop3ByOrderByDeadlineAsc();
 }
