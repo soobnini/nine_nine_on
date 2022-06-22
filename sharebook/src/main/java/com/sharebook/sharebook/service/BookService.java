@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Book;
+import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.repository.BookRepository;
@@ -106,6 +108,29 @@ public class BookService {
 	public List<Book> findBookListByAuthor(String author){
 		return bookRepository.findAllByAuthorContaining(author);
 	}
+	
+	public List<Book> findBookListSorted(int sortType) {
+		switch (sortType) {
+		case 1:
+			return (List<Book>) bookRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
+		case 2:
+			return (List<Book>) bookRepository.findAll(Sort.by(Sort.Direction.DESC, "views"));
+		default:
+			return (List<Book>) bookRepository.findAll();
+		}
+	}
+	
+	public List<Book> findBookListByTitleSorted(String title, int sortType) {
+		switch (sortType) {
+		case 1:
+			return (List<Book>) bookRepository.findAllByTitleContaining(title, Sort.by(Sort.Direction.ASC, "title"));
+		case 2:
+			return (List<Book>) bookRepository.findAllByTitleContaining(title, Sort.by(Sort.Direction.DESC, "views"));
+		default:
+			return (List<Book>) bookRepository.findAllByTitleContaining(title);
+		}
+	}
+	
 	
 	public List<Likes> findLikesListByMember(Member member){
 		return likesRepository.findAllByMember(member);

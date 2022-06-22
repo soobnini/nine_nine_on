@@ -3,6 +3,7 @@ package com.sharebook.sharebook.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.sharebook.sharebook.domain.Book;
@@ -25,4 +26,6 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 	
 	List<Book> findAllByTitleContaining(String title);
 	List<Book> findAllByAuthorContaining(String author);
+	
+	List<Book> findAllByTitleContaining(String title, Sort sort);
 }
