@@ -109,9 +109,11 @@ public class BookController implements ApplicationContextAware {
 		} else {
 			if(sortType == null) {
 				searchResult.addAll(bookService.findBookListByTitle(keyword));
+				searchResult.addAll(bookService.findBookListByAuthor(keyword));
 			}
 			else {
 				searchResult.addAll(bookService.findBookListByTitleSorted(keyword, Integer.parseInt(sortType)));
+				searchResult.addAll(bookService.findBookListByAuthorSorted(keyword, Integer.parseInt(sortType)));
 			}
 			mav.addObject("keyword", keyword);
 		}

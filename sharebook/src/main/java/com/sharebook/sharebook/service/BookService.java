@@ -131,6 +131,17 @@ public class BookService {
 		}
 	}
 	
+	public List<Book> findBookListByAuthorSorted(String author, int sortType) {
+		switch (sortType) {
+		case 1:
+			return (List<Book>) bookRepository.findAllByTitleContaining(author, Sort.by(Sort.Direction.ASC, "title"));
+		case 2:
+			return (List<Book>) bookRepository.findAllByTitleContaining(author, Sort.by(Sort.Direction.DESC, "views"));
+		default:
+			return (List<Book>) bookRepository.findAllByTitleContaining(author);
+		}
+	}
+	
 	
 	public List<Likes> findLikesListByMember(Member member){
 		return likesRepository.findAllByMember(member);
