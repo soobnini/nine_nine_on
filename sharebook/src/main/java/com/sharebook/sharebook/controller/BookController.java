@@ -41,17 +41,16 @@ public class BookController implements ApplicationContextAware {
 
 	@Value("/upload/")
 	private String uploadDirLocal;
-	private WebApplicationContext context;	
+	private WebApplicationContext context;
 	private String uploadDir;
-	
-	@Override					// life-cycle callback method
-	public void setApplicationContext(ApplicationContext appContext)
-		throws BeansException {
+
+	@Override // life-cycle callback method
+	public void setApplicationContext(ApplicationContext appContext) throws BeansException {
 		this.context = (WebApplicationContext) appContext;
 		this.uploadDir = context.getServletContext().getRealPath(this.uploadDirLocal);
 		System.out.println(this.uploadDir);
 	}
-	
+
 	@RequestMapping("/")
 	public ModelAndView handleRequest() {
 		ModelAndView mav = new ModelAndView();
@@ -88,16 +87,29 @@ public class BookController implements ApplicationContextAware {
 	}
 
 	@RequestMapping("/book/search.do")
-	public ModelAndView viewDetailBook(String keyword) {
+	public ModelAndView viewDetailBook(String keyword, String sortType) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("sortingType", sortType);
+		
 		List<Book> searchResult = new ArrayList<>();
-		if (keyword == null) {
-			searchResult.addAll(bookService.findBookList());
+		if (keyword == null || keyword == "") {
+			if(sortType == null) {
+				searchResult.addAll(bookService.findBookList());
+			}
+			else {
+				searchResult.addAll(bookService.findBookListSorted(Integer.parseInt(sortType)));
+			}
+			mav.addObject("keyword", "");
 		} else {
-			searchResult.addAll(bookService.findBookListByTitle(keyword));
-			searchResult.addAll(bookService.findBookListByAuthor(keyword));
+			if(sortType == null) {
+				searchResult.addAll(bookService.findBookListByTitle(keyword));
+			}
+			else {
+				searchResult.addAll(bookService.findBookListByTitleSorted(keyword, Integer.parseInt(sortType)));
+			}
+			mav.addObject("keyword", keyword);
 		}
 
-		ModelAndView mav = new ModelAndView();
 		mav.setViewName("thymeleaf/bookList");
 		mav.addObject("bookList", searchResult);
 		mav.addObject("uploadDirLocal", uploadDirLocal);
@@ -125,7 +137,7 @@ public class BookController implements ApplicationContextAware {
 			mav.setViewName("login");
 		} else { // 로그인이 되어있는 경우
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
-			
+
 			String filename = uploadFile(image);
 			Book book = new Book(0, title, author, filename, description, 0, true, member);
 			bookService.saveBook(book);
@@ -191,9 +203,9 @@ public class BookController implements ApplicationContextAware {
 	private String uploadFile(MultipartFile image) {
 		String filename = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
 		System.out.println(this.uploadDir + filename + " 업로드");
-		
+
 		File file = new File(this.uploadDir + filename);
-		
+
 		try {
 			image.transferTo(file);
 		} catch (IllegalStateException | IOException e) {
