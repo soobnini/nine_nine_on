@@ -39,7 +39,7 @@ public class BookController implements ApplicationContextAware {
 	@Autowired
 	public MemberService memberService;
 
-	@Value("/upload/bookImage/")
+	@Value("/upload/")
 	private String uploadDirLocal;
 	private WebApplicationContext context;	
 	private String uploadDir;
@@ -83,6 +83,7 @@ public class BookController implements ApplicationContextAware {
 		mav.setViewName("thymeleaf/main");
 		mav.addObject("recommendList", recommendList);
 		mav.addObject("newBookList", newBookList);
+		mav.addObject("uploadDirLocal", uploadDirLocal);
 		return mav;
 	}
 
@@ -99,6 +100,7 @@ public class BookController implements ApplicationContextAware {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("thymeleaf/bookList");
 		mav.addObject("bookList", searchResult);
+		mav.addObject("uploadDirLocal", uploadDirLocal);
 		return mav;
 	}
 
@@ -131,6 +133,7 @@ public class BookController implements ApplicationContextAware {
 			Book savedBook = bookService.findBookByTitle(title);
 
 			mav.setViewName("redirect:/book/view/" + savedBook.getBook_id() + ".do");
+			mav.addObject("uploadDirLocal", uploadDirLocal);
 		}
 
 		return mav;
@@ -161,6 +164,7 @@ public class BookController implements ApplicationContextAware {
 		mav.setViewName("thymeleaf/detailBook");
 		mav.addObject("book", book);
 		mav.addObject("likesCount", likesList.size());
+		mav.addObject("uploadDirLocal", uploadDirLocal);
 		return mav;
 	}
 
@@ -178,6 +182,7 @@ public class BookController implements ApplicationContextAware {
 			bookService.saveLikes(likes);
 
 			mav.setViewName("redirect:/book/view/" + bookId + ".do");
+			mav.addObject("uploadDirLocal", uploadDirLocal);
 		}
 
 		return mav;
