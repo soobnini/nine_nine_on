@@ -19,7 +19,7 @@
 			<!-- 책 이미지 -->
 			<div class="col-5">
 				<div id=bookImage>
-					<img th:src="@{/images/bookImage/{imageAddress}(imageAddress=${book.image})}" alt="책 이미지" id=bookimg>
+					<img th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}" alt="책 이미지" id=bookimg>
 				</div>
 			</div>
 			<!-- 책정보 -->

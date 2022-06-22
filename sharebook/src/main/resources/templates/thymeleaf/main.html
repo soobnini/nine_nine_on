@@ -39,7 +39,7 @@
 							<p style="margin-top: 20px">현재 사람들이 많이 찾고 있어요!</p></li>
 						<li class="item-list-content"
 							th:each="recommend : ${recommendList}"><img
-							th:src="@{/images/bookImage/{imageAddress}(imageAddress=${recommend.image})}" class="item-list-img"
+							th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${recommend.image})}" class="item-list-img"
 							th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${recommend.book_id})}'|">
 							<h5 class="item-list-img-title">
 								<b th:text="${recommend.title}"></b>
@@ -87,7 +87,7 @@
 		</h4>
 		<ul class="book-list">
 			<li class="item-list-content" th:each="book : ${nearBookList}"><img
-				th:src="@{/images/bookImage/{imageAddress}(imageAddress=${book.image})}" class="book-list-img"
+				th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}" class="book-list-img"
 				th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.book_id})}'|">
 				<h6 class="item-list-img-title">
 					<b th:text="${book.title}"></b>
@@ -103,7 +103,7 @@
 		</h4>
 		<ul class="book-list">
 			<li class="item-list-content" th:each="book : ${newBookList}"><img
-				th:src="@{/images/bookImage/{imageAddress}(imageAddress=${book.image})}" class="book-list-img"
+				th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}" class="book-list-img"
 				th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.book_id})}'|">
 				<h6 class="item-list-img-title">
 					<b th:text="${book.title}"></b>
