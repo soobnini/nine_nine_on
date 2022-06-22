@@ -1,4 +1,4 @@
-package com.sharebook.sharebook.dao;
+package com.sharebook.sharebook.controller;
 
 import java.io.Serializable;
 

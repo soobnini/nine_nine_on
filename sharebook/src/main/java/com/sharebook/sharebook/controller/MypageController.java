@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import com.sharebook.sharebook.dao.MemberCommand;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Funding_order;
