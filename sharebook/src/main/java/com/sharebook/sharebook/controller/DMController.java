@@ -30,11 +30,11 @@ import com.sharebook.sharebook.service.MemberService;
 import com.sharebook.sharebook.service.RentService;
 import com.sharebook.sharebook.service.BookService;
 
-class SortBySentTime implements Comparator<Message> {
+class SortById implements Comparator<Message> {
 	// Message를 송신 시간 별로 정렬
 	@Override
 	public int compare(Message m1, Message m2) {
-		return m1.getSent_time().compareTo(m2.getSent_time());
+		return ((Integer)m1.getMessage_id()).compareTo((Integer)m2.getMessage_id());
 	}
 }
 
@@ -134,7 +134,7 @@ public class DMController {
 			redirectAttr.addFlashAttribute("book", book);
 		}
 
-		Collections.sort(totalMessageList, new SortBySentTime());
+		Collections.sort(totalMessageList, new SortById());
 
 		mav.setViewName("redirect:/book/dm/" + memberId + ".do");
 		redirectAttr.addFlashAttribute("messageList", totalMessageList);
@@ -232,15 +232,6 @@ public class DMController {
 				temperature = (float) (Math.round(temperature * 10) / 10.0);
 				member.setTemperature(temperature);
 			}
-			System.out.println("==========");
-			System.out.println("==========");
-			System.out.println("==========");
-			System.out.println("==========");
-			System.out.println(overDue);
-			System.out.println("==========");
-			System.out.println("==========");
-			System.out.println("==========");
-			System.out.println("==========");
 			
 			memberService.updateMember(member);
 			
