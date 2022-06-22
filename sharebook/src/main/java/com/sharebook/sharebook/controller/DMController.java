@@ -188,6 +188,33 @@ public class DMController {
 
 		return mav;
 	}
+	
+	@RequestMapping("/book/dm/{memberId}/{otherMemberId}/return.do")
+	public ModelAndView returnBook(@PathVariable int memberId, @PathVariable int otherMemberId) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/book/dm/" + memberId + "/" + otherMemberId + ".do");
+
+		Member member = memberService.getMember(memberId);
+		Member otherMember = memberService.getMember(otherMemberId);
+
+		Chat_room chatRoom = findChatRoom(member, otherMember);
+
+		List<Message> totalMessageList = new ArrayList<>();
+		totalMessageList.addAll(chat_roomService.findMessageListByMemberAndChatRoom(member, chatRoom));
+		totalMessageList.addAll(chat_roomService.findMessageListByMemberAndChatRoom(otherMember, chatRoom));
+
+		Book book = findBookInMessage(totalMessageList);
+		if (book != null) {
+			book.setAvailable(true);
+			bookService.saveBook(book);
+
+			String rentConfirmMessage = "반납 완료했습니다. :)";
+			mav.addObject("content", rentConfirmMessage);
+			mav.setViewName("redirect:/book/dm/" + memberId + "/" + otherMemberId + "/send.do");
+		}
+
+		return mav;
+	}
 
 	public Chat_room findChatRoom(Member member, Member otherMember) {
 		List<Membership> membership = chat_roomService.findMembershipListByMember(member);
