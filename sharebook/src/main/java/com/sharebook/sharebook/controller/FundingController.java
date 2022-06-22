@@ -2,11 +2,8 @@ package com.sharebook.sharebook.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +81,7 @@ public class FundingController {
 	@PostMapping("/book/funding/create.do")
 	public String createFunding(HttpServletRequest request,
 			@ModelAttribute("funding") Funding funding, BindingResult bindingResult,
-			@RequestParam("image") MultipartFile image) throws ParseException {
+			@RequestParam("file") MultipartFile image) throws ParseException {
 		if (!StringUtils.hasText(funding.getTitle())) {
 		    bindingResult.addError(new FieldError("funding", "title", "제목을 입력해 주세요"));
 		}
@@ -101,37 +98,23 @@ public class FundingController {
 		    bindingResult.addError(new FieldError("funding", "deadline", "종료 날짜를 선택해 주세요"));
 		}
 		
+		String filename = uploadFile(image);
+		if (filename.trim().equals("")) {
+			bindingResult.addError(new FieldError("funding", "image", "이미지를 선택해 주세요"));
+		}
+		funding.setImage(this.uploadDirLocal + filename);
+		
 		if (bindingResult.hasErrors()) {
 			return "thymeleaf/createFunding";
 		}
 		
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String description = request.getParameter("description");
-		int goal_amount = Integer.parseInt(request.getParameter("goal_amount"));
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Date deadline = df.parse(request.getParameter("deadline"));
-		
-		
-		Funding newFunding = new Funding();
-		newFunding.setTitle(title);
-		newFunding.setAuthor(author);
-		
-		String filename = uploadFile(image);
-		newFunding.setImage(this.uploadDirLocal + filename);
-		
-		newFunding.setDescription(description);
-		newFunding.setViews(0);
-		newFunding.setGoal_amount(goal_amount);
-		newFunding.setDeadline(deadline);
-		
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		newFunding.setMember(userSession.getMember());
+		funding.setMember(userSession.getMember());
 		
-		fundingService.insertFunding(newFunding);
+		fundingService.insertFunding(funding);
 		
-		int funding_id = newFunding.getFunding_id();
+		int funding_id = funding.getFunding_id();
 		
 		int reward_index = 1;
 		String reward_price = "";
