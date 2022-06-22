@@ -2,6 +2,7 @@ package com.sharebook.sharebook.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -23,8 +24,10 @@ import com.sharebook.sharebook.domain.Chat_room;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Membership;
 import com.sharebook.sharebook.domain.Message;
+import com.sharebook.sharebook.domain.Rent;
 import com.sharebook.sharebook.service.Chat_roomService;
 import com.sharebook.sharebook.service.MemberService;
+import com.sharebook.sharebook.service.RentService;
 import com.sharebook.sharebook.service.BookService;
 
 class SortBySentTime implements Comparator<Message> {
@@ -43,6 +46,8 @@ public class DMController {
 	public MemberService memberService;
 	@Autowired
 	public BookService bookService;
+	@Autowired
+	public RentService rentService;
 
 	/*
 	 * 책 상세 페이지 -> DM 페이지 최초 이동 시 책의 정보도 넘기기 위함
@@ -180,6 +185,13 @@ public class DMController {
 		if (book != null) {
 			book.setAvailable(false);
 			bookService.saveBook(book);
+			
+			LocalDate now = LocalDate.now();
+			Date rentTime = java.sql.Date.valueOf(now);
+			Date returnTime = java.sql.Date.valueOf(now.plusDays(10));
+			
+			Rent rent = new Rent(0, rentTime, returnTime, book, member);
+			rentService.insertRent(rent);
 
 			String rentConfirmMessage = "대여해드리겠습니다. :)";
 			mav.addObject("content", rentConfirmMessage);
@@ -207,6 +219,8 @@ public class DMController {
 		if (book != null) {
 			book.setAvailable(true);
 			bookService.saveBook(book);
+			
+			rentService.deleteRent(rentService.getRentByBook(book));
 
 			String rentConfirmMessage = "반납 완료했습니다. :)";
 			mav.addObject("content", rentConfirmMessage);
