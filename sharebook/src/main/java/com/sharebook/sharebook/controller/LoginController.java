@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sharebook.sharebook.dao.MemberCommand;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.service.MemberFormValidator;
 import com.sharebook.sharebook.service.MemberService;
