@@ -1,4 +1,4 @@
-<h1 align="center">종이책 공유 플랫폼 '이웃 책장'</h1>
+<h1 align="center">종이책 공유 플랫폼 '이웃 책장'</h1><br>
 <img src="https://user-images.githubusercontent.com/72064966/175916293-2b3c29d4-e8dd-4789-bdd8-e000b523a334.PNG">
 
 ## 기술스택
