@@ -23,5 +23,6 @@
 * SNS 공유 기능 추가(Kakao API, Twitter, Facebook)(2022/06/20) - `commit` : [aa2f51f](https://github.com/EUNDINI/nine_nine_on/pull/49/commits/aa2f51ff8d35f6630aa3f6332193938898d3e486), [fd69a67](https://github.com/EUNDINI/nine_nine_on/pull/50/commits/fd69a675254c5bd7c38f24813d8516f6b88ec4f1) 
 * Alert, Confirm 경고창 추가(2022/06/21) - `commit` : [4f33a39](https://github.com/EUNDINI/nine_nine_on/pull/53/commits/4f33a3914dc6874c9c6fef024d329aab25e975b0)
 * 코드 리팩토링(2022/06/21) - `commit` : [1a5b675](https://github.com/EUNDINI/nine_nine_on/pull/61/commits/1a5b675c847282db4c227bd752067847d45e113c)
+* Use Case Diagram 수정 및 추가(2022/07/08)
 * Figma를 사용하여 페이지 수정 및 추가(2022/07/17)
 * ERD Table 추가(2022/07/17)
