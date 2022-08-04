@@ -27,3 +27,6 @@
 * Figma를 사용하여 페이지 수정 및 추가(2022/07/17)
 * ERD Table 추가(2022/07/17)
 * 와이어프레임 작성 완료(2022/07/31) - `링크`
+* Domain Class, Repository, Serivce 수정 및 추가(2022/08/05) - `commit` : [899ab86](https://github.com/EUNDINI/nine_nine_on/commit/899ab86d509ef0a09245e182d35945bc5eb8076d), [aea3add](https://github.com/EUNDINI/nine_nine_on/commit/aea3addad43f9c81a3609d367d2dab8d1a077166), 
+[482fe0d](https://github.com/EUNDINI/nine_nine_on/commit/482fe0df5953fce3e845dccdd6aff27d5e56a079)
+
