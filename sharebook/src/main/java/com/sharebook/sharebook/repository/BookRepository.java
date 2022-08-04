@@ -22,6 +22,7 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 	 * List Return Method 
 	 */
 	List<Book> findAllByMember(Member member);
+	List<Book> findByGenre(Genre genre);
 	List<Book> findFirst3ByOrderByViewsDesc();
 	List<Book> findAllByMember_Address1AndMember_Address2(String address1, String address2);
 	
