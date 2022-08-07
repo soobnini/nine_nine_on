@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.sharebook.sharebook.dao.MemberCommand;
+import com.sharebook.sharebook.controller.MemberCommand;
 import com.sharebook.sharebook.domain.Member;
 
 @Component

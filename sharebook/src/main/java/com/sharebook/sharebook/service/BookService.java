@@ -11,19 +11,27 @@ import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
+import com.sharebook.sharebook.domain.Member_genre;
 import com.sharebook.sharebook.repository.BookRepository;
+import com.sharebook.sharebook.repository.Genre;
+import com.sharebook.sharebook.repository.GenreRepository;
 import com.sharebook.sharebook.repository.LikesRepository;
 
 @Service
 public class BookService {
 	@Autowired
 	public BookRepository bookRepository;
+	
 	@Autowired
 	public LikesRepository likesRepository;
 	
-	public void setBookService(BookRepository bookRepository, LikesRepository likesRepository) {
+	@Autowired
+	public GenreRepository genreRepository;
+	
+	public void setBookService(BookRepository bookRepository, LikesRepository likesRepository, GenreRepository genreRepository) {
 		this.bookRepository = bookRepository;
 		this.likesRepository = likesRepository;
+		this.genreRepository = genreRepository;
 	}
 	
 	/*
@@ -89,6 +97,10 @@ public class BookService {
 		return (List<Book>)bookRepository.findAll();
 	}
 	
+	public List<Book> findBookListByGenre(Genre genre){
+		return bookRepository.findAllByGenre(genre);
+	}
+	
 	public List<Book> findBookListByMember(Member member){
 		return bookRepository.findAllByMember(member);
 	}
@@ -131,6 +143,17 @@ public class BookService {
 		}
 	}
 	
+	public List<Book> findBookListByAuthorSorted(String author, int sortType) {
+		switch (sortType) {
+		case 1:
+			return (List<Book>) bookRepository.findAllByTitleContaining(author, Sort.by(Sort.Direction.ASC, "title"));
+		case 2:
+			return (List<Book>) bookRepository.findAllByTitleContaining(author, Sort.by(Sort.Direction.DESC, "views"));
+		default:
+			return (List<Book>) bookRepository.findAllByTitleContaining(author);
+		}
+	}
+	
 	
 	public List<Likes> findLikesListByMember(Member member){
 		return likesRepository.findAllByMember(member);
@@ -138,5 +161,17 @@ public class BookService {
 	
 	public List<Likes> findLikesListByBook(Book book){
 		return likesRepository.findAllByBook(book);
+	}
+	
+	public List<Book> findBookByGenre(Genre genre) {
+		return bookRepository.findByGenre(genre);
+	}
+	
+	public List<Genre> findGenreList() {
+		return genreRepository.findAll();
+	}
+	
+	public List<Book> findGenreByBook(Book book) {
+		return genreRepository.findByBook(book);
 	}
 }

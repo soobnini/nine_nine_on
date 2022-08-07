@@ -2,6 +2,7 @@ package com.sharebook.sharebook.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -23,15 +24,17 @@ import com.sharebook.sharebook.domain.Chat_room;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Membership;
 import com.sharebook.sharebook.domain.Message;
+import com.sharebook.sharebook.domain.Rent;
 import com.sharebook.sharebook.service.Chat_roomService;
 import com.sharebook.sharebook.service.MemberService;
+import com.sharebook.sharebook.service.RentService;
 import com.sharebook.sharebook.service.BookService;
 
-class SortBySentTime implements Comparator<Message> {
+class SortById implements Comparator<Message> {
 	// Message를 송신 시간 별로 정렬
 	@Override
 	public int compare(Message m1, Message m2) {
-		return m1.getSent_time().compareTo(m2.getSent_time());
+		return ((Integer)m1.getMessage_id()).compareTo((Integer)m2.getMessage_id());
 	}
 }
 
@@ -43,6 +46,8 @@ public class DMController {
 	public MemberService memberService;
 	@Autowired
 	public BookService bookService;
+	@Autowired
+	public RentService rentService;
 
 	/*
 	 * 책 상세 페이지 -> DM 페이지 최초 이동 시 책의 정보도 넘기기 위함
@@ -129,7 +134,7 @@ public class DMController {
 			redirectAttr.addFlashAttribute("book", book);
 		}
 
-		Collections.sort(totalMessageList, new SortBySentTime());
+		Collections.sort(totalMessageList, new SortById());
 
 		mav.setViewName("redirect:/book/dm/" + memberId + ".do");
 		redirectAttr.addFlashAttribute("messageList", totalMessageList);
@@ -180,6 +185,13 @@ public class DMController {
 		if (book != null) {
 			book.setAvailable(false);
 			bookService.saveBook(book);
+			
+			LocalDate now = LocalDate.now();
+			Date rentTime = java.sql.Date.valueOf(now);
+			Date returnTime = java.sql.Date.valueOf(now.plusDays(10));
+			
+			Rent rent = new Rent(0, rentTime, returnTime, book, member);
+			rentService.insertRent(rent);
 
 			String rentConfirmMessage = "대여해드리겠습니다. :)";
 			mav.addObject("content", rentConfirmMessage);
@@ -207,6 +219,23 @@ public class DMController {
 		if (book != null) {
 			book.setAvailable(true);
 			bookService.saveBook(book);
+			
+			Rent rent = rentService.getRentByBook(book);
+			
+			int overDue = rentService.isOverdue(rent);
+			if (overDue > 0) {
+				float temperature = (float) (member.getTemperature() - 0.3 * overDue);
+				temperature = (float) (Math.round(temperature * 10) / 10.0);
+				member.setTemperature(temperature);
+			} else {
+				float temperature = (float) (member.getTemperature() + 0.5);
+				temperature = (float) (Math.round(temperature * 10) / 10.0);
+				member.setTemperature(temperature);
+			}
+			
+			memberService.updateMember(member);
+			
+			rentService.deleteRent(rent);
 
 			String rentConfirmMessage = "반납 완료했습니다. :)";
 			mav.addObject("content", rentConfirmMessage);

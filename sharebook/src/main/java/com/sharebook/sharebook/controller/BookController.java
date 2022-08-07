@@ -109,9 +109,11 @@ public class BookController implements ApplicationContextAware {
 		} else {
 			if(sortType == null) {
 				searchResult.addAll(bookService.findBookListByTitle(keyword));
+				searchResult.addAll(bookService.findBookListByAuthor(keyword));
 			}
 			else {
 				searchResult.addAll(bookService.findBookListByTitleSorted(keyword, Integer.parseInt(sortType)));
+				searchResult.addAll(bookService.findBookListByAuthorSorted(keyword, Integer.parseInt(sortType)));
 			}
 			mav.addObject("keyword", keyword);
 		}
@@ -146,11 +148,9 @@ public class BookController implements ApplicationContextAware {
 
 			String filename = uploadFile(image);
 			Book book = new Book(0, title, author, filename, description, 0, true, member);
-			bookService.saveBook(book);
+			int bookId = bookService.saveBook(book).getBook_id();
 
-			Book savedBook = bookService.findBookByTitle(title);
-
-			mav.setViewName("redirect:/book/view/" + savedBook.getBook_id() + ".do");
+			mav.setViewName("redirect:/book/view/" + bookId + ".do");
 			mav.addObject("uploadDirLocal", uploadDirLocal);
 		}
 

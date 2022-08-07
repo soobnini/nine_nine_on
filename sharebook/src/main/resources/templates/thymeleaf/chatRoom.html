@@ -70,7 +70,7 @@
 								</table>
 							</div>
 							<table id="rentTable"
-								th:if="${book.member.member_id} eq ${member.member_id} and ${book.available} eq 1">
+								th:if="${book.member.member_id} eq ${member.member_id} and ${book.available} eq true">
 								<tr>
 									<td><div>대여 신청을 확정하시겠습니까?</div></td>
 									<td><button class="btn btn-primary"
@@ -79,7 +79,7 @@
 								</tr>
 							</table>
 							<table id="rentTable"
-								th:if="${book.member.member_id} ne ${member.member_id} and ${book.available} eq 0">
+								th:if="${book.member.member_id} ne ${member.member_id} and ${book.available} eq false">
 								<tr>
 									<td><div>반납 완료 하시겠습니까?</div></td>
 									<td><button class="btn btn-primary"

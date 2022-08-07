@@ -8,16 +8,24 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Member;
+import com.sharebook.sharebook.domain.Member_genre;
+import com.sharebook.sharebook.repository.GenreRepository;
 import com.sharebook.sharebook.repository.MemberRepository;
+import com.sharebook.sharebook.repository.Member_genreRepository;
 
 @Service
 public class MemberService {
 	@Autowired
 	public MemberRepository memberRepository;
+	
+	@Autowired
+	public Member_genreRepository member_genreRepository;
 
-	public void setMemberRepository(MemberRepository memberRepository) {
+	public void setMemberRepository(MemberRepository memberRepository, Member_genreRepository member_genreRepository) {
 		this.memberRepository = memberRepository;
+		this.member_genreRepository = member_genreRepository;
 	}
 
 	@Transactional
@@ -49,5 +57,16 @@ public class MemberService {
 	public Member findByEmailAndPassword(String email, String password) {
 		return memberRepository.findByEmailAndPassword(email, password);
 	}
+	
+	public List<Member_genre> findMember_genreList(){
+		return (List<Member_genre>)member_genreRepository.findAll();
+	}
+	
+	public List<Member_genre> findMember_genreListByMember(Member member) {
+		return member_genreRepository.findByMember(member);
+	}
 
+	public List<Member_genre> findMember_genreListByGenre(Genre genre) {
+		return member_genreRepository.findByGenre(genre);
+	}
 }

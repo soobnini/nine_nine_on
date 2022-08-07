@@ -1,7 +1,7 @@
 package com.sharebook.sharebook.controller;
 
 import java.io.PrintWriter;
-
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,6 +26,7 @@ public class SessionController {
 	
 	@PostMapping("/book/login.do")
 	public ModelAndView handleRequest(
+			HttpSession session,
 			HttpServletResponse response,
 			@RequestParam("id") String id,
 			@RequestParam("password") String password,
@@ -49,6 +50,7 @@ public class SessionController {
 			model.addAttribute("userSession", userSession);
 			mav.setViewName("redirect:/book.do");
 		}
+		session.setAttribute("member", member);
 		return mav;
 	}
 

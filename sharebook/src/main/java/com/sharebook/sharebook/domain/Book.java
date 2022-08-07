@@ -48,4 +48,8 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
 	Member member;
+	
+	@ManyToOne
+	@JoinColumn(name="GENRE_ID")
+	GenreRepository genre;
 }

@@ -56,12 +56,8 @@ public class Member implements Serializable{
 	@Column(name="IMAGE")
 	private String image;
 	
-	/*커뮤니티 리스트 JOIN
-	 * @OneToMany(mappedBy="member") private List<Community> communityList;
-	 */
-	/*댓글 리스트
-	 * @OneToMany(mappedBy="member") private List<Comment> commentList;
-	 */
+	@Column(name="ADMIN")
+	private Integer admin;
 	
 	public Member getMember() {
 		return getMember();

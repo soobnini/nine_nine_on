@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Funding;
@@ -21,11 +22,13 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 	 * List Return Method 
 	 */
 	List<Book> findAllByMember(Member member);
+	List<Book> findByGenre(Genre genre);
 	List<Book> findFirst3ByOrderByViewsDesc();
 	List<Book> findAllByMember_Address1AndMember_Address2(String address1, String address2);
 	
-	List<Book> findAllByTitleContaining(String title);
-	List<Book> findAllByAuthorContaining(String author);
+	List<Book> findAllByTitleContaining(@Param("title")String title);
+	List<Book> findAllByAuthorContaining(@Param("author")String author);
 	
-	List<Book> findAllByTitleContaining(String title, Sort sort);
+	List<Book> findAllByTitleContaining(@Param("title")String title, Sort sort);
+	List<Book> findAllByAuthorContaining(@Param("author")String author, Sort sort);
 }
