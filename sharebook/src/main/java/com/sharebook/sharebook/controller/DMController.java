@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,7 @@ public class DMController {
 	public BookService bookService;
 	@Autowired
 	public RentService rentService;
+	
 
 	/*
 	 * 책 상세 페이지 -> DM 페이지 최초 이동 시 책의 정보도 넘기기 위함
@@ -141,6 +143,7 @@ public class DMController {
 		redirectAttr.addFlashAttribute("otherMember", otherMember);
 		return mav;
 	}
+	
 
 	@RequestMapping("/book/dm/{memberId}/{otherMemberId}/send.do")
 	public ModelAndView sendDM(@PathVariable int memberId, @PathVariable int otherMemberId, String content) {
@@ -167,6 +170,7 @@ public class DMController {
 		return mav;
 	}
 
+	/*
 	@RequestMapping("/book/dm/{memberId}/{otherMemberId}/rent.do")
 	public ModelAndView rentBook(@PathVariable int memberId, @PathVariable int otherMemberId) {
 		ModelAndView mav = new ModelAndView();
@@ -244,6 +248,7 @@ public class DMController {
 
 		return mav;
 	}
+	*/
 
 	public Chat_room findChatRoom(Member member, Member otherMember) {
 		List<Membership> membership = chat_roomService.findMembershipListByMember(member);
@@ -261,6 +266,7 @@ public class DMController {
 
 		return chatRoom;
 	}
+	
 
 	public Book findBookInMessage(List<Message> totalMessageList) {
 		// 메시지에 포함된 책이름을 가져옴
@@ -276,5 +282,6 @@ public class DMController {
 		Book book = bookService.findBookByTitle(title);
 		return book;
 	}
+	
 
 }

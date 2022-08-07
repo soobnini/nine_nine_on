@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Funding;
+import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Member;
 
 public interface BookRepository extends PagingAndSortingRepository<Book, Integer> {

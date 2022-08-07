@@ -64,6 +64,23 @@ public class Chat_roomService {
 		return null;
 	}
 	
+	public Chat_room findChatRoom(Member member, Member otherMember) {
+		List<Membership> membership = findMembershipListByMember(member);
+		List<Membership> otherMembership = findMembershipListByMember(otherMember);
+
+		Chat_room chatRoom = null;
+		for (int i = 0; i < membership.size(); i++) {
+			Chat_room nowChatRoom = membership.get(i).getChatRoom();
+			for (int j = 0; j < otherMembership.size(); j++) {
+				if (nowChatRoom.equals(otherMembership.get(j).getChatRoom())) {
+					chatRoom = nowChatRoom;
+				}
+			}
+		}
+
+		return chatRoom;
+	}
+	
 	/*
 	 * List Return Method 
 	 */
