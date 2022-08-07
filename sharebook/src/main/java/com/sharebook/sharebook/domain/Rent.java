@@ -35,6 +35,9 @@ public class Rent {
 	@Column(name="END_DAY")
 	private Date end_day;
 	
+	@Column(name="RETURN_DAY")
+	private Date return_day;
+	
 	@OneToOne
 	@JoinColumn(name="book_id")
 	private Book book;

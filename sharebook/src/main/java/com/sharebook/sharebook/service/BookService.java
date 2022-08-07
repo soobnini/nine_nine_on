@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Funding;
+import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Member_genre;
 import com.sharebook.sharebook.repository.BookRepository;
-import com.sharebook.sharebook.repository.Genre;
 import com.sharebook.sharebook.repository.GenreRepository;
 import com.sharebook.sharebook.repository.LikesRepository;
 

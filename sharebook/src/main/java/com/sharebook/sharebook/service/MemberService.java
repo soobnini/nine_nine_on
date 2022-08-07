@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Book;
+import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Member_genre;
 import com.sharebook.sharebook.repository.GenreRepository;

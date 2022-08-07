@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 import com.sharebook.sharebook.domain.Book;
+import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Member_genre;
 
