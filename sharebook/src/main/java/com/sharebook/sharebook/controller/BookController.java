@@ -147,7 +147,7 @@ public class BookController implements ApplicationContextAware {
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
 
 			String filename = uploadFile(image);
-			Book book = new Book(0, title, author, filename, description, 0, true, member);
+			Book book = new Book(0, title, author, filename, description, 0, true, member, null); // genre null값 추후 수정 필요
 			int bookId = bookService.saveBook(book).getBook_id();
 
 			mav.setViewName("redirect:/book/view/" + bookId + ".do");
