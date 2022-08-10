@@ -27,11 +27,9 @@ import org.springframework.web.util.WebUtils;
 import org.thymeleaf.util.StringUtils;
 
 import com.sharebook.sharebook.domain.Book;
-import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.service.BookService;
-import com.sharebook.sharebook.service.FundingService;
 import com.sharebook.sharebook.service.MemberService;
 
 @Controller
@@ -40,8 +38,6 @@ public class BookController implements ApplicationContextAware {
 	public BookService bookService;
 	@Autowired
 	public MemberService memberService;
-	@Autowired
-	public FundingService fundingService;
 
 	@Value("/upload/")
 	private String uploadDirLocal;
@@ -82,12 +78,10 @@ public class BookController implements ApplicationContextAware {
 
 		List<Book> recommendList = bookService.findRecommendBookList();
 		List<Book> newBookList = bookService.findBookList();
-		List<Funding> fundingList = fundingService.getTop3FundingListSortedByDeadline();
 
 		mav.setViewName("thymeleaf/main");
 		mav.addObject("recommendList", recommendList);
 		mav.addObject("newBookList", newBookList);
-		mav.addObject("fundingList", fundingList);
 		mav.addObject("uploadDirLocal", uploadDirLocal);
 		return mav;
 	}

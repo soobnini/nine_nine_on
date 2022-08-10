@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.sharebook.sharebook.service.CommunityService;
-import com.sharebook.sharebook.service.FundingService;
 import com.sharebook.sharebook.service.MemberService;
 import com.sharebook.sharebook.service.RentService;
 import com.sharebook.sharebook.service.BookService;
@@ -29,8 +28,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.sharebook.sharebook.domain.Community;
-import com.sharebook.sharebook.domain.Funding;
-import com.sharebook.sharebook.domain.Funding_order;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Rent;
@@ -49,9 +46,6 @@ public class MypageController {
 	
 	@Autowired
 	private RentService rentService;
-	
-	@Autowired
-	private FundingService fundingService;
 	
 	@Value("/upload/")
 	private String uploadDirLocal;
@@ -248,10 +242,7 @@ public class MypageController {
 			mav.setViewName("myPage");
 			mav.addObject("member", member);
 			mav.addObject("category","likesFunding");
-			
-			// 여기서부터 다시 수정
-			List<Funding_order> FundingOrderList = fundingService.searchFunding_orderListByMember_id(member);
-			mav.addObject("FundingOrderList", FundingOrderList);
+
 		}	
 
 		return mav;
@@ -297,11 +288,7 @@ public class MypageController {
 			mav.setViewName("myPage");
 			mav.addObject("member", member);
 			mav.addObject("category","funding");
-			
-			List<Funding> fundingList = fundingService.searchFundingListByMember_id(member);
-			System.out.println(fundingList.size());
-			System.out.println(fundingList);
-			mav.addObject("fundingList", fundingList);
+		
 		}	
 
 		return mav;

@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Book;
-import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
@@ -168,10 +167,7 @@ public class BookService {
 	}
 	
 	public List<Genre> findGenreList() {
-		return genreRepository.findAll();
+		return (List<Genre>) genreRepository.findAll();
 	}
 	
-	public List<Genre> findGenreByBook(Book book) {
-		return genreRepository.findByBook(book);
-	}
 }
