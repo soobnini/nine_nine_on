@@ -98,7 +98,7 @@ public class BookService {
 	}
 	
 	public List<Book> findBookListByGenre(Genre genre){
-		return bookRepository.findAllByGenre(genre);
+		return bookRepository.findByGenre(genre);
 	}
 	
 	public List<Book> findBookListByMember(Member member){
@@ -171,7 +171,7 @@ public class BookService {
 		return genreRepository.findAll();
 	}
 	
-	public List<Book> findGenreByBook(Book book) {
+	public List<Genre> findGenreByBook(Book book) {
 		return genreRepository.findByBook(book);
 	}
 }

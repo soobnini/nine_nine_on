@@ -51,5 +51,5 @@ public class Book {
 	
 	@ManyToOne
 	@JoinColumn(name="GENRE_ID")
-	GenreRepository genre;
+	Genre genre;
 }
