@@ -8,7 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.sharebook.sharebook.domain.Book;
-import com.sharebook.sharebook.domain.Funding;
 import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Member;
 
