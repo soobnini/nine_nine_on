@@ -1,7 +1,6 @@
 package com.sharebook.sharebook.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/chat")
-@Log4j2
 public class DMRoomController {
 	@Autowired
     private final Chat_roomService chat_roomService;
@@ -69,7 +67,6 @@ public class DMRoomController {
     //채팅방 조회
     @GetMapping("/room")
     public void getRoom(int roomId, Model model){
-        log.info("# get Chat Room, roomID : " + roomId);
         model.addAttribute("thymeleaf/testChatRoom", chat_roomService.findChatRoomById(roomId));
     }
 }
