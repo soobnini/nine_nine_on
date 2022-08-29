@@ -42,6 +42,11 @@
 				<input type="button" value="로그인" onClick="loginAction()" class="w-100 btn btn-lg btn-primary">  
 			</form>
 			<hr>
+			
+			<a href="https://kauth.kakao.com/oauth/authorize?client_id=1e0eb0e243daeec06175d610aca6d1e2&redirect_uri=http://localhost:8080/book/login/test/1.do&response_type=code">
+				<img src = "img/kakao_login_medium_narrow.png">
+			</a>
+			
 			<div><a href="${registerUrl}">회원가입</a></div>
 		</main>
 	</div>
