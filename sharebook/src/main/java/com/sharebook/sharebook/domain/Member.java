@@ -58,8 +58,4 @@ public class Member implements Serializable{
 	
 	@Column(name="ADMIN")
 	private Integer admin;
-	
-	public Member getMember() {
-		return getMember();
-	}
 }

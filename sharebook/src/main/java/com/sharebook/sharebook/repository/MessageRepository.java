@@ -14,6 +14,7 @@ public interface MessageRepository extends CrudRepository<Message, Integer> {
 	/*
 	 * List Return Method 
 	 */
+	List<Message> findAllByChatRoom(Chat_room chat_room);
 	List<Message> findAllByMember(Member member);
 	List<Message> findAllByMemberAndChatRoom(Member member, Chat_room chat_room);
 }

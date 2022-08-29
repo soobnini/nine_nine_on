@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="dmRoomList">
+	<div id="room-list-box">
+		<ul th:each="membership : ${membershipList}">
+			<li><a class="list-content">[[${membership.member.nickname}]]
+					<input type="hidden" id="hiddenRoomId"
+					th:value="${membership.chatRoom.chat_room_id}">
+			</a></li>
+		</ul>
+	</div>
+	<script th:src="@{/js/DMRoomList.js}" type="text/javascript"
+			charset="UTF-8"></script>
+</th:block>
+</html>

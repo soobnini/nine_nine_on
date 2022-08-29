@@ -12,3 +12,17 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
 }
+
+#tooltip {
+	display: none;
+	z-index: 1;
+	background: black;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	height: 500px;
+	width: 400px;
+	overflow: auto;
+}

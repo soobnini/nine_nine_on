@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="dmRoom">
+	<div class="container">
+		<div class="col-6">
+			<h1>[[${otherMember.nickname}]]</h1>
+		</div>
+		<div>
+			<div id="msgArea" class="col">
+				<div id="prevMsg" th:if="${messageList}"
+					th:each="message : ${messageList}">
+					<div class='col-6'
+						th:if="${message.member.member_id} eq ${member.member_id}">
+						<div class='alert alert-secondary' style='color: blue'>
+							<b>[[${message.member.nickname}]] : [[${message.content}]]</b>
+						</div>
+					</div>
+					<div class='col-6'
+						th:if="${message.member.member_id} ne ${member.member_id}">
+						<div class='alert alert-warning' style='color: black'>
+							<b>[[${message.member.nickname}]] : [[${message.content}]]</b>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="input-group mb-3">
+					<input type="text" id="msg" class="form-control">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button"
+							id="button-send">전송</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-6"></div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script th:src="@{/js/DMRoom.js}" type="text/javascript"
+		charset="UTF-8"></script>
+</th:block>
+
+</html>
