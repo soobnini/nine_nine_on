@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<th:block
-	th:replace="~{/layout/basic :: setContent(~{this :: content})}">
-	<th:block th:fragment="content">
-		<div class="container">
-			<div>
-				<ul th:each="membership : ${membershipList}">
-					<li><a
-						th:href="@{/chat/room(roomId=${membership.chatRoom.chat_room_id})}">[[${membership.member.nickname}]]</a></li>
-				</ul>
-			</div>
-		</div>
-	</th:block>
+<th:block th:fragment="dmRoomList">
+	<div id="room-list-box">
+		<ul th:each="membership : ${membershipList}">
+			<li><a class="list-content">[[${membership.member.nickname}]]
+					<input type="hidden" id="hiddenRoomId"
+					th:value="${membership.chatRoom.chat_room_id}">
+			</a></li>
+		</ul>
+	</div>
+	<script th:src="@{/js/DMRoomList.js}" type="text/javascript"
+			charset="UTF-8"></script>
 </th:block>
-
 </html>

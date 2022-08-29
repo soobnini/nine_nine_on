@@ -20,17 +20,21 @@ public class StompDMController {
 
 	private final SimpMessagingTemplate template; // 특정 Broker로 메세지를 전달
 
-	// Client가 SEND할 수 있는 경로
-	// stompConfig에서 설정한 applicationDestinationPrefixes와 @MessageMapping 경로가 병합됨
-	// "/pub/chat/enter"
-	@MessageMapping(value = "/chat/enter")
-	public void enter(Message message) {
-		message.setContent(message.getMember().getNickname() + "님이 채팅방에 참여하였습니다.");
-		template.convertAndSend("/sub/chat/room/" + message.getChatRoom().getChat_room_id(), message);
-	}
+	/*
+	 * 이거... 나중에 DM방 최초 생성 시 책 정보? 같은 거 보낼 때 사용하면 좋을 것같아서 주석처리 해놔용 // Client가 SEND할
+	 * 수 있는 경로 // stompConfig에서 설정한 applicationDestinationPrefixes와 @MessageMapping
+	 * 경로가 병합됨 // "/pub/chat/enter"
+	 * 
+	 * @MessageMapping(value = "/chat/enter") public void enter(Message message) {
+	 * message.setContent(message.getMember().getNickname() + "님이 채팅방에 참여하였습니다.");
+	 * template.convertAndSend("/sub/chat/room/" +
+	 * message.getChatRoom().getChat_room_id(), message); }
+	 */
 
-	@MessageMapping(value = "/chat/message")
+	@MessageMapping(value = "/book/chat/message.do")
 	public void message(Message message) {
-		template.convertAndSend("/sub/chat/room/" + message.getChatRoom().getChat_room_id(), message);
+		chat_roomService.saveMessage(message);
+		System.out.println(message.getMember().getNickname() + ": " + message.getContent());
+		template.convertAndSend("/topic/book/chat/room/" + message.getChatRoom().getChat_room_id() + ".do", message);
 	}
 }
