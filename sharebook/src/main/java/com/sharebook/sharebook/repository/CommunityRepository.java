@@ -20,5 +20,10 @@ public interface CommunityRepository extends JpaRepository<Community, Integer>{
 	Page<Community> findAll(Pageable pagealbe)throws DataAccessException;
 	Page<Community> findAllByCategory(int category,Pageable pagealbe)throws DataAccessException;
 	
-	List<Community> findByTitleContaining(@Param("keyWord") String keyword) throws DataAccessException;//키워드검색
+	Page<Community> findByTitleContainingIgnoreCase(@Param("keyWord") String title, Pageable pagealbe) throws DataAccessException;//키워드검색
+	
+	
+	Page<Community> findByCategoryAndTitleContainingIgnoreCase(int category,@Param("keyWord") String content, Pageable pagealbe) throws DataAccessException;//키워드검색
+	
+
 }

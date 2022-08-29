@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -96,14 +94,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>2.9.1</version>
-		</dependency>
-		
 
 		<!-- JSTL tag lib  -->
 		<dependency>
@@ -117,7 +107,7 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-
+		
 		<!-- Tomcat for JSP rendering  -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -138,6 +128,12 @@
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-stomp</artifactId>
+		</dependency>
+		<!--JSON-->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20220320</version>
 		</dependency>
 		<!-- Security about Thymeleaf -->
 		<!-- 
@@ -164,7 +160,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 
 </project>

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Notice;
 import com.sharebook.sharebook.repository.NoticeRepository;
 
@@ -40,13 +41,19 @@ public class NoticeService {
 	}//공지 삭제
 	public Page<Notice> getAllNotice(int preq){
 		Pageable p = PageRequest.of(preq, 10, Sort.by("noticeId").descending());
-		Page<Notice> noticePage = noticeRepository.findByStartAfterAndEndBefore(null, null, p);
+		Page<Notice> noticePage = noticeRepository.findAll(p);
 		return noticePage;
-	}//진행중 공지
-	public Page<Notice> getPastNotice(int preq){
-		Pageable p = PageRequest.of(preq, 10, Sort.by("noticeId").descending());
-		Page<Notice> pastNotice = noticeRepository.findByEndAfter(null, p);
-		return pastNotice;
-	}//종료된 공지
-
+	}//전체 공지
+	public Page<Notice> searchNotice(int preq, String keyWord) {
+		Page<Notice> noticePage = null;
+			noticePage = noticeRepository
+					.findByTitleContainingIgnoreCase(keyWord, PageRequest.of(preq, 10, Sort.by("noticeId").descending()));
+		return noticePage;
+	}// pagenation을 위한(전체 list에서 검색)
+	/*
+	 * public Page<Notice> getPastNotice(int preq){ Pageable p =
+	 * PageRequest.of(preq, 10, Sort.by("noticeId").descending()); Page<Notice>
+	 * pastNotice = noticeRepository.findByEndAfter(null, p); return pastNotice;
+	 * }//종료된 공지
+	 */
 }

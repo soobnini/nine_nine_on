@@ -33,31 +33,63 @@ import com.sharebook.sharebook.service.CommunityService;
 public class CommunityController {
 	@Autowired
 	private CommunityService communityService;
-
-	@RequestMapping("/view/{page}.do")
-	public String viewCommunity(@PathVariable int page, ModelMap model)
-			throws Exception {
-		Page<Community> resultPage = communityService.findPageCommunities(page);
-		List<Community> result = resultPage.getContent();
-		int pagenum = resultPage.getTotalPages();
+	
+	@RequestMapping("/List.do")
+	public String communityList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+								@RequestParam(value = "category", required = false, defaultValue = "0") int category,
+								@RequestParam(value = "searchText", required = false) String searchText,
+								ModelMap model) throws Exception
+	{
+		Page<Community> resultPage = null;
+		List<Community> result = null;
+		int totalPage = 0;
+		/*커뮤니티 전체*/
+		if(category == 0) {
+			/*전체검색*/
+			if(searchText != null) {
+				//TODO::검색 기능 구현
+				resultPage = communityService.searchPageCommunities(page, searchText);
+			}
+			/*전체 글조회*/
+			else {
+				resultPage = communityService.findPageCommunities(page);
+			}
+		}
+		else {
+			/*카테고리별 검색*/
+			if(searchText !=null) {
+				resultPage = communityService.searchCategoryPageCommunities(page, category, searchText);
+			}
+			/*전체글조회*/
+			else {
+				resultPage = communityService.findPageCommCategory(category, page);
+			}
+		}
+		result = resultPage.getContent();
+		totalPage = resultPage.getTotalPages();
 		if (result != null)
 			model.addAttribute("communities", result);
-			model.addAttribute("pagenum", pagenum);
+			model.addAttribute("totalPage", totalPage);
 		return "community";
-	}// 전체 community글목록
+	}
 
-	@RequestMapping("/viewCategory/{categoryId}/{page}.do")
-	public String viewCategoryCommunity(@PathVariable int categoryId, @PathVariable int page, ModelMap model)
-			throws Exception {
-		Page<Community> resultPage = communityService.findPageCommCategory(categoryId, page);
-		List<Community> result = resultPage.getContent();
-		int pagenum = resultPage.getTotalPages();
-		if (result != null)
-			model.addAttribute("communities", result);
-			model.addAttribute("pagenum", pagenum);
-		return "community";
-	}// 카테고리 별 글목록
-
+	/* 커뮤니티 리스트 기능 통합으로 미사용 예정
+	 * @RequestMapping("/view/{page}.do") public String viewCommunity(@PathVariable
+	 * int page, ModelMap model) throws Exception { Page<Community> resultPage =
+	 * communityService.findPageCommunities(page); List<Community> result =
+	 * resultPage.getContent(); int pagenum = resultPage.getTotalPages(); if (result
+	 * != null) model.addAttribute("communities", result);
+	 * model.addAttribute("pagenum", pagenum); return "community"; }// 전체
+	 * community글목록
+	 * 
+	 * @RequestMapping("/viewCategory/{categoryId}/{page}.do") public String
+	 * viewCategoryCommunity(@PathVariable int categoryId, @PathVariable int page,
+	 * ModelMap model) throws Exception { Page<Community> resultPage =
+	 * communityService.findPageCommCategory(categoryId, page); List<Community>
+	 * result = resultPage.getContent(); int pagenum = resultPage.getTotalPages();
+	 * if (result != null) model.addAttribute("communities", result);
+	 * model.addAttribute("pagenum", pagenum); return "community"; }// 카테고리 별 글목록
+	 */
 	@RequestMapping("/detail.do")
 	public String viewDetail(HttpServletRequest request, @RequestParam("commId") int communityId, ModelMap model) throws Exception {
 		Community comm = communityService.getComm(communityId);
