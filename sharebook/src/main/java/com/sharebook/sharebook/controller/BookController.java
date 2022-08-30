@@ -51,41 +51,6 @@ public class BookController implements ApplicationContextAware {
 		System.out.println(this.uploadDir);
 	}
 
-	@RequestMapping("/")
-	public ModelAndView handleRequest() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/book.do");
-		return mav;
-	}
-
-	@RequestMapping("/book.do")
-	public ModelAndView viewMain(HttpServletRequest request) {
-		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		ModelAndView mav = new ModelAndView();
-
-		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.addObject("isLogin", false);
-		} else { // 로그인이 되어있는 경우
-			Member member = memberService.getMember(userSession.getMember().getMember_id());
-			System.out.println(member.getName());
-			mav.addObject("isLogin", true);
-			mav.addObject("address1", member.getAddress1());
-			mav.addObject("address2", member.getAddress2());
-
-			List<Book> nearBookList = bookService.findNearBookList(member);
-			mav.addObject("nearBookList", nearBookList);
-		}
-
-		List<Book> recommendList = bookService.findRecommendBookList();
-		List<Book> newBookList = bookService.findBookList();
-
-		mav.setViewName("thymeleaf/main");
-		mav.addObject("recommendList", recommendList);
-		mav.addObject("newBookList", newBookList);
-		mav.addObject("uploadDirLocal", uploadDirLocal);
-		return mav;
-	}
-
 	@RequestMapping("/book/search.do")
 	public ModelAndView viewDetailBook(String keyword, String sortType) {
 		ModelAndView mav = new ModelAndView();
