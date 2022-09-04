@@ -70,7 +70,7 @@ public class CommunityController {
 		if (result != null)
 			model.addAttribute("communities", result);
 			model.addAttribute("totalPage", totalPage);
-		return "community";
+		return "thymeleaf/communityList";
 	}
 
 	/* 커뮤니티 리스트 기능 통합으로 미사용 예정
@@ -92,38 +92,30 @@ public class CommunityController {
 	 */
 	@RequestMapping("/detail.do")
 	public String viewDetail(HttpServletRequest request, @RequestParam("commId") int communityId, ModelMap model) throws Exception {
-		Community comm = communityService.getComm(communityId);
-		List<Comments> comments = communityService.findCommentByCommunity(comm);
-		boolean isMine;
-		UserSession userSession = 
-				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		if(userSession == null) isMine = false;
-		else if(userSession.getMember().equals(comm.getMember())) {
-			isMine = true;
-		}
-		else {
-			isMine = false;
-		}
-		int updateView = comm.getViews() + 1;
-		comm.setViews(updateView);
-		communityService.updateCommunity(comm);//view update
-		
-		model.addAttribute("Post", comm);
-		model.addAttribute("Comments", comments);
-		model.addAttribute("isMine", isMine);
-		return "detailCommunity";
+		/*
+		 * Community comm = communityService.getComm(communityId); List<Comments>
+		 * comments = communityService.findCommentByCommunity(comm); boolean isMine;
+		 * UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request,
+		 * "userSession"); if(userSession == null) isMine = false; else
+		 * if(userSession.getMember().equals(comm.getMember())) { isMine = true; } else
+		 * { isMine = false; } int updateView = comm.getViews() + 1;
+		 * comm.setViews(updateView); communityService.updateCommunity(comm);//view
+		 * update
+		 * 
+		 * model.addAttribute("Post", comm); model.addAttribute("Comments", comments);
+		 * model.addAttribute("isMine", isMine);
+		 */
+		return "thymeleaf/communityDetail";
 	}//커뮤니티 상세 페이지
 	
 	@RequestMapping("/uploadCommunity.do")
 	public String form(HttpServletRequest request) {
-		//로그인 확인
-		UserSession userSession = 
-				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		if(userSession == null)
-			return "login";
-		else {
-			return "createCommunity";
-		}
+		/*
+		 * //로그인 확인 UserSession userSession = (UserSession)
+		 * WebUtils.getSessionAttribute(request, "userSession"); if(userSession == null)
+		 * return "login"; else { return "createCommunity"; }
+		 */
+		return "thymeleaf/communityWrite";
 	}//글 작성-forwarding
 	
 	@RequestMapping("/updateCommunity.do")

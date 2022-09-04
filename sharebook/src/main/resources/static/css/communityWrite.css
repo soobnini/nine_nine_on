@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#title{
+	font-size:25px;
+	border: none;
+	padding-bottom:0%;
+}
+#content{
+	font-size:18px;
+	border: none;
+	resize:none;
+}
+
+#right{
+	text-align: right;
+}
+#file-button{
+	margin-left:0%;
+	border-radius: 40px;
+}
+#submitArea{
+	text-align:center;
+}
