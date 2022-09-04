@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+body {
+	width: 100vw;
+}
+.main-body {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	margin-left: 17vw;
+	margin-right: 17vw;
+}
+.nav-link {
+	text-decoration:none; 
+	color:#000000;
+}
+.table{
+	text-align:center;
+}
