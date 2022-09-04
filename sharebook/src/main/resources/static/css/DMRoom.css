@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+#room {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	height: 100%;
+}
+
+#room-header {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #1C1B1F;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#room-book-header {
+	font-size: 0.7rem;
+	font-weight: 600;
+	color: #80C40A;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+#prevMsg {
+	width: 100%;
+}
+
+.other-img-wrap, .my-img-wrap, .other-margin, .my-margin {
+	width: 10%;
+}
+
+.other-img, .my-img {
+	border-radius: 50%;
+}
+
+.other-message-content {
+	font-size: 0.7rem;
+	font-weight: 300;
+	color: #1C1B1F;
+	text-align: left;
+	width: 90%;
+}
+
+.my-message-content {
+	font-size: 0.7rem;
+	font-weight: 300;
+	color: #1C1B1F;
+	text-align: right;
+	width: 90%;
+	color: #FFFFFF;
+}
+
+.other-message-text {
+	background-color: #FFFFFF;
+	border: 0.5px solid #D9D9D9;
+	border-radius: 15px;
+}
+
+.my-message-text {
+	background-color: #80C40A;
+	border: 0.5px solid #80C40A;
+	border-radius: 15px;
+}
+
+/* 입력창 */
+#input-group {
+	position: fixed;
+	display: flex;
+	bottom: 0;
+	width: 100%;
+	height: 10%;
+}
+
+.button-image-send {
+	height: 100%;
+	width: 10%;
+}
+
+#msg {
+	height: 100%;
+	width: 70%;
+	color: #9A9A9A;
+	font-size: 0.7rem;
+	border-radius: 0px;
+}
+
+#button-send {
+	height: 100%;
+	width: 20%;
+	background-color: #80C40A;
+	color: white;
+	font-size: 0.7rem;
+	border: 0.5px solid #80C40A;
+}
