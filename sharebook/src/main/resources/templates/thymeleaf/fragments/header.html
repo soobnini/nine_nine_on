@@ -31,8 +31,7 @@
 <link th:href="@{/css/header.css}" rel="stylesheet" />
 </head>
 <body>
-	<header th:fragment="header" id="main-header"
-		class="mb-4">
+	<header th:fragment="header" id="main-header" class="mb-4">
 		<div class="header container">
 			<!-- main icon -->
 			<div id="main-icon-container"
@@ -45,8 +44,8 @@
 				<ul id="main-menu-bar"
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 					<li><a th:href="@{/book/search.do}"
-						class="main-menu-bar-item nav-link px-3 link-secondary">카테고리 <img class="pb-1"
-							th:src="@{/images/icon/tempIcon.png}" width="10" /></a></li>
+						class="main-menu-bar-item nav-link px-3 link-secondary">카테고리 <img
+							class="pb-1" th:src="@{/images/icon/tempIcon.png}" width="10" /></a></li>
 					<li><a th:href="@{/book/view/create.do}"
 						class="main-menu-bar-item nav-link px-3 link-secondary">이웃책장</a></li>
 					<li><a th:href="@{/book/funding.do}"
@@ -67,16 +66,13 @@
 						<a id="login-link" href="/book/login.do">로그인/회원가입</a>
 					</div>
 					<div id="now-login" th:if="${session.member}">
-						<!-- 임시로 같은 이미지 사용 -->
-						<a id="button"> <img src="https://github.com/mdo.png"
-							alt="mdo" width="32" height="32" class="rounded-circle" />
+						<a id="button" class="ps-2 pe-3"> <img id="dm-icon"
+							th:src="@{/images/icon/tempIcon.png}" width="25" height="25"
+							class="rounded-circle" />
 						</a><a href="/book/mypage.do" aria-expanded="false"><img
-							src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
+							src="https://github.com/mdo.png" alt="mdo" width="25" height="25"
 							class="rounded-circle"></a>
 					</div>
-					<!-- ****************************** -->
-					<!-- ********* 프로필 메뉴에 들어갈 거 이야기 해봐야할 듯 *********** -->
-					<!-- ****************************** -->
 					<!--
 					<ul class="dropdown-menu text-small"
 						aria-labelledby="dropdownUser1" style="">

@@ -1,4 +1,4 @@
-$(".list-content").click(function() {
+$(".list-content-link").click(function() {
 	var roomId = $(this).children("#hiddenRoomId").val();
 
 	$.ajax({
@@ -19,6 +19,6 @@ $(".list-content").click(function() {
 			console.log("호출실패");
 		}
 	}).done(function(result) {
-		$("#room-list-box").replaceWith(result);
+		$("#room-list").replaceWith(result);
 	});
 });

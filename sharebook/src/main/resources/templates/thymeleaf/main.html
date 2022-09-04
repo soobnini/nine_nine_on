@@ -79,18 +79,25 @@
 				<table id="library-table">
 					<tr>
 						<td id="library-list-title">
-							<p>이웃책장 특별관!</p>
-							<h4>오손도손</h4>
-							<h4>문학관</h4>
-							<p>스스로 만든</p>
-							<p>특별한 문학관을</p>
-							<p>함께 공유해요!</p>
+							<p class="library-list-sub-title">이웃책장 특별관!</p>
+							<div class="library-list-main-title">
+								<b>오손도손<br>문학관
+								</b>
+							</div>
+							<div class="library-list-desc">
+								<p>
+									스스로 만든<br>특별한 문학관을<br>함께 공유해요!
+								</p>
+							</div>
 						</td>
 						<td><ul class="library-list">
-								<li class="library-list-content px-5"
+								<li class="library-list-content ps-5"
 									th:each="library : ${#numbers.sequence(1, 4)}"><div
-										class="library-list-img-wrap">
-										<div class="library-list-img"></div>
+										class="library-list-box-wrap">
+										<div class="library-list-box">
+											<span class="library-list-img"></span> <span
+												class="library-list-text"></span>
+										</div>
 									</div></li>
 							</ul></td>
 					</tr>
@@ -158,8 +165,8 @@
 					</div>
 					<div class="review-list-text mt-3">
 						<span class="review-list-title"><b>멸망하는 세계에서 희망을 갖는다는 것</b></span>
-						<span class="review-list-writer">By쏠쏠</span>
-						<p class="review-list-desc">스노볼 드라이브의 제목의 의미에 관해 이야기해보자. 스노볼은
+						<span class="review-list-writer ms-2">By쏠쏠</span>
+						<p class="review-list-desc mt-2">스노볼 드라이브의 제목의 의미에 관해 이야기해보자. 스노볼은
 							우리가 일상에서도 자주 볼 수 있는 물건이다. 뒤집기만 하면 작은 세상에 눈이 내리는 예쁜 물건. 선물…</p>
 					</div></li>
 			</ul>
@@ -171,8 +178,8 @@
 					</div>
 					<div class="review-list-text mt-3">
 						<span class="review-list-title"><b>멸망하는 세계에서 희망을 갖는다는 것</b></span>
-						<span class="review-list-writer">By쏠쏠</span>
-						<p class="review-list-desc">스노볼 드라이브의 제목의 의미에 관해 이야기해보자. 스노볼은
+						<span class="review-list-writer ms-2">By쏠쏠</span>
+						<p class="review-list-desc mt-2">스노볼 드라이브의 제목의 의미에 관해 이야기해보자. 스노볼은
 							우리가 일상에서도 자주 볼 수 있는 물건이다. 뒤집기만 하면 작은 세상에 눈이 내리는 예쁜 물건. 선물…</p>
 					</div></li>
 			</ul>

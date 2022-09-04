@@ -11,7 +11,7 @@ const tooltip = document.querySelector('#tooltip');
 function setUpTooltip() {
 	computePosition(button, tooltip, {
 		placement: 'bottom',
-		middleware: [offset(6), flip(), shift({ padding: 5 })],
+		middleware: [offset(8), flip(), shift({ padding: 5 })],
 	}).then(({ x, y }) => {
 		Object.assign(tooltip.style, {
 			left: `${x}px`,
@@ -26,7 +26,7 @@ function update() {
 	}).then(({ x, y, placement, middlewareData }) => {
 
 	});
-	
+
 	console.log("위치 update 성공");
 }
 
@@ -36,7 +36,7 @@ function update() {
  */
 $("#button").click(function() {
 	loadAjaxFromUrl("/book/chat/rooms.do", "GET", "#tooltip-content");
-	
+
 	setUpTooltip();
 	update();
 	$("#tooltip").slideDown();
@@ -45,17 +45,29 @@ $("#button").click(function() {
 /**
  *  다른 곳 클릭하면 팝업창 사라지는 함수
  */
+function clearBox(targetId) {
+	$(targetId).html("")
+	console.log("tooltip 지우기 완료");
+	
+	var newDiv = document.createElement("div");
+	newDiv.setAttribute("id", "tooltip-content");
+	document.querySelector(targetId).appendChild(newDiv);
+	console.log("tooltip 생성 완료");
+}
+
 $("body")
 	.on(
 		"click",
 		function(e) {
 			var $tgPoint = $(e.target);
-			var $popCallBtn = (($tgPoint.attr('id') === "button") ? true
+			var $popCallBtn = ((($tgPoint.attr('id') === "button") || $tgPoint.attr('id') === "dm-icon") ? true
 				: false);
 			var $popArea = (($tgPoint.closest("#tooltip")
 				.attr('id') === "tooltip") ? true
 				: false);
+			console.log($tgPoint.attr('id') + " " + $popCallBtn + " " + $popArea);
 			if (!$popCallBtn && !$popArea) {
 				$("#tooltip").slideUp();
+				clearBox("#tooltip");
 			}
 		});

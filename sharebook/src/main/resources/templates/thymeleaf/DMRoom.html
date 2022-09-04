@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:fragment="dmRoom">
-	<div class="container">
-		<div class="col-6">
-			<h1>[[${otherMember.nickname}]]</h1>
-		</div>
-		<div>
-			<div id="msgArea" class="col">
-				<div id="prevMsg" th:if="${messageList}"
-					th:each="message : ${messageList}">
-					<div class='col-6'
-						th:if="${message.member.member_id} eq ${member.member_id}">
-						<div class='alert alert-secondary' style='color: blue'>
-							<b>[[${message.member.nickname}]] : [[${message.content}]]</b>
-						</div>
-					</div>
-					<div class='col-6'
-						th:if="${message.member.member_id} ne ${member.member_id}">
-						<div class='alert alert-warning' style='color: black'>
-							<b>[[${message.member.nickname}]] : [[${message.content}]]</b>
-						</div>
-					</div>
-				</div>
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
+<link th:href="@{/css/DMRoom.css}" rel="stylesheet" />
+</head>
+<body>
+	<div id="room" th:fragment="dmRoom">
+		<div id="room-header" class="pt-4 pb-3 px-3">[[${otherMember.nickname}]]</div>
+		<div id="room-book-header" class="py-2 px-3">러브 레플리카 * 윤이형 저/문학동네</div>
+		<div id="message-box" class="pt-3">
+			<div id="msgArea">
+				<table id="prevMsg" th:if="${messageList}">
+					<tr th:each="message : ${messageList}">
+						<!-- other message -->
+						<td class="other-img-wrap py-2 ps-3"
+							th:if="${message.member.member_id} eq ${member.member_id}"><img
+							th:src="@{/images/icon/tempIcon.png}" class="other-img"
+							width="30" height="30" /></td>
+						<td th:if="${message.member.member_id} eq ${member.member_id}"
+							class='other-message-content py-2 ps-2 pe-3'><b
+							class="other-message-text p-2">[[${message.content}]]</b></td>
+						<td th:if="${message.member.member_id} eq ${member.member_id}"
+							class="other-margin p-2"></td>
+						<!-- my message -->
+						<td th:if="${message.member.member_id} ne ${member.member_id}"
+							class="my-margin p-2"></td>
+						<td class="my-message-content py-2 ps-3 pe-2"
+							th:if="${message.member.member_id} ne ${member.member_id}"><b
+							class="my-message-text p-2">[[${message.content}]]</b></td>
+						<td class="my-img-wrap py-2 pe-3"
+							th:if="${message.member.member_id} ne ${member.member_id}"><img
+							th:src="@{/images/icon/tempIcon.png}" class="my-img" width="30"
+							height="30" /></td>
+					</tr>
+				</table>
 			</div>
-			<div class="col-6">
-				<div class="input-group mb-3">
-					<input type="text" id="msg" class="form-control">
-					<div class="input-group-append">
-						<button class="btn btn-outline-secondary" type="button"
-							id="button-send">전송</button>
-					</div>
-				</div>
+			<div class="input-group mb-3">
+				<div class="button-image-send py-2"></div>
+				<input type="text" id="msg" class="form-control py-2"
+					placeholder="채팅을 입력하세요.">
+				<button type="button" id="button-send" class="py-2">보내기</button>
 			</div>
 		</div>
 		<div class="col-6"></div>
@@ -43,6 +56,5 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script th:src="@{/js/DMRoom.js}" type="text/javascript"
 		charset="UTF-8"></script>
-</th:block>
-
+</body>
 </html>
