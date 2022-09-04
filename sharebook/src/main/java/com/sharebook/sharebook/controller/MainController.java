@@ -58,12 +58,19 @@ public class MainController {
 	}
 	
 	/*
-	 *  헤더!
+	 *  header and footer
 	 */
 	@RequestMapping("/book/header.do")
 	public ModelAndView loadHeader() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("thymeleaf/fragments/header");
+		return mav;
+	}
+	
+	@RequestMapping("/book/footer.do")
+	public ModelAndView loadFooter() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("thymeleaf/fragments/footer");
 		return mav;
 	}
 }

@@ -22,60 +22,62 @@
 <link rel="apple-touch-icon-precomposed" href="/images/book.png">
 
 <!-- CSS -->
-<!-- CSS가 fragment로 적용 안 됨! 나중에 pom.xml에 thymeleaf layout dialect 의존설정해서 해보겠슴 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
 <link th:href="@{/css/header.css}" rel="stylesheet" />
 </head>
 <body>
 	<header th:fragment="header" id="main-header"
-		class="p-3 mb-3 border-bottom">
-		<div class="container">
+		class="mb-4">
+		<div class="header container">
 			<!-- main icon -->
 			<div id="main-icon-container"
 				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 				<a href="/"
 					class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-					<img src="/images/book.png" width="30" />
+					<img th:src="@{/images/icon/mainLogo.png}" width="150" />
 				</a>
 				<!-- main menu bar -->
 				<ul id="main-menu-bar"
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a th:href="@{/book.do}" class="nav-link px-2 link-dark"
-						style="color: #70D047"><b>이웃책장</b></a></li>
 					<li><a th:href="@{/book/search.do}"
-						class="nav-link px-2 link-secondary">책</a></li>
+						class="main-menu-bar-item nav-link px-3 link-secondary">카테고리 <img class="pb-1"
+							th:src="@{/images/icon/tempIcon.png}" width="10" /></a></li>
 					<li><a th:href="@{/book/view/create.do}"
-						class="nav-link px-2 link-secondary">책 등록</a></li>
+						class="main-menu-bar-item nav-link px-3 link-secondary">이웃책장</a></li>
 					<li><a th:href="@{/book/funding.do}"
-						class="nav-link px-2 link-secondary">펀딩</a></li>
+						class="main-menu-bar-item nav-link px-3 link-secondary">책 대여</a></li>
 					<li><a th:href="@{/book/funding/view/create.do}"
-						class="nav-link px-2 link-secondary">펀딩 등록</a></li>
-					<li><a href="/book/community/view/0.do"
-						class="nav-link px-2 link-secondary">커뮤니티</a></li>
-					<li><a id="button" class="nav-link px-2 link-secondary">DM</a></li>
+						class="main-menu-bar-item nav-link px-3 link-secondary">소식마당</a></li>
 				</ul>
 				<!-- main search bar -->
 				<form id="main-search-container"
 					class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST"
 					th:action="@{/book/search.do}">
-					<input type="search" name="keyword" class="form-control"
-						placeholder="책 또는 저자 검색" aria-label="Search">
+					<input id="search-box" type="search" name="keyword"
+						class="form-control" aria-label="Search">
 				</form>
 				<!-- main profile icon and dropdown -->
 				<div id="main-profile-container" class="dropdown text-end">
-					<a href="/book/mypage.do"
-						class="d-block link-dark text-decoration-none dropdown-toggle"
-						id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="https://github.com/mdo.png" alt="mdo" width="32"
-						height="32" class="rounded-circle">
-					</a>
+					<div id="not-login" th:unless="${session.member}">
+						<a id="login-link" href="/book/login.do">로그인/회원가입</a>
+					</div>
+					<div id="now-login" th:if="${session.member}">
+						<!-- 임시로 같은 이미지 사용 -->
+						<a id="button"> <img src="https://github.com/mdo.png"
+							alt="mdo" width="32" height="32" class="rounded-circle" />
+						</a><a href="/book/mypage.do" aria-expanded="false"><img
+							src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
+							class="rounded-circle"></a>
+					</div>
 					<!-- ****************************** -->
 					<!-- ********* 프로필 메뉴에 들어갈 거 이야기 해봐야할 듯 *********** -->
 					<!-- ****************************** -->
+					<!--
 					<ul class="dropdown-menu text-small"
 						aria-labelledby="dropdownUser1" style="">
 						<li><a class="dropdown-item" href="/book/mypage.do">마이
@@ -88,6 +90,7 @@
 						<li th:unless="${session.member}"><a class="dropdown-item"
 							href="/book/login.do">Log In</a></li>
 					</ul>
+					-->
 				</div>
 			</div>
 		</div>

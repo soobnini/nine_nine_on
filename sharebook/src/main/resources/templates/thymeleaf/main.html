@@ -6,110 +6,183 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
 <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 <body>
 	<div id="header"></div>
-	<div id="main-banner">
-		<div id="carouselExampleIndicators" class="carousel slide"
-			data-bs-ride="carousel">
-			<!-- carousel bottom button -->
-			<div class="carousel-indicators">
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-					data-bs-slide-to="0" class="active" aria-current="true"
-					aria-label="Slide 1"></button>
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-					data-bs-slide-to="1" aria-label="Slide 2"></button>
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-					data-bs-slide-to="2" aria-label="Slide 3"></button>
-			</div>
-			<!-- carousel inner contents -->
-			<div class="carousel-inner">
-				<!-- carousel recommend book banner -->
-				<div class="carousel-item active">
-					<ul class="item-list">
-						<li class="item-list-title"><h1>
-								<b>오늘의</b>
-							</h1>
-							<h1>
-								<b>추천 도서</b>
-							</h1>
-							<p style="margin-top: 20px">현재 사람들이 많이 찾고 있어요!</p></li>
-						<li class="item-list-content"
-							th:each="recommend : ${recommendList}"><img
-							th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${recommend.image})}"
-							class="item-list-img"
-							th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${recommend.book_id})}'|">
-							<h5 class="item-list-img-title">
-								<b th:text="${recommend.title}"></b>
-							</h5>
-							<p class="item-list-img-writer" th:text="${recommend.author}"></p></li>
-					</ul>
-				</div>
-				<!-- carousel funding banner -->
-				<div class="carousel-item">
-					<ul class="item-list">
-						<li class="item-list-title"><h1>
-								<b>놓치지 마세요!</b>
-							</h1>
-							<h1>
-								<b>기한 임박 펀딩</b>
-							</h1></li>
-						<li class="item-list-content" th:each="funding : ${fundingList}"><img
-							th:src="@{(${funding.image})}" class="item-list-img"
-							th:onclick="|location.href='@{/book/funding/{fundingId}.do(fundingId=${funding.funding_id})}'|">
-							<h5 class="item-list-img-title">
-								<b th:text="${funding.title}"></b>
-							</h5>
-							<p class="item-list-img-writer" th:text="${funding.author}"></p></li>
-					</ul>
+	<div class="main-body">
+		<div id="main-banner" class="mb-5">
+			<div id="event-carousel" class="carousel slide"
+				data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<!-- 나중에 notice의 이미지 링크로 교체 -->
+					<div class="carousel-item active">
+						<img class="carousel-event-image"
+							th:src="@{/images/event/event1.png}" />
+					</div>
+					<div class="carousel-item">
+						<img class="carousel-event-image"
+							th:src="@{/images/event/event2.png}" />
+					</div>
+					<div class="carousel-item">
+						<img class="carousel-event-image"
+							th:src="@{/images/event/event3.png}" />
+					</div>
+					<button class="carousel-button carousel-control-prev" type="button"
+						data-bs-target="#event-carousel" data-bs-slide="prev">
+						<img id="carousel-prev"
+							th:src="@{/images/icon/carouselButton.png}" /> <span
+							class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-button carousel-control-next" type="button"
+						data-bs-target="#event-carousel" data-bs-slide="next">
+						<img id="carousel-next"
+							th:src="@{/images/icon/carouselButton.png}" /> <span
+							class="visually-hidden">Next</span>
+					</button>
 				</div>
 			</div>
-			<!-- carousel prev and next button -->
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button"
-				data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
+		</div>
+		<div id="main-popular-book">
+			<h4 class="book-list-main-title">
+				<b>지금 가장 인기 있는 책들이에요.</b>
+			</h4>
+			<!-- 
+				<img
+					th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}"
+					class="book-list-img"
+					th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.book_id})}'|">
+			 -->
+			<ul class="book-list mt-1">
+				<li class="book-list-content"
+					th:each="book : ${#numbers.sequence(1, 5)}"><div
+						class="book-list-img-wrap">
+						<div class="book-list-img"></div>
+					</div>
+					<div class="book-list-text mt-3">
+						<span class="book-list-title"><b>러브 레플리카</b></span> <span
+							class="book-list-year">2016</span>
+						<p class="book-list-writer">윤이형 저 / 문학동네</p>
+					</div></li>
+			</ul>
+			<div class="book-list-more mb-4">
+				<a>더보기</a>
+			</div>
 		</div>
 	</div>
-	<div id="main-near-book" th:if="${isLogin}">
-		<h4 class="book-list-title">
-			<b th:text="|${address1} ${address2} 기준으로 가까운 책을 추천드려요!|"></b>
-		</h4>
-		<ul class="book-list">
-			<li class="item-list-content" th:each="book : ${nearBookList}"><img
-				th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}"
-				class="book-list-img"
-				th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.book_id})}'|">
-				<h6 class="item-list-img-title">
-					<b th:text="${book.title}"></b>
-				</h6>
-				<p class="book-list-img-writer" th:text="${book.author}"></p></li>
-		</ul>
+	<div id="main-library-list" class="mb-5">
+		<div id="library-list-background-wrap">
+			<div id="library-list-background">
+				<table id="library-table">
+					<tr>
+						<td id="library-list-title">
+							<p>이웃책장 특별관!</p>
+							<h4>오손도손</h4>
+							<h4>문학관</h4>
+							<p>스스로 만든</p>
+							<p>특별한 문학관을</p>
+							<p>함께 공유해요!</p>
+						</td>
+						<td><ul class="library-list">
+								<li class="library-list-content px-5"
+									th:each="library : ${#numbers.sequence(1, 4)}"><div
+										class="library-list-img-wrap">
+										<div class="library-list-img"></div>
+									</div></li>
+							</ul></td>
+					</tr>
+				</table>
+				<span class="next">&rang;</span>
+			</div>
+		</div>
 	</div>
-	<hr style="width: 80%; margin-left: 10%; margin-right: 10%;"
-		th:if="${isLogin}">
-	<div id="main-recent-book">
-		<h4 class="book-list-title">
-			<b>최근 올라온 책을 추천드려요!</b>
-		</h4>
-		<ul class="book-list">
-			<li class="item-list-content" th:each="book : ${newBookList}"><img
-				th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}"
-				class="book-list-img"
-				th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.book_id})}'|">
-				<h6 class="item-list-img-title">
-					<b th:text="${book.title}"></b>
-				</h6>
-				<p class="book-list-img-writer" th:text="${book.author}"></p></li>
-		</ul>
+	<div class="main-body">
+		<div id="main-preference-book mt-2" th:if="${session.member}">
+			<h4 class="book-list-main-title">
+				<!-- SF 장르? 선호하는 장르에 대한 건 member_genre에서 랜덤으로 가져오면 되나?ㄹ -->
+				<b th:text="|${session.member.nickname}님이 선호하시는 SF 장르의 책이에요.|"></b>
+			</h4>
+			<ul class="book-list mt-1">
+				<li class="book-list-content"
+					th:each="book : ${#numbers.sequence(1, 5)}"><div
+						class="book-list-img-wrap">
+						<div class="book-list-img"></div>
+					</div>
+					<div class="book-list-text mt-3">
+						<span class="book-list-title"><b>러브 레플리카</b></span> <span
+							class="book-list-year">2016</span>
+						<p class="book-list-writer">윤이형 저 / 문학동네</p>
+					</div></li>
+			</ul>
+			<div class="book-list-more mb-4">
+				<a>더보기</a>
+			</div>
+		</div>
+		<div id="main-recent-book">
+			<h4 class="book-list-main-title">
+				<b>방금 올라온 따끈따끈한 책이에요.</b>
+			</h4>
+			<ul class="book-list mt-1">
+				<li class="book-list-content"
+					th:each="book : ${#numbers.sequence(1, 5)}"><div
+						class="book-list-img-wrap">
+						<div class="book-list-img"></div>
+					</div>
+					<div class="book-list-text mt-3">
+						<span class="book-list-title"><b>러브 레플리카</b></span> <span
+							class="book-list-year">2016</span>
+						<p class="book-list-writer">윤이형 저 / 문학동네</p>
+					</div></li>
+			</ul>
+			<div class="book-list-more mb-4">
+				<a>더보기</a>
+			</div>
+		</div>
 	</div>
+	<div id="main-manual-bar" class="my-5">
+		<!-- 나중에 링크랑 이미지 달게용 -->
+	</div>
+	<div class="main-body mt-5">
+		<div id="main-review-book">
+			<h4 class="book-list-main-title">
+				<b>금주의 독후감! 함께 읽어요.</b>
+			</h4>
+			<ul class="review-list mt-1">
+				<li class="review-list-content"
+					th:each="review : ${#numbers.sequence(1, 2)}"><div
+						class="review-list-img-wrap">
+						<div class="review-list-img"></div>
+					</div>
+					<div class="review-list-text mt-3">
+						<span class="review-list-title"><b>멸망하는 세계에서 희망을 갖는다는 것</b></span>
+						<span class="review-list-writer">By쏠쏠</span>
+						<p class="review-list-desc">스노볼 드라이브의 제목의 의미에 관해 이야기해보자. 스노볼은
+							우리가 일상에서도 자주 볼 수 있는 물건이다. 뒤집기만 하면 작은 세상에 눈이 내리는 예쁜 물건. 선물…</p>
+					</div></li>
+			</ul>
+			<ul class="review-list">
+				<li class="review-list-content"
+					th:each="review : ${#numbers.sequence(1, 2)}"><div
+						class="review-list-img-wrap">
+						<div class="review-list-img"></div>
+					</div>
+					<div class="review-list-text mt-3">
+						<span class="review-list-title"><b>멸망하는 세계에서 희망을 갖는다는 것</b></span>
+						<span class="review-list-writer">By쏠쏠</span>
+						<p class="review-list-desc">스노볼 드라이브의 제목의 의미에 관해 이야기해보자. 스노볼은
+							우리가 일상에서도 자주 볼 수 있는 물건이다. 뒤집기만 하면 작은 세상에 눈이 내리는 예쁜 물건. 선물…</p>
+					</div></li>
+			</ul>
+			<div class="book-list-more mb-4">
+				<a>더보기</a>
+			</div>
+		</div>
+		<div id="main-up-button" class="mt-5"></div>
+	</div>
+	<div id="footer"></div>
 
 	<!-- JS -->
 	<script

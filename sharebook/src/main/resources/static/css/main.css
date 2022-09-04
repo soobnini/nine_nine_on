@@ -1,98 +1,181 @@
 @charset "UTF-8";
 
 body {
-	width: 100%;
-	height: 100%;
-	min-width: 1300px;
-	margin: 0px;
-	padding: 0px;
+	width: 100vw;
 }
 
 /* 메인 페이지 */
 /* 메인 배너(carousel) */
-div#main-banner {
-	width: 80%;
-	height: 350px;
-	background-color: #bee678;
-	margin-left: 10%;
-	margin-right: 10%;
+.main-body {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	margin-left: 17vw;
+	margin-right: 17vw;
 }
 
-div#carouselExampleIndicators {
-	width: 100%;
-	height: 100%;
+#event-carousel {
+	width: 67vw;
 }
 
-ul.item-list {
-	display: table;
-	table-layout: fixed;
-	justify-content: center;
-	margin-top: 3%;
-	margin-right: 7%;
-	margin-left: 7%;
+.carousel-event-image {
+	width: 67vw;
 }
 
-li.item-list-title {
-	display: table-cell;
-	padding-left: 50px;
-	width: 350px;
+#carousel-prev {
+	transform: matrix(-1, 0, 0, 1, 0, 0);
+	width: 3.5vw;
 }
 
-li.item-list-content {
-	display: table-cell;
-	padding-left: 20px;
-	padding-right: 20px;
+#carousel-next {
+	width: 3.5vw;
 }
 
-img.item-list-img {
-	height: 200px;
-}
-
-.item-list-img-title {
-	margin-top: 10px;
-	display: flex;
-	justify-content: center;
-}
-
-p.item-list-img-writer {
-	color: grey;
-	display: flex;
-	justify-content: center;
-}
-/* 가까운 책 추천 */
-.book-list-title {
-	justify-content: center;
-	margin-top: 2%;
-	margin-right: 12%;
-	margin-left: 12%;
+/* 책 리스트 */
+.book-list-main-title {
+	font-size: 1.2rem;
 }
 
 ul.book-list {
-	display: table;
+	display: inline-table;
 	table-layout: fixed;
-	justify-content: center;
-	margin-top: 2%;
-	margin-right: 10%;
-	margin-left: 10%;
+	padding: 0px;
+	width: 67vw;
+	height: 38vh;
+	margin-bottom: 0px;
 }
 
-img.book-list-img {
-	display: table;
+.book-list-content {
+	position: relative;
+	display: table-cell;
+	border: 1vw solid white;
+	width: 50%;
+}
+
+.book-list-img {
+	width: 100%;
+	height: 100%;
+	background: #D9D9D9;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+	padding-top: 140%;
+}
+
+.book-list-title {
+	font-size: 0.9rem;
+}
+
+.book-list-year, .book-list-writer {
+	font-size: 0.7rem;
+	color: #9A9A9A;
+}
+
+.book-list-more {
+	font-size: 0.9rem;
+	color: #9A9A9A;
+	text-align: right;
+}
+
+/* 문학관 */
+#main-library-list {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	margin-left: 17vw;
+	overflow-x: hidden;
+}
+
+#library-list-background-wrap {
+	position: relative;
+	width: 28%;
+}
+
+#library-list-background {
+	width: 100%;
+	height: 100%;
+	background-color: #80C40A;
+	border-radius: 15px;
+	padding-top: 18%;
+	border-radius: 15px;
+}
+
+table#library-table {
+	width: 150vw;
+}
+
+#library-list-title {
+	width: 10%;
+}
+
+ul.library-list {
+	position: relative;
+	display: inline-table;
 	table-layout: fixed;
-	justify-content: center;
-	height: 150px;
+	padding: 0px;
+	width: 90%;
+	height: 20vh;
+	margin-bottom: 18%;
 }
 
-p.book-list-img-writer {
-	font-size: small;
-	color: grey;
-	display: flex;
-	justify-content: center;
+.library-list-content {
+	position: relative;
+	display: table-cell;
+	width: 50%;
 }
 
-p.result-list-img-writer {
-	font-size: small;
-	color: grey;
-	display: flex;
-	justify-content: center;
+.library-list-img {
+	width: 100%;
+	height: 100%;
+	background: #D9D9D9;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+	padding-top: 70%;
+	border-radius: 15px;
+}
+
+/* 이용방법 bar */
+#main-manual-bar {
+	height: 130px;
+	background: #80C40A;
+}
+
+/* 독후감 리스트 */
+/* 전체적인 건 book-list와 비슷함 */
+ul.review-list {
+	display: inline-table;
+	table-layout: fixed;
+	padding: 0px;
+	width: 67vw;
+	height: 20vh;
+}
+
+.review-list-content {
+	position: relative;
+	display: table-cell;
+	border: 1vw solid white;
+	width: 50%;
+}
+
+.review-list-img {
+	width: 100%;
+	height: 100%;
+	background: #D9D9D9;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+	padding-top: 70%;
+}
+
+.review-list-title {
+	font-size: 1.1rem;
+}
+
+.review-list-writer, .review-list-desc {
+	font-size: 0.7rem;
+	color: #9A9A9A;
+}
+
+/* 위로 가는 버튼 */
+#main-up-button {
+	width: 50px;
+	height: 50px;
+	background-color: #E1E1E1;
+	border-radius: 50%;
+	margin: auto;
 }

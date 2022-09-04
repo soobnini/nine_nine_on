@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
+<link th:href="@{/css/footer.css}" rel="stylesheet" />
+</head>
+<body>
+	<footer th:fragment="footer" id="main-footer" class="mt-5 mb-3 pt-4">
+		<div class="footer container">
+			<table id="footer-table">
+				<tr>
+					<td class="left-footer"><span class="me-2">(주) 이웃책장</span> <span
+						class="me-2">서울특별시 냠냠구 땡땡동 111-23 3층 (11111) </span> <span
+						class="me-2">본사 02-333-2344</span></td>
+					<td class="right-footer"><div id="footer-banner"></div></td>
+				</tr>
+				<tr>
+					<td class="left-footer">상담센터 1544-1111 (평일 9:00 ~ 18:00 / 공휴일
+						9:00 ~ 13:00)</td>
+					<td class="right-footer">이웃책장은 지역사회를 위해 힘씁니다.</td>
+				</tr>
+				<tr>
+					<td class="left-footer"><span class="me-2">이용약관 ></span> <span
+						class="me-2">개인정보처리방침 ></span> <span class="me-2">위치기반서비스이용약관
+							></span></td>
+					<td class="right-footer"><span class="footer-link me-2">카테고리</span>
+						<span class="footer-link me-2">이웃책장</span> <span
+						class="footer-link me-2">책 대여</span> <span
+						class="footer-link">커뮤니티</span></td>
+				</tr>
+			</table>
+		</div>
+	</footer>
+</body>
+
+</html>

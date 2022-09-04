@@ -27,12 +27,8 @@ function loadAjaxFromUrl(thisUrl, thisType, changeElement) {
 /**
  *  HTML과 같은 정적인 파일 가져올 때 (쓸 예정이었는데 안 써서, 예비용으로...)
  */
-function loadAjaxFromHtml(thisUrl, thisDataType, changeElement) {
-	$.ajax({
-		url: thisUrl,
-		dataType: thisDataType,
-		success: function(data) {
-			$(changeElement).html(data);
-		}
+function loadAjaxFromHtml(thisUrl, changeElement) {
+	$.get(thisUrl, function(data) {
+		$(changeElement).html(data);
 	});
 }
