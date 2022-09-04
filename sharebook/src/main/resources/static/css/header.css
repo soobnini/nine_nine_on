@@ -1,16 +1,47 @@
 @charset "UTF-8";
 
-body {
-	width: 100%;
-	height: 100%;
-	min-width: 1300px;
-	margin: 0px;
-	padding: 0px;
+* {
+	box-sizing: border-box;
 }
 
 #main-header {
-	margin-left: 10%;
-	margin-right: 10%;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	width: 100vw;
+	background: #FFFFFF;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.header.container {
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 11vw;
+	padding-right: 11vw;
+}
+
+.main-menu-bar-item {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.0rem;
+	line-height: 27px;
+	color: #1C1B1F;
+}
+
+#search-box {
+	width: 13.5vw;
+	height: 3.5vh;
+	border: 0.25px solid #9A9A9A;
+	border-radius: 12px;
+	font-size: 0.8rem;
+}
+
+#login-link {
+	text-decoration: none;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.8rem;
+	line-height: 22px;
+	color: #1C1B1F;
 }
 
 #tooltip {
