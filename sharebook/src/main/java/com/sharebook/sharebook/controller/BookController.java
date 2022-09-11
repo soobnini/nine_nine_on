@@ -44,7 +44,7 @@ public class BookController implements ApplicationContextAware {
 	private WebApplicationContext context;
 	private String uploadDir;
 
-	@Override // life-cycle callback method
+	@Override // life-cycle callback method 
 	public void setApplicationContext(ApplicationContext appContext) throws BeansException {
 		this.context = (WebApplicationContext) appContext;
 		this.uploadDir = context.getServletContext().getRealPath(this.uploadDirLocal);
@@ -83,7 +83,7 @@ public class BookController implements ApplicationContextAware {
 		return mav;
 	}
 
-	@RequestMapping("/book/view/create.do")
+	//@RequestMapping("/book/view/create.do")
 	public String viewCreateBook(HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 
@@ -94,7 +94,7 @@ public class BookController implements ApplicationContextAware {
 		return "thymeleaf/createBook";
 	}
 
-	@RequestMapping("/book/create.do")
+	//@RequestMapping("/book/create.do")
 	public ModelAndView createBook(String title, String author, String description, MultipartFile image,
 			HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");

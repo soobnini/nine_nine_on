@@ -35,7 +35,7 @@ public class DMRoomController {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
 
-		if (userSession == null) { // 로그인이 안되어있는 경우
+		if (userSession == null) { // 로그인이 안되어있는 경우 
 			mav.setViewName("login");
 			return mav;
 		}

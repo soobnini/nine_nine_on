@@ -1,13 +1,9 @@
 @charset "UTF-8";
 
-* {
-	box-sizing: border-box;
-}
-
 #room-list {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 10px;
-	background: #FFFFFF;
+	background: #FFFFFF; 
 }
 
 #room-list-header {
@@ -15,6 +11,7 @@
 	font-weight: 600;
 	color: #1C1B1F;
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+	height: 12%;
 }
 
 .room-list-table {

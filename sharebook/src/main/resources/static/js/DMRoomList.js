@@ -21,4 +21,4 @@ $(".list-content-link").click(function() {
 	}).done(function(result) {
 		$("#room-list").replaceWith(result);
 	});
-});
+}); 

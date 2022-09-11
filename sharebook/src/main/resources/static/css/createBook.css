@@ -1,24 +1,155 @@
-#main{
-  text-align: center;
+@charset "UTF-8";
+
+body {
+	width: 100%; 
 }
 
-#titlefont{
-  font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+/* 빌려주고싶어요 페이지 */
+#create-book-body {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
 }
 
-#subfont{
-  font-size: 20px;
+#create-book-title {
+	width: 33%;
+	margin: 0 auto;
+	text-align: center;
 }
 
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 20px;
+#create-book-main {
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: #1C1B1F;
 }
 
-#submitButton {
-  float: right;
-  width: 100px;
+#create-book-sub {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #1C1B1F;
+}
+
+#create-book-manual {
+	font-size: 0.7rem;
+	font-weight: 400;
+	color: #9A9A9A;
+}
+
+#create-book-manual-link {
+	color: #1C1B1F;
+	text-decoration-line: underline;
+	cursor: pointer;
+}
+
+#find-book, #create-book-form {
+	width: 33%;
+	margin: 0 auto;
+}
+
+#find-book-button {
+	width: 100%;
+	background-color: #80C40A;
+	color: white;
+	font-size: 1.2rem;
+	font-weight: 500;
+	border: none;
+	border-radius: 10px;
+}
+
+#find-book-desc {
+	font-size: 0.7rem;
+	color: #9A9A9A;
+	font-weight: 400;
+}
+
+.form-title {
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: #1C1B1F;
+}
+
+.form-must-mark {
+	color: #FF0000;
+}
+
+.form-error{
+	font-size: 0.7rem;
+	color: #FF0000;
+	font-weight: 400;
+	display: none;
+}
+
+.form-input {
+	font-size: 0.9rem;
+	color: #5C5C5C;
+	background-color: #FFFFFF;
+	font-weight: 400;
+	width: 100%;
+	border: 1px solid #E1E1E1;
+	border-radius: 12px;
+}
+
+#form-image-input {
+	width: 100%;
+}
+
+#form-upload-button {
+	font-size: 0.9rem;
+	color: #5C5C5C;
+	background-color: #D9D9D9;
+	font-weight: 400;
+	text-align: center;
+	width: 23%;
+	border: none;
+	border-radius: 12px;
+	margin-right: 2.5%;
+	cursor: pointer;
+}
+
+.form-input.image-input {
+	width: 74%;
+}
+
+#form-upload-image {
+	display: none;
+}
+
+.form-input-textarea {
+	font-size: 0.9rem;
+	color: #5C5C5C;
+	font-weight: 400;
+	width: 100%;
+	border: 1px solid #E1E1E1;
+	border-radius: 12px;
+}
+
+.form-desc {
+	font-size: 0.7rem;
+	font-weight: 400;
+	color: #9A9A9A;
+}
+
+select {
+	-webkit-appearance: none; /* for chrome */
+	-moz-appearance: none; /*for firefox*/
+	appearance: none;
+}
+
+select::-ms-expand {
+	display: none; /*for IE10,11*/
+}
+
+#form-submit-box {
+	text-align: center;
+}
+
+#form-submit-button {
+	width: 27%;
+	background-color: #80C40A;
+	color: white;
+	font-size: 1.2rem;
+	font-weight: 500;
+	border: none;
+	border-radius: 10px;
+	display: inline-block;
 }
