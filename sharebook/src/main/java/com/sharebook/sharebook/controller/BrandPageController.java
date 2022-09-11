@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BrandPageController {
 	@RequestMapping("/book/ideology.do")
 	public String viewIdeology() {
-		return "thymeleaf/ideology";
+		return "thymeleaf/ideology"; 
 	}
 	
 	@RequestMapping("/book/manual.do")

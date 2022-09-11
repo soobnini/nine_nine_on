@@ -1,5 +1,5 @@
 /**
- *  Controller URL로 페이지 가져올 때
+ *  Controller URL로 페이지 가져올 때 
  */
 function loadAjaxFromUrl(thisUrl, thisType, changeElement) {
 	$.ajax({

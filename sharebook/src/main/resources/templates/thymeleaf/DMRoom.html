@@ -15,7 +15,7 @@
 			<div id="msgArea">
 				<table id="prevMsg" th:if="${messageList}">
 					<tr th:each="message : ${messageList}">
-						<!-- other message -->
+						<!-- other message  -->
 						<td class="other-img-wrap py-2 ps-3"
 							th:if="${message.member.member_id} ne ${member.member_id}"><img
 							th:src="@{/images/icon/tempIcon.png}" class="other-img"

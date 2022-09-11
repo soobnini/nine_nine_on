@@ -34,7 +34,7 @@ public class StompDMController {
 	 * @MessageMapping(value = "/chat/enter") public void enter(Message message) {
 	 * message.setContent(message.getMember().getNickname() + "님이 채팅방에 참여하였습니다.");
 	 * template.convertAndSend("/sub/chat/room/" +
-	 * message.getChatRoom().getChat_room_id(), message); }
+	 * message.getChatRoom().getChat_room_id(), message); } 
 	 */
 
 	@MessageMapping(value = "/book/chat/message.do")

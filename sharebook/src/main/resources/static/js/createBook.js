@@ -1,5 +1,5 @@
 /*
- * 파일 업로드 관련 JS
+ * 파일 업로드 관련 JS 
 */
 
 $(document).ready(function() {

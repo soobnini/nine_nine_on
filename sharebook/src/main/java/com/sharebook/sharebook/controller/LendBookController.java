@@ -47,7 +47,7 @@ public class LendBookController implements ApplicationContextAware {
 	public String viewCreateBook(HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 
-		if (userSession == null) { // 로그인이 안되어있는 경우
+		if (userSession == null) { // 로그인이 안되어있는 경우 
 			return "login";
 		}
 

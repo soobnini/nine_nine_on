@@ -40,7 +40,7 @@ $("#category-button").click(function() {
 });
 
 /**
- *  다른 곳 클릭하면 팝업창 사라지는 함수
+ *  다른 곳 클릭하면 팝업창 사라지는 함수 
  */
 function clearBox(targetId, newId) {
 	$(targetId).html("")

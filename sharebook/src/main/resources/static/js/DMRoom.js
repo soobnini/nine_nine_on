@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	// 스크롤 자동 생성
+	// 스크롤 자동 생성 
 	const $messageArea = $('msgArea');
 	$messageArea.scrollTop($messageArea[0].scrollHeight);
 

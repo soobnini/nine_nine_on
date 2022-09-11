@@ -18,4 +18,4 @@ $(".book-list-content").click(function() {
 	$("#hidden-author").val(author);
 	$("#hidden-publisher").val(publisher);
 	$("#hidden-image-url").val(image);
-});
+}); 

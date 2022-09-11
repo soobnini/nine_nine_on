@@ -44,7 +44,7 @@ public class BookController implements ApplicationContextAware {
 	private WebApplicationContext context;
 	private String uploadDir;
 
-	@Override // life-cycle callback method
+	@Override // life-cycle callback method 
 	public void setApplicationContext(ApplicationContext appContext) throws BeansException {
 		this.context = (WebApplicationContext) appContext;
 		this.uploadDir = context.getServletContext().getRealPath(this.uploadDirLocal);

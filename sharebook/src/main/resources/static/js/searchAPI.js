@@ -6,4 +6,4 @@ $("#search-bar").keyup(function(e) {
 
 $("#search-icon-box").click(function(e) {
 	loadAjaxFromAPI($("#search-bar").val(), "/bookapi", "POST", "#book-list-result");
-});
+}); 

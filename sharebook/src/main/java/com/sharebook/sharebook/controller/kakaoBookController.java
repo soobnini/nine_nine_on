@@ -37,7 +37,7 @@ import org.json.JSONObject;
 public class kakaoBookController {
 
 	private final String url = "https://dapi.kakao.com/v3/search/book";
-	private final String key = "46988fda87fb89c623200cd06a6b623d";
+	private final String key = "46988fda87fb89c623200cd06a6b623d"; 
 
 	@GetMapping("/book/search/api.do")
 	public ModelAndView viewCreateBook1(HttpServletRequest request) {
