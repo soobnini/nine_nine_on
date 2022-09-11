@@ -21,6 +21,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -42,10 +46,91 @@
 <body>
 	<%@ include file="header.jsp"%>
 	<!-- 프로필 -->
-	<div class="container">
+	
+	<div class="main">
+	
+		<h4 style="margin-top:50px;">마이페이지</h4>
 		<div class="row">
 			<div class="col-3">
-				<div id=circle><img src="${member.image}" alt="프로필 이미지" id = profile></div>
+				<div id=circle><img src="/images/ex_image.png" alt="프로필 이미지" id=profile></div>
+			</div>
+			<div class="col-8">
+				<div class="row">
+					</br></br>
+				</div>
+				<div class="row">
+					<div id=nick>
+						<b><c:out value="${member.name}" /></b>
+						<span style="color:black; font-size:15px; vertical-align:top;">몇페이지 읽었는지 추가 요망</span>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		
+		<!-- 여기에 추가해야 함 -->
+		<div>
+			<span>회원정보 수정</span><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			<span>대여목록</span><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			<span>찜목록</span><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			<span>나의 활동</span><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			<span>알림</span><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			<span>로그아웃</span>
+		</div>
+		<hr>
+		
+		<div style="width: 96%; margin: auto;">
+			<div>
+				<span><h5>회원정보 수정</h5></span>
+				<div class="container py-5 w-50">
+					<main class="form-signin mx-auto">
+						<form action="${checkMemberUrl}" method="post" class="d-block" name="loginForm">
+							<div class="form-floating">
+								<input type="password" class="form-control" id="floatingPassword"
+									placeholder="Password" name="password"> <label for="floatingPassword">비밀번호를 입력해주세요.</label><br>
+								<input type="button" value="로그인" onClick="loginAction()" class="startBtn" style="width:420px;"> <br>
+							</div>
+						</form>
+					</main>
+				</div>
+			</div>
+			
+			<div>
+				<span><h5>알림</h5></span>
+				<div style="overflow:auto; width:100%; height:200px;">
+					ㅈㄷㄱ<br>
+					ㅈㄷㄱ<br><hr>
+					ㅈㄷㄱ<br>
+					ㅈㄷㄱ<br><hr>
+					ㅈㄷㄱ<br>
+					ㅈㄷㄱ<br><hr>
+					ㅈㄷㄱ<br>
+					ㅈㄷㄱ<br><hr>
+					ㅈㄷㄱ<br>
+					ㅈㄷㄱ<br><hr>
+				</div>
+			</div>
+		</div><br><br>
+	
+		<div>
+			<span><h5>대여목록</h5></span>
+			<div>빌렸어요</div>	
+			<div>빌려줬어요</div>	
+		</div><br><br>
+		
+		<div>
+			<span><h5>나의 활동</h5></span>
+			<form>
+				글, 댓글 나눠야 함
+			</form>
+		</div><br><br>
+		
+		
+	<div class="container">
+		<h4 style="margin-top:50px;">마이페이지</h4>
+		<div class="row">
+			<div class="col-3">
+				<div id=circle><img src="${member.image}" alt="프로필 이미지" id=profile></div>
 			</div>
 			<div class="col-8">
 				<div class="row">

@@ -1,7 +1,14 @@
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.main {
+	width: 60%;
+	margin: auto;
+}
 #circle {
 	width: 200px;
 	height: 200px;
-	border: 5px solid #70D047;
+	border: 0;
 	border-radius: 50%;
 	margin: 15px;
 }
@@ -17,7 +24,7 @@
 }
 #nick{
 	font-size: 30px;
-	color:#37732a
+	color:#black;
 }
 
 #mainC {
@@ -43,4 +50,18 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+.startBtn {
+  background-color: #80C40A;
+  border-radius: 10px;
+  display: block;
+  width: 100xp;
+  height: 50px;
+  border: 0px;
+  font-size: 20px;
+  color: white;
+}
+.password {
+	width: 40%;
+	height: 100px;
 }

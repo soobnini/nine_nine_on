@@ -4,6 +4,15 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <title>책 상세</title>
+<!-- CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -29,16 +38,106 @@
 						<span id="title" th:text="${book.title}"></span>
 					</div>
 					<div class="col">
-						<img src="/images/view.png" alt="조회수" id=icons> <span
+						<img src="/images/조회수.png" alt="조회수" id=icons> <span
 							id=content th:text="${book.views}"></span> <span id="likes-span">
-							<img src="/images/blank_likes.png" alt="좋아요" id=icons
+							<img src="/images/좋아요 수.png" alt="좋아요" id=icons
 							th:unless="${isLike}"
 							th:onclick="|location.href='@{/book/like/{bookId}.do(bookId=${book.book_id})}'|">
-							<img src="/images/filled_likes.png" alt="좋아요" id=icons
+							<img src="/images/좋아요 수.png" alt="좋아요" id=icons
 							th:if="${isLike}"> <span id=content th:text="${likesCount}"></span>
 						</span>
 					</div>
 				</div>
+				
+				<span id=title2 th:text="${book.author}"></span>
+				<span> / 출판사 명</span><br><br>
+				
+				<div>
+					책 설명 책 설명~~~
+				</div>
+				<hr><br>
+				
+				<div class="col">
+					<b><span id=title2 th:text="${book.member.nickname}"></span></b>
+					<b><span style="color:black; font-size:15px; vertical-align:top;" th:text="${book.member.temperature}"></span></b>
+				</div>
+				
+				<div>
+					어쩌구아파트점 · 저쩌구역점 · 냠냠우체국점
+				</div><br>
+				
+				<div>
+					책설명<br>
+					책설명<br>
+					책설명<br>
+					책설명<br>
+				</div><br>
+					
+					<div class="row">
+						<div class="col-md-3" style="text-align : center;">
+							<img src="/images/좋아요 라인.png" width="50%">
+						</div>
+						<div class="col-md-9">
+							<form action="${checkMemberUrl}" method="post" class="d-block" name="loginForm">
+									<input type="button" value="대여 문의하기" onClick="loginAction()" class="startBtn" style="width:420px;"> <br>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				
+				<div id="main-preference-book mt-2" class="book-list"
+					th:if="${session.member}">
+					<h4 class="book-list-main-title">
+						<!-- SF 장르? 선호하는 장르에 대한 건 member_genre에서 랜덤으로 가져오면 되나?ㄹ -->
+						<b th:text="|선택하신 책과 유사한 책이에요.|"></b>
+					</h4>
+					<ul class="book-list mt-1">
+						<li class="book-list-content"
+							th:each="book : ${#numbers.sequence(1, 5)}"><div
+								class="book-list-img-wrap">
+								<div class="book-list-img"></div>
+							</div>
+							<div class="book-list-text mt-3">
+								<p class="book-list-main-text">
+									<span class="book-list-title"><b>러브 레플리카</b></span> <span
+										class="book-list-year">2016</span>
+								</p>
+								<p class="book-list-writer mt-1">윤이형 저 / 문학동네</p>
+							</div></li>
+					</ul>
+					<div class="book-list-more mb-4">
+						<a>더보기</a>
+					</div>
+				</div>
+				
+				<div id="main-preference-book mt-2" class="book-list"
+					th:if="${session.member}">
+					<h4 class="book-list-main-title">
+						<!-- SF 장르? 선호하는 장르에 대한 건 member_genre에서 랜덤으로 가져오면 되나?ㄹ -->
+						<b th:text="|같은 매장에 있는 책을 알려드려요.|"></b>
+					</h4>
+					<ul class="book-list mt-1">
+						<li class="book-list-content"
+							th:each="book : ${#numbers.sequence(1, 5)}"><div
+								class="book-list-img-wrap">
+								<div class="book-list-img"></div>
+							</div>
+							<div class="book-list-text mt-3">
+								<p class="book-list-main-text">
+									<span class="book-list-title"><b>러브 레플리카</b></span> <span
+										class="book-list-year">2016</span>
+								</p>
+								<p class="book-list-writer mt-1">윤이형 저 / 문학동네</p>
+							</div></li>
+					</ul>
+					<div class="book-list-more mb-4">
+						<a>더보기</a>
+					</div>
+				</div>
+				
+				<div id=title2 class="col" th:text="${book.description}"></div>
+				
 				<div class="row">
 					<br />
 				</div>
