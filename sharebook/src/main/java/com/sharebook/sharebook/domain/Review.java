@@ -1,5 +1,4 @@
 package com.sharebook.sharebook.domain;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -20,22 +19,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @Entity
-@Table(name="COMMUNITY")
+@Table(name="BOOKREVIEW")
 @Data
 @AllArgsConstructor 
 @NoArgsConstructor
-public class Community implements Serializable{
+public class Review implements Serializable{
 	@Id
-	@Column(name="COMMUNITY_ID")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "COMMUNITY_SEQ")
-	@SequenceGenerator(name="COMMUNITY_SEQ", allocationSize=1)
-	private int communityId;
+	@Column(name="REVIEW_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "REVIEW_SEQ")
+	@SequenceGenerator(name="REVIEW_SEQ", allocationSize=1)
+	private int reviewId;
 	
 	@Column(name="TITLE")
 	private String title;
-	
-	@Column(name="CATEGORY")
-	public int category;
 	
 	@Column(name="CONTENT")
 	private String content;
@@ -46,9 +42,11 @@ public class Community implements Serializable{
 	@Column(name="UPLOAD_DATE")
 	private Date upload_date;
 	
+	@Column(name="THUMBNAIL")
+	private String image;
+	
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
 	private Member member;
 	
-	 @OneToMany(mappedBy="community") private List<Comments> commentList;
 }

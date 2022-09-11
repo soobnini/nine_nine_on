@@ -1,54 +1,100 @@
 @charset "UTF-8";
-.sbmt{
-	height:100%;
-	width:100%;
-	border: none;
+body {
+	width: 100vw;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+	color: #5C5C5C;
 }
-.card{
-	border-radius: 15px;
+.sbmt {
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	height:100%;
+	width: 100%;
+	border: none;
+	background-color: #80C40A;
+	color:white;
+}
+.category{
+	color:#9A9A9A;
+}
+.title{
+	font-size: 150%;
+	color:#1C1B1F;
+}
+.date{
+	color:#9A9A9A;
+}
+#sbmt {
+	background-color: #80C40A;
 }
 
-#commentWrite{
-	height:150px;
-	width:100%;
-	margin:0%;
-	padding:0%;
+.commentWrite {
+	height: 150px;
+	width: 100%;
+	margin: 0%;
+	padding: 0%;
 	border: none;
-    resize: none;
+	resize: none;
 }
-#commentWrite:focus{
+
+#commentWrite:focus {
 	outline: none;
 }
-#commentCard{
-	height:200px;
+
+#commentCard {
+	border-radius: 50px;
+	height: fit-content;
 }
-.profile{
-	height:50px;
-	width:50px;
-	border:1px solid silver;
-	border-radius: 50%;
-}
-.commentProfile{
-	height:25px;
-	width:25px;
-	border:1px solid silver;
-	border-radius: 50%;
-}
-#nick{
-	padding-left:0%;
-}
-#right{
-	text-align: right;
-}
-.thumbnail{
-	height:509px;
-	width:1246px;
-	margin: auto;
+
+.profile {
+	padding:0%;
+	height: 50px;
+	width: 50px;
 	border: 1px solid silver;
+	border-radius: 50%;
 }
-#sendDm{
-	padding-top:1px;
-	padding-bottom:1px;
-	font-size:10px;
-	border-radius: 30px;
+
+.commentProfile {
+	height: 25px;
+	width: 25px;
+	border: 1px solid silver;
+	border-radius: 50%;
+	overflow:hidden;
+}
+
+#nick {
+	color:#1C1B1F;
+	padding-left: 0%;
+}
+
+#right {
+	text-align: right;
+	color:#9A9A9A;
+}
+
+#thumbnail {
+	margin: 15px;
+	height: 509px;
+	border: 1px solid silver;
+	overflow:hidden;
+}
+
+#sendDm {
+	background-color:#E7EBE4;
+	border:none;
+	color:#5C5C5C;
+	margin-top:-1.5px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	font-size: 11px;
+	border-radius: 25px;
+}
+.profileImg{
+	height: 25px;
+	width: 25px;
+    object-fit: cover;
+}
+.smallT{
+	font-size: 85%;
+	color: #9A9A9A;
 }

@@ -8,58 +8,200 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<link th:href="@{/css/communityList.css}" rel="stylesheet" />
+<link th:href="@{/css/reviewList.css}" rel="stylesheet" />
 </head>
 <body>
 	<!-- <div id="header"></div> -->
 	<div class="container">
 		<div class="row">
 			<div class="col md-6">
-				<h4 class='col md-6'>책을 읽고 난 감상을 나눠요!</h4>
-			</div>
-			<div class="col md-6">
-				<ul class="nav justify-content-end">
-					<li class="nav-item"><a class="nav-link active" href="#">인기순</a><div class="vr"></div></li>
-					<li class="nav-item"><a class="nav-link" href="#">등록순</a><div class="vr"></div></li>
-					<li class="nav-item"><a class="nav-link" href="#">최신순</a></li>
-				</ul>
+				<h5 class='col md-6'>
+					<b>책을 읽고 난 감상을 나눠요!</b>
+				</h5>
 			</div>
 		</div>
-
-		<table class="table table-hover mt-3">
-			<thead>
-				<tr>
-					<th width="10%">번호</th>
-					<th width="10%">분류</th>
-					<th width="40%">제목</th>
-					<th width="10%">작성자</th>
-					<th width="10%">작성일</th>
-					<th width="10%">조회</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><span>1</span></td>
-					<td><span>구해요</span></td>
-					<td><a href="#"> <span>제목</span>
-					</a></td>
-					<td><span>닉네임</span></td>
-					<td><span>업로드일</span></td>
-					<td><span>조회수</span></td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="text-end">
-				<form action='/book/community/search.do' method='GET'
-					class='form-group justify-content-end'>
-					<div class="form-horizontal">
-						<input type="text" name="searchText" class="form-control"
-							placeholder="Search..."
-							style="width: 280px; max-width: 280px; display: inline-block" />
-						<button type="submit" class="btn btn-primary"
-							style="margin-left: -8px; margin-top: -3px;">검색</button>
+		<br />
+		<div class="row">
+			<div class="col md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
 					</div>
-				</form>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="thumbnail">
+						<img src="..." class="card-img-top" alt="...">
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<span><b>기계 심장은 심장이 아닌가?</b><span><b>(1)</b></span></span>
+							</div>
+							<div class="col-sm-auto">
+								<span><small>by김김김</small></span>
+							</div>
+						</div>
+						<p class="card-text">Some quick example text to build on the
+							card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<br />
+		<div class="row justify-content-end">
+			<div class="col-sm-auto" id="searchbox">
+				<div class="text-end">
+					<form action='/book/community/search.do' method='GET'
+						class='form-group justify-content-end'>
+						<div class="row">
+							<div class="col">
+								<input type="text" name="searchText" id="searchText"
+									class="form-control" placeholder="Search..." />
+							</div>
+							<div class="col-sm-auto">
+								<button type="submit" class="searchButton"></button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
 		</div>
 		<div class="text-center">
 			<nav aria-label="Page navigation">
@@ -67,7 +209,7 @@
 					<li class="page-item"><a class="page-link" href="#"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
 					<li class="page-item"><a class="page-link" href="#">2</a></li>
 					<li class="page-item"><a class="page-link" href="#">3</a></li>
 					<li class="page-item"><a class="page-link" href="#">4</a></li>

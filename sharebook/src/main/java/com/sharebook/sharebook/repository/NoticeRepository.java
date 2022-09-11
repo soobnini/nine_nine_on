@@ -23,5 +23,7 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
 	Page<Notice> findByStartAfterAndEndBefore(LocalDateTime now, LocalDateTime now2, Pageable pagealbe);
 	List<Notice> findByTitleContaining(@Param("keyWord") String keyword) throws DataAccessException;//키워드검색
 	
+	List<Notice> findByIspin(int ispin) throws DataAccessException;//고정게시글
+	
 	Page<Notice> findByTitleContainingIgnoreCase(@Param("keyWord") String title, Pageable pagealbe) throws DataAccessException;//키워드검색
 	}

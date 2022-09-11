@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,16 +15,14 @@
 		<div class="row">
 			<div class="col md-6">
 				<h5 class='col md-6'>
-					<b>우리동네 소식을 전해주세요!</b>
+					<b>이웃책장에서 알려드려요</b>
 				</h5>
 			</div>
 			<div class="col md-6">
 				<ul class="nav justify-content-end">
-					<li class="nav-item"><a th:attr="class=${orderBy == 3}?'nav-link active':'nav-link'" th:href="@{/book/community/List.do?(page=0,searchText=${searchText},orderBy=3)}">인기순</a></li>
+					<li class="nav-item"><a th:attr="class=${orderBy == 2}?'nav-link active':'nav-link'" th:href="@{/book/Notice/List.do?(page=0,searchText=${searchText},orderBy=2)}">등록순</a></li>
 					<li class="nav-item"><span class="nav-link">|</span></li>
-					<li class="nav-item"><a th:attr="class=${orderBy == 2}?'nav-link active':'nav-link'" th:href="@{/book/community/List.do?(page=0,searchText=${searchText},orderBy=2)}">등록순</a></li>
-					<li class="nav-item"><span class="nav-link">|</span></li>
-					<li class="nav-item"><a th:attr="class=${orderBy == 1}?'nav-link active':'nav-link'" th:href="@{/book/community/List.do?(page=0,searchText=${searchText},orderBy=1)}">최신순</a></li>
+					<li class="nav-item"><a th:attr="class=${orderBy == 1}?'nav-link active':'nav-link'" th:href="@{/book/Notice/List.do?(page=0,searchText=${searchText},orderBy=1)}">최신순</a></li>
 				</ul>
 			</div>
 		</div>
@@ -44,19 +39,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="comm : ${communities}" th:onclick="|location.href='@{/book/community/detail.do?(commId=${comm.communityId})}'|" style="cursor:hand">
-					<td><span th:text="${comm.communityId}">1</span></td>
-					<td><span th:if="${comm.category == 1}">구해요</span> <span
-						th:if="${comm.category == 2}">찾아요</span> <span
-						th:if="${comm.category == 3}">이벤트</span> <span
-						th:if="${comm.category == 4}">소개</span></td>
-					<td><span class="title" th:text="${comm.title}">제목</span><span
-						class="title" th:if="${#lists.size(comm.commentList)} > 0" th:text="' ('+${#lists.size(comm.commentList)}+')'"> (1)</span>
+				<tr th:each="notice : ${noticeList}" th:onclick="|location.href='@{/book/Notice/detail.do?(noticeId=${notice.noticeId})}'|" style="cursor:hand">
+					<td><span th:text="${notice.noticeId}">1</span></td>
+					<td><span th:if="${notice.category == 1}">공지</span> <span
+						th:if="${notice.category == 2}">이벤트</span></td>
+					<td th:if="${notice.ispin == 0}"><span class="title" th:text="${notice.title}">제목</span>
 					</td>
-					<td><span class="tb2" th:text="${comm.member.nickname}">닉네임</span></td>
+					<td th:unless="${notice.ispin == 0}"><span><b class="title" th:text="${notice.title}">제목</b></span>
+					</td>
+					<td><span class="tb2" th:text="${notice.member.nickname}">닉네임</span></td>
 					<td><span class="tb2"
-						th:text="${#dates.format(comm.upload_date, 'yyyy.MM.dd')}">업로드일</span></td>
-					<td><span class="tb2" th:text="${comm.views}">조회수</span></td>
+						th:text="${#dates.format(notice.upload_date, 'yyyy.MM.dd')}">업로드일</span></td>
+					<td><span class="tb2" th:text="${notice.views}">조회수</span></td>
 				</tr>
 
 				<!-- <tr>
@@ -77,10 +71,10 @@
 			</tbody>
 		</table>
 		<div class="row row justify-content-between">
-		<div class="col-sm-auto"><button type="button" class="btn btn-success btn-sm" onclick="location.href='/book/community/uploadCommunity.do'">&nbsp; 글쓰기 &nbsp;</button></div>
+		<div class="col-sm-auto"><button th:if="${(session.member != null) && session.member.admin == 1}" type="button" class="btn btn-success btn-sm" onclick="location.href='/book/Notice/uploadNotice.do'">&nbsp; 글쓰기 &nbsp;</button></div>
 			<div class="col-sm-auto" id="searchbox">
 				<div class="text-end">
-					<form action='/book/community/List.do' method='GET'
+					<form action='/book/Notice/List.do' method='GET'
 						class='form-group justify-content-end'>
 						<div class="row">
 							<div class="col">
@@ -99,12 +93,12 @@
 		<div class="text-center">
 			<nav aria-label="Page navigation">
 				<ul class="pagination justify-content-center" th:with="start=${(currentPage/5)* 5 + 1},
-                  end=(${(totalPage == 0) ? 1 : (start + (5 - 1) < totalPage ? start + (5 - 1) : totalPage)})" >
-					<li th:if="${currentPage > 0}" class="page-item"><a class="page-link" th:href="@{/book/community/List.do?(page=${currentPage - 1},searchText=${searchText},orderBy=${orderBy})}"
+                  end=(${(totalPage == 0) ? 1 : (start + (5- 1) < totalPage ? start + (5 - 1) : totalPage)})" >
+					<li th:if="${currentPage > 0}" class="page-item"><a class="page-link" th:href="@{/book/Notice/List.do?(page=${currentPage -1},searchText=${searchText},orderBy=${orderBy})}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<li  th:each="page: ${#numbers.sequence(start, end)}" th:attr="class=${page == (currentPage + 1)} ? 'page-item active' : 'page-item'"><a class="page-link"th:href="@{/book/community/List.do?(page=${page-1},searchText=${searchText},orderBy=${orderBy})}" th:text="${page}"></a></li>
-					<li class="page-item" th:if="${currentPage}!= ${totalPage - 1}"><a class="page-link" th:href="@{/book/community/List.do?(page=${currentPage + 1},searchText=${searchText},orderBy=${orderBy})}"
+					<li  th:each="page: ${#numbers.sequence(start, end)}" th:attr="class=${page == (currentPage + 1)} ? 'page-item active' : 'page-item'"><a class="page-link"th:href="@{/book/Notice/List.do?(page=${page-1},searchText=${searchText},orderBy=${orderBy})}" th:text="${page}"></a></li>
+					<li class="page-item" th:if="${currentPage}!= ${totalPage - 1}"><a class="page-link" th:href="@{/book/Notice/List.do?(page=${currentPage + 1},searchText=${searchText},orderBy=${orderBy})}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</ul>

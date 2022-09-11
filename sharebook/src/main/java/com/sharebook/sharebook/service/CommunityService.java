@@ -55,17 +55,42 @@ public class CommunityService {
 		return communityRepository.findAll();
 	}// 전체 글 리스트
 
-	public Page<Community> findPageCommunities(int preq) {
-		Page<Community> communityPage = communityRepository
+	public Page<Community> findPageCommunities(int preq, int orderBy) {
+		Page<Community> communityPage = null;
+		if(orderBy == 1) {
+			communityPage = communityRepository
 				.findAll(PageRequest.of(preq, 10, Sort.by("communityId").descending()));
+		}
+		else if(orderBy == 2) {
+			communityPage = communityRepository
+					.findAll(PageRequest.of(preq, 10, Sort.by("communityId").ascending()));
+		}
+		else if(orderBy == 3) {
+			communityPage = communityRepository
+					.findAll(PageRequest.of(preq, 10, Sort.by("views").descending()));
+		}
+		else {
+			communityPage = communityRepository
+					.findAll(PageRequest.of(preq, 10, Sort.by("communityId").descending()));
+		}
 		/* List<Community> posts = communityPage.getContent(); */
 		return communityPage;
 	}// pagenation을 위한
 
-	public Page<Community> searchPageCommunities(int preq, String keyWord) {
+	public Page<Community> searchPageCommunities(int preq, String keyWord, int orderBy) {
 		Page<Community> communityPage = null;
+		if(orderBy == 1) {
 			communityPage = communityRepository
 					.findByTitleContainingIgnoreCase(keyWord, PageRequest.of(preq, 10, Sort.by("communityId").descending()));
+			}
+		else if(orderBy == 2) {
+			communityPage = communityRepository
+					.findByTitleContainingIgnoreCase(keyWord, PageRequest.of(preq, 10, Sort.by("communityId").ascending()));
+		}
+		else if(orderBy == 3) {
+			communityPage = communityRepository
+					.findByTitleContainingIgnoreCase(keyWord, PageRequest.of(preq, 10, Sort.by("views").descending()));
+		}
 		
 		return communityPage;
 	}// pagenation을 위한(전체 list에서 검색)

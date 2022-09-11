@@ -35,10 +35,10 @@
 	<div id="header"></div> -->
 	<div class="container">
 		<h5>
-			<b>우리동네 소식을 전해주세요!</b>
+			<b>이웃책장의 공지사항을 작성해주세요.</b>
 		</h5>
 		<br />
-		<form method="post" action="/book/community/upload.do">
+		<form method="post" action="/book/Notice/uploadNotice.do">
 			<br />
 			<div class="row">
 				<input type="text" class="form-control" name="title" id="title"
@@ -60,19 +60,11 @@
 						<input type="hidden" name="category" id="cId" value="1">
 						<div class="col-sm-auto">
 							<button type="button" class="btn-active btn-success btn-sm"
-								onclick=categorychoice(1) id="category1">구해요</button>
+								onclick=categorychoice(1) id="category1">공지</button>
 						</div>
 						<div class="col-sm-auto">
 							<button type="button" class="btn btn-success btn-sm"
-								onclick=categorychoice(2) id="category2">찾아요</button>
-						</div>
-						<div class="col-sm-auto">
-							<button type="button" class="btn btn-success btn-sm"
-								onclick=categorychoice(3) id="category3">이벤트</button>
-						</div>
-						<div class="col-sm-auto">
-							<button type="button" class="btn btn-success btn-sm"
-								onclick=categorychoice(4) id="category4">소개</button>
+								onclick=categorychoice(2) id="category2">이벤트</button>
 						</div>
 					</div>
 				</div>

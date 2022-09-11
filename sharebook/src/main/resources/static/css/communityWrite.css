@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+body {
+	color: #5C5C5C;
+	width: 100vw;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+}
+
 #title{
 	font-size:25px;
 	border: none;
@@ -15,9 +22,35 @@
 	text-align: right;
 }
 #file-button{
-	margin-left:0%;
+	background-color:#E7EBE4;
+	margin-left:-3px;
 	border-radius: 40px;
+	border:none;
+	color:#5C5C5C;
 }
 #submitArea{
 	text-align:center;
+}
+.btn-active.btn-success.btn-sm{
+	border:none;
+	border-radius:50px;
+	background-color: #80C40A;
+	color:white;
+}
+.btn.btn-success.btn-sm:hover{
+	border:none;
+	border-radius:50px;
+	background-color: #80C40A;
+	color:white;
+}
+.btn.btn-success.btn-sm{
+	border:1px solid #E1E1E1;
+	border-radius:50px;
+	background-color: white;
+	color:#5C5C5C;
+}
+.btn.btn-secondary.btn-lg{
+	border:none;
+	background-color: #80C40A;
+	color:white;
 }
