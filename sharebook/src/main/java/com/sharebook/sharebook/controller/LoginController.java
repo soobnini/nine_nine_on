@@ -33,13 +33,23 @@ public class LoginController {
 		this.validator = validator;
 	}
 	
-	@GetMapping("/book/register.do")
+	@GetMapping("/book/register/1.do")
+	public String register_step1 () {
+		return "registerForm_step1";
+	}
+
+	@GetMapping("/book/register/3.do")
+	public String register_step3 () {
+		return "registerForm_step3";
+	}
+	
+	@GetMapping("/book/register/2.do")
 	public String showForm (Model model) {
 		model.addAttribute("memberCommand", new MemberCommand());
 		return "registerForm";
 	}
 	
-	@PostMapping("/book/register.do") 
+	@PostMapping("/book/register/2.do") 
 	public ModelAndView register (HttpServletResponse response,
 			@ModelAttribute("memberCommand") MemberCommand memberCommand,
 			BindingResult result) throws IOException {
@@ -63,13 +73,17 @@ public class LoginController {
 			member.setAddress2(memberCommand.getAddress2());
 			member.setTemperature(36.5f);
 			member.setImage("/images/ex_image.png");
+			member.setAdmin(0);
 			
 			memberService.createMember(member);
 			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('회원가입에 성공하였습니다'); location.href='/book/login.do';</script>");
-			out.flush();
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.println("<script>alert('회원가입에 성공하였습니다'); location.href='/book/login.do';</script>");
+//			out.flush();
+			
+			mav.addObject("name", member.getName());
+			mav.setViewName("registerForm_step3");
 		}
 		
 		return mav;
