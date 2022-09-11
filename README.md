@@ -30,3 +30,4 @@
 * Domain Class, Repository, Serivce 수정 및 추가(2022/08/05) - `commit` : [899ab86](https://github.com/EUNDINI/nine_nine_on/commit/899ab86d509ef0a09245e182d35945bc5eb8076d), [aea3add](https://github.com/EUNDINI/nine_nine_on/commit/aea3addad43f9c81a3609d367d2dab8d1a077166), 
 [482fe0d](https://github.com/EUNDINI/nine_nine_on/commit/482fe0df5953fce3e845dccdd6aff27d5e56a079)
 * Kakao SNS Login 기능 추가(2022/08/29) - `commit` : [3d2e2ed](https://github.com/EUNDINI/nine_nine_on/commit/3d2e2ed0079e33a7f2e4d2309c2954c573659d09)
+* 로그인, 회원가입 기능 수정 및 추가(2022/09/11) - `commit` : [92d7ad8](https://github.com/EUNDINI/nine_nine_on/commit/92d7ad8415e99f6f00881d68b637d3bc24900517)
