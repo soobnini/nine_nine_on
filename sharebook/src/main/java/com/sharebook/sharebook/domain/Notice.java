@@ -33,10 +33,10 @@ public class Notice implements Serializable{
 	@Column(name="TITLE")
 	private String title;
 	
-	@Column(name="START_DATE")
+	@Column(name="START_DAY")
 	private Date start;
 	
-	@Column(name="END_DATE")
+	@Column(name="END_DAY")
 	private Date end;
 	
 	@Column(name="CONTENT")
@@ -54,4 +54,10 @@ public class Notice implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="MEMBER_ID")
 	private Member member;
+	
+	@Column(name="ISPIN")
+	private int ispin;
+	
+	@Column(name="CATEGORY")
+	public int category;
 }

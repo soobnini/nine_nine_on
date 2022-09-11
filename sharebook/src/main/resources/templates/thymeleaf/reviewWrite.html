@@ -35,10 +35,10 @@
 	<div id="header"></div> -->
 	<div class="container">
 		<h5>
-			<b>우리동네 소식을 전해주세요!</b>
+			<b>이웃에게 공유할 독후감을 작성해주세요.</b>
 		</h5>
 		<br />
-		<form method="post" action="/book/community/upload.do">
+		<form method="post" action="/book/Review/uploadReview.do">
 			<br />
 			<div class="row">
 				<input type="text" class="form-control" name="title" id="title"
@@ -50,33 +50,6 @@
 					placeholder="내용을 입력해주세요"></textarea>
 			</div>
 			<hr />
-
-			<div class="row">
-				<div class="col" id="category">
-					<div class="row">
-						<div class="col-sm-auto align-self-top">
-							<span>분류</span>
-						</div>
-						<input type="hidden" name="category" id="cId" value="1">
-						<div class="col-sm-auto">
-							<button type="button" class="btn-active btn-success btn-sm"
-								onclick=categorychoice(1) id="category1">구해요</button>
-						</div>
-						<div class="col-sm-auto">
-							<button type="button" class="btn btn-success btn-sm"
-								onclick=categorychoice(2) id="category2">찾아요</button>
-						</div>
-						<div class="col-sm-auto">
-							<button type="button" class="btn btn-success btn-sm"
-								onclick=categorychoice(3) id="category3">이벤트</button>
-						</div>
-						<div class="col-sm-auto">
-							<button type="button" class="btn btn-success btn-sm"
-								onclick=categorychoice(4) id="category4">소개</button>
-						</div>
-					</div>
-				</div>
-			</div>
 			<br /> <br />
 			<div class="row">
 				<div class="col" id="submitArea">
@@ -88,15 +61,6 @@
 	<!-- 
 	<div id="footer"></div> -->
 	<!-- JS -->
-	<script type="text/javascript">
-		
-		function categorychoice(i) {
-			$('#cId').val(i);
-			$('.btn-active.btn-success.btn-sm').attr("class","btn btn-success btn-sm");
-			var cidb = '#category' + i.toString();
-			$(cidb).attr("class","btn-active btn-success btn-sm");
-		};
-	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script

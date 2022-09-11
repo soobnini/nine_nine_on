@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,13 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,106 +39,116 @@ import com.sharebook.sharebook.service.NoticeService;
 
 @Controller
 @RequestMapping("/book/Notice")
-public class NoticeController implements ApplicationContextAware {
+public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
 	@RequestMapping("/List.do")
-	public String communityList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "searchText", required = false) String searchText, ModelMap model) throws Exception {
+	public String noticeList(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "searchText", required = false) String searchText,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "1") int orderBy, ModelMap model)
+			throws Exception {
 		Page<Notice> resultPage = null;
 		List<Notice> result = null;
 		int totalPage = 0;
-		/*  검색 */
-		if (searchText != null) {
-			resultPage = noticeService.getAllNotice(page);
+		result = noticeService.getpinList();
+		
+		/* 검색 */
+		if (searchText != null && searchText != "") {
+			resultPage = noticeService.searchNotice(page, searchText, orderBy);
 		}
 		/* 전체글조회 */
 		else {
-			resultPage = noticeService.searchNotice(page, searchText);
+			searchText = "";
+			resultPage = noticeService.getAllNotice(page, orderBy);
 		}
 
-		result = resultPage.getContent();
 		totalPage = resultPage.getTotalPages();
 		if (result != null)
+		{
+			result.addAll(resultPage.getContent());
 			model.addAttribute("noticeList", result);
+		}
+		else {
+			result = resultPage.getContent();
+			model.addAttribute("noticeList", result);
+		}
+		model.addAttribute("searchText", searchText);
+		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPage", totalPage);
-		return "notice";
+		model.addAttribute("orderBy", orderBy);
+		return "thymeleaf/noticeList";
 	}
-	
+
 	@RequestMapping("/detail.do")
-	public String viewDetail(HttpServletRequest request, @RequestParam("noticeId") int noticeId, ModelMap model) throws Exception {
+	public String viewDetail(HttpServletRequest request, @RequestParam("noticeId") int noticeId, ModelMap model)
+			throws Exception {
 		Notice notice = noticeService.getNotice(noticeId);
-		//List<Comments> comments = noticeService.findCommentByCommunity(notice);**Notice에도 댓글있음???
+		// List<Comments> comments =
+		// noticeService.findCommentByCommunity(notice);**Notice에도 댓글있음???
 		int updateView = notice.getViews() + 1;
 		notice.setViews(updateView);
-		noticeService.updateNotice(notice);//view update
-		
+		noticeService.updateNotice(notice);// view update
+
 		model.addAttribute("Notice", notice);
-		return "detailNotice";
-	}//상세 페이지
-	
+		return "thymeleaf/noticeDetail";
+	}// 상세 페이지
+
 	@GetMapping("/uploadNotice.do")
 	public String form(HttpServletRequest request) {
-		//로그인 확인, 관리자인지 확인
-		UserSession userSession = 
-				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		if(userSession == null && userSession.getMember().getAdmin() == 0)
+		// 로그인 확인, 관리자인지 확인
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		if (userSession == null && userSession.getMember().getAdmin() == 0)
 			return "login";
 		else {
-			return "createCommunity";
+			return "thymeleaf/noticeWrite";
 		}
-	}//글 작성-forwarding
+	}// 글 작성-forwarding
+
 	@PostMapping("/uploadNotice.do")
-	public String uploadCommunity(HttpServletRequest request, @RequestParam("title") String title,@RequestParam("content") String content,@RequestParam("end") LocalDateTime end,@RequestParam("start") LocalDateTime start, MultipartFile image,RedirectAttributes redirectAttributes) {
-		
-		UserSession userSession = 
-				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		
-		if(userSession == null || userSession.getMember().getAdmin() == 0)
-			return "login";//관리자 아니면 login화면으로
-		
+	public String uploadCommunity(HttpServletRequest request, @RequestParam("title") String title,
+			@RequestParam("category") int category, @RequestParam("content") String content,
+			RedirectAttributes redirectAttributes) {
+
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+
+		if (userSession == null || userSession.getMember().getAdmin() == 0)
+			return "login";// 관리자 아니면 login화면으로
+
 		LocalDateTime now = LocalDateTime.now();
-		Timestamp upTime = Timestamp.valueOf(now);//현재 시간 가져오기
-		
+		Timestamp upTime = Timestamp.valueOf(now);// 현재 시간 가져오기
+
 		Notice notice = new Notice();
 		notice.setTitle(title);
 		notice.setContent(content);
 		notice.setUpload_date(upTime);
-		notice.setStart(Timestamp.valueOf(start));
-		notice.setEnd(Timestamp.valueOf(end));
 		notice.setMember(userSession.getMember());
-		notice.setImage(uploadFile(image));//TODO:: 이미지 업로드, 위지윅 에디터 방식으로..?
+		notice.setCategory(category);
+		notice.setImage(getThumbnail(content));// TODO:: 이미지 업로드, 위지윅 에디터 방식으로..?
+		notice.setIspin(0);
 		notice.setViews(0);
-		
+
 		int noticeId = noticeService.createNotice(notice);
 		redirectAttributes.addAttribute("noticeId", noticeId);
 		return "redirect:/book/Notice/detail.do";
-	}//글 작성
-	
-	@Value("/upload/")
-	private String uploadDirLocal;
-	private WebApplicationContext context;
-	private String uploadDir;
+	}// 글 작성
 
-	@Override // life-cycle callback method
-	public void setApplicationContext(ApplicationContext appContext) throws BeansException {
-		this.context = (WebApplicationContext) appContext;
-		this.uploadDir = context.getServletContext().getRealPath(this.uploadDirLocal);
-		System.out.println(this.uploadDir);
-	}
-	
-	private String uploadFile(MultipartFile image) {
-		String filename = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-		System.out.println(this.uploadDir + filename + " 업로드");
+	public String getThumbnail(String content) {
 
-		File file = new File(this.uploadDir + filename);
+		String resultString = null;
 
-		try {
-			image.transferTo(file);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
+		Pattern regex = Pattern.compile("(?<=<img src=\")+.+(?=\")");
+
+		Matcher regexMatcher = regex.matcher(content);
+
+		if (regexMatcher.find()) {
+
+			resultString = regexMatcher.group();
+
 		}
-		return filename;//TODO:: 그냥 로컬Dir경로 합쳐서 string 으로 해주면 안될려나
+		if(resultString != null) {
+			return resultString.trim();
+		}
+		return " ";
 	}
 }

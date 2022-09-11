@@ -28,37 +28,32 @@
 	<div id="header"></div>
 	<div class="container">
 		<div class="row">
-			<span class="category" th:if="${Post.category == 1}">[구해요]</span> <span
-				class="category" th:if="${Post.category == 2}">[찾아요]</span> <span
-				class="category" th:if="${Post.category == 3}">[이벤트]</span> <span
-				class="category" th:if="${Post.category == 4}">[소개]</span>
+			<span class="category" th:if="${Notice.category == 1}">[공지]</span> <span
+				class="category" th:if="${Notice.category == 2}">[이벤트]</span>
 		</div>
 		<div class="row">
 			<div class="col">
 				<h5>
-					<span class="title"><b th:text="${Post.title}">독서모임
+					<span class="title"><b th:text="${Notice.title}">독서모임
 							해피하우스에서 멤버를 모집합니다</b></span>
 				</h5>
 			</div>
 			<div class="col-sm-2 align-self-end" id="right">
 				<span
-					th:text="${Post.views > 999} ? '999+ 읽음' : ${Post.views} + ' 읽음'">999
+					th:text="${Notice.views > 999} ? '999+ 읽음' : ${Notice.views} + ' 읽음'">999
 					읽음</span>
 				<!-- TODO:999이상은 999+,줄바꿈x,align right -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<span><b th:text="${Post.Member.nickname}">고길동</b></span>
+				<span><b th:text="${Notice.Member.nickname}">고길동</b></span>
 				<button type="button" id="sendDm" class="btn btn-secondary btn-sm">쪽지
 					보내기</button>
 				&nbsp;<span class="date"
-					th:text="${#dates.format(Post.upload_date, 'yyyy.MM.dd')}">2022.07.22</span>
+					th:text="${#dates.format(Notice.upload_date, 'yyyy.MM.dd')}">2022.07.22</span>
 			</div>
 			<div class="col-sm-2 align-self-end" id="right">
-				<span
-					th:text="${#lists.size(Post.commentList) > 999} ? '999+개 댓글':${#lists.size(Post.commentList)}+'개 댓글'">999개
-					댓글</span>
 				<!-- TODO:999이상은 999+,줄바꿈x,align right -->
 			</div>
 		</div>
@@ -66,7 +61,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="row">
-					<div class="ck-content" th:utext="${Post.content}">
+					<div class="ck-content" th:utext="${Notice.content}">
 						<br /> <br />안녕하세요~~~~ 독서모임 해피하우스의 대장이에요 ^^ 혹시 독서모임 구하고 계신 분
 						있으신가요?<br /> 그렇다면 해피하우스 어떠신가요? 해피하우스는 직장인으로 이루어진 독서모임으로 각자의 사정을
 						존중해주고 있답니다 ^^<br /> <br /> 감사합니다~~^^ 관심 있으신 분들은 댓글 남겨주세요~
@@ -76,36 +71,13 @@
 		</div>
 		<br /> <br /> <br />
 		<div class="row">
-			<span th:text="'댓글 ' + ${#lists.size(Post.commentList)} + '개'">댓글
+			<span>댓글
 				0개</span>
 		</div>
 		<hr />
 		<!-- comment -->
 
-		<div class="row" th:if="${#lists.size(Post.commentList)} > 0"
-			th:each="comment : ${Post.commentList}">
-			<div class="col-sm-auto">
-				<img width="50" height="50" class="rounded-circle"
-					th:src="'/images/'+${Post.member.image}" />
-				<!-- <img width="50" height="50" class="rounded-circle"
-					th:src="${comment.member.image}" /> -->
-			</div>
-			<div class="col">
-				<div class="row">
-					<span><b th:text="${comment.member.nickname}">매실하이볼</b></span>
-				</div>
-				<div class="row">
-					<span th:text="${comment.content}">좋은 모임 가지고 계시네요~^^ 주로 어떤
-						요일에 모이나요?</span>
-				</div>
-				<div class="row">
-					<span><small class="smallT"
-						th:text="${#dates.format(comment.upload_date, 'yyyy.MM.dd	  hh:mm')}">2022.07.22
-							&nbsp; 15:30</small></span>
-				</div>
-				<hr />
-			</div>
-		</div>
+		
 		<!-- 
 		<div class="row">
 			<div class="col-sm-auto">
@@ -139,47 +111,6 @@
 				</c:if>
 			</tr>
 		</table> -->
-		<div class="row">
-			<form method="post" action="/book/community/createComment.do"
-				class="pt-2 ps-2">
-				<div class="card" style="border-radius: 25px;">
-					<div class="row g-0">
-						<div class="col-md-11" id="commentCard">
-							<div class="card-header bg-transparent">
-								<div class="row">
-									<div class="col-sm-auto">
-										<img th:if="${session.member != null}" width="32" height="32"
-											class="rounded-circle"
-											th:src="'/images/'+${session.member.image}" /> <img
-											th:unless="${session.member != null}" width="25" height="25"
-											src="/images/icon/id.png" />
-									</div>
-									<div class="col-sm-auto align-self-center" id="nick">
-										<span th:if="${session.member != null}"><b
-											th:text="${session.member.nickname}">닉네임</b></span> <span
-											th:unless="${session.member != null}" style="color: #9A9A9A;">로그인
-											후에 작성해주세요! </span>
-									</div>
-								</div>
-							</div>
-							<div class="card-body">
-								<input type="hidden" name="commId"
-									th:value="${Post.communityId}" />
-								<textarea class="commentWrite" placeholder="건전한 댓글문화! 나부터 시작해요."
-									name="content"></textarea>
-							</div>
-						</div>
-						<div class="col-md-1">
-							<button type="submit" class="sbmt">
-								<span><b>등록하기</b></span>
-							</button>
-						</div>
-
-					</div>
-				</div>
-			</form>
-		</div>
-
 
 	</div>
 	<div id="footer"></div>
