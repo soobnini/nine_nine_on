@@ -9,6 +9,7 @@ public class MemberCommand implements Serializable {
 	private String password;
 	private String passwordCheck;
 	private String name;
+	private String birthday;
 	private String nickname;
 	private String phone;
 	private String address1;
@@ -46,6 +47,14 @@ public class MemberCommand implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 
 	public String getNickname() {
