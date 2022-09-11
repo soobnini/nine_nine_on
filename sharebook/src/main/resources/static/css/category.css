@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+#main-category {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	height: 100%;
+	width: 100%;
+}
+
+#category-table {
+	font-size: 0.7rem;
+	height: 100%;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#address-category {
+	width: 25%;
+	height: 100%;
+	border: 10px solid white;
+}
+
+#genre-category {
+	width: 75%;
+	height: 100%;
+	border: 10px solid white;
+}
+
+#address-category-table {
+	width: 100%;
+	height: 100%;
+	table-layout: fixed;
+}
+
+#genre-category-table {
+	width: 100%;
+	height: 100%;
+	table-layout: fixed;
+}
+
+.category-header {
+	background-color: #E7EBE4;
+	font-weight: 600;
+}
+
+.address-category-content {
+	
+}
+
+.genre-category-content {
+	
+}

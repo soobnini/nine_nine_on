@@ -1,8 +1,26 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<div id="bookListContent">
-    <ul>
-        <li th:each="book: ${books}" th:text="|${book.title} , ${book.description}|"></li>
-    </ul>
-</div>
+<head>
+<link th:href="@{/css/searchPartial.css}" rel="stylesheet" />
+<script defer th:src="@{/js/searchPartial.js}" type="text/javascript"
+	charset="UTF-8"></script>
+</head>
+<body>
+	<div id="book-list-result">
+		<ul class="book-list mt-1 mb-5" th:each="books : ${bookList}">
+			<li class="book-list-content" th:each="book : ${books}"><div
+					class="book-list-img-wrap">
+					<img class="book-list-img" th:src="${book.image}" />
+					<input type="hidden" id="hidden-image" th:value="${book.image}">
+				</div>
+				<div class="book-list-text mt-3">
+					<p class="book-list-main-text">
+						<span class="book-list-title"><b>[[${book.title}]]</b></span> <span
+							class="book-list-year">2016</span>
+					</p>
+					<p class="book-list-author mt-1">[[${book.author}]] / 퍼블리셔</p>
+				</div> <input type="hidden" id="hiddenBookInfo" th:value="${book}"></li>
+		</ul>
+	</div>
+</body>
 </html>

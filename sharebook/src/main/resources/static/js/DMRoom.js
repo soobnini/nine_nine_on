@@ -1,4 +1,9 @@
 $(document).ready(function() {
+	// 스크롤 자동 생성
+	const $messageArea = $('msgArea');
+	$messageArea.scrollTop($messageArea[0].scrollHeight);
+
+
 	console.log("STOMP랑 SockJS 준비");
 	var roomId = [[${ roomId }]];
 	var memberId = [[${ member.member_id }]];
@@ -44,6 +49,7 @@ $(document).ready(function() {
 		console.log("전송 시작");
 		var msg = document.getElementById("msg");
 		var now = new Date();
+		console.log([[${member}]]);
 		var member = [[${ member }]];
 
 		console.log([[${ member.nickname }]] + ":" + msg.value);
@@ -52,3 +58,4 @@ $(document).ready(function() {
 		console.log("전송 완료");
 	});
 });
+

@@ -1,60 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-	rel="stylesheet">
 <link th:href="@{/css/DMRoom.css}" rel="stylesheet" />
 </head>
 <body>
 	<div id="room" th:fragment="dmRoom">
-		<div id="room-header" class="pt-4 pb-3 px-3">[[${otherMember.nickname}]]</div>
-		<div id="room-book-header" class="py-2 px-3">러브 레플리카 * 윤이형 저/문학동네</div>
+		<div id="room-header" class="pt-4 pb-3 px-3">
+			<img class="pb-1 me-3" th:src="@{/images/icon/tempIcon.png}"
+				width="25" />[[${otherMember.nickname}]]
+		</div>
+		<div id="room-book-header" class="py-2 px-3">러브 레플리카 * 윤이형
+			저/문학동네</div>
 		<div id="message-box" class="pt-3">
 			<div id="msgArea">
 				<table id="prevMsg" th:if="${messageList}">
 					<tr th:each="message : ${messageList}">
 						<!-- other message -->
 						<td class="other-img-wrap py-2 ps-3"
-							th:if="${message.member.member_id} eq ${member.member_id}"><img
+							th:if="${message.member.member_id} ne ${member.member_id}"><img
 							th:src="@{/images/icon/tempIcon.png}" class="other-img"
 							width="30" height="30" /></td>
-						<td th:if="${message.member.member_id} eq ${member.member_id}"
+						<td th:if="${message.member.member_id} ne ${member.member_id}"
 							class='other-message-content py-2 ps-2 pe-3'><b
 							class="other-message-text p-2">[[${message.content}]]</b></td>
-						<td th:if="${message.member.member_id} eq ${member.member_id}"
+						<td th:if="${message.member.member_id} ne ${member.member_id}"
 							class="other-margin p-2"></td>
 						<!-- my message -->
-						<td th:if="${message.member.member_id} ne ${member.member_id}"
+						<td th:if="${message.member.member_id} eq ${member.member_id}"
 							class="my-margin p-2"></td>
 						<td class="my-message-content py-2 ps-3 pe-2"
-							th:if="${message.member.member_id} ne ${member.member_id}"><b
+							th:if="${message.member.member_id} eq ${member.member_id}"><b
 							class="my-message-text p-2">[[${message.content}]]</b></td>
 						<td class="my-img-wrap py-2 pe-3"
-							th:if="${message.member.member_id} ne ${member.member_id}"><img
+							th:if="${message.member.member_id} eq ${member.member_id}"><img
 							th:src="@{/images/icon/tempIcon.png}" class="my-img" width="30"
 							height="30" /></td>
 					</tr>
 				</table>
 			</div>
-			<div class="input-group mb-3">
-				<div class="button-image-send py-2"></div>
+			<div class="input-group">
 				<input type="text" id="msg" class="form-control py-2"
 					placeholder="채팅을 입력하세요.">
 				<button type="button" id="button-send" class="py-2">보내기</button>
 			</div>
 		</div>
-		<div class="col-6"></div>
-	</div>
+		<script defer th:inline="javascript" type="text/javascript"
+			charset="UTF-8">
+		$(document).ready(function() {
+			console.log("STOMP랑 SockJS 준비");
+			var roomId = [[${ roomId }]];
+			var memberId = [[${ member.member_id }]];
+			var memberName = [[${ member.nickname }]];
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script th:src="@{/js/DMRoom.js}" type="text/javascript"
-		charset="UTF-8"></script>
+			console.log(roomId + ", " + memberName);
+
+			var sockJs = new SockJS("/stomp/chat");
+			//1. SockJS를 내부에 들고있는 stomp를 내어줌
+			var stomp = Stomp.over(sockJs);
+
+			//2. connection이 맺어지면 실행
+			stomp.connect({}, function() {
+				console.log("STOMP Connection")
+
+				//4. subscribe(path, callback)으로 메세지를 받을 수 있음
+				stomp.subscribe("/topic/book/chat/room/" + roomId + ".do", function(chat) {
+					console.log("메시지 받기 시작");
+					var message = JSON.parse(chat.body);
+
+					var writer = message.member.nickname;
+					var str = '';
+
+					if (writer === memberName) {
+						str = "<tr>"
+						str += "<td class='my-img-wrap py-2 ps-3'>";
+						str += "<img th:src='@{/images/icon/tempIcon.png}' class='my-img' width='30' height='30' /></td>";
+						
+						str += "<td class='my-message-content py-2 ps-2 pe-3'>";
+						str += "<b class='my-message-text p-2'>" + message.content + "</b></td>";
+						
+						str += "<td class='my-margin p-2'></td></tr>";
+					}
+					
+					
+					else {
+						str = "<tr>"
+						str += "<td class='other-img-wrap py-2 ps-3'>";
+						str += "<img th:src='@{/images/icon/tempIcon.png}' class='other-img' width='30' height='30' /></td>";
+						
+						str += "<td class='other-message-content py-2 ps-2 pe-3'>";
+						str += "<b class='other-message-text p-2'>" + message.content + "</b></td>";
+						
+						str += "<td class='other-margin p-2'></td></tr>";
+					}
+
+					$("#prevMsg").append(str);
+					console.log("메시지 받기 완료");
+				});
+			});
+
+			$("#button-send").on("click", function(e) {
+				console.log("전송 시작");
+				var msg = document.getElementById("msg");
+				var now = new Date();
+				var member = [[${ member }]];
+
+				console.log([[${ member.nickname }]] + ":" + msg.value);
+				stomp.send('/app/book/chat/message.do', {}, JSON.stringify({ sent_time: now, content: msg.value, chatRoom: [[${ room }]], member: member }));
+				msg.value = '';
+				console.log("전송 완료");
+			});
+		});
+		</script>
+	</div>
 </body>
 </html>

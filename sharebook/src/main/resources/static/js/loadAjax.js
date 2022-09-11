@@ -14,13 +14,51 @@ function loadAjaxFromUrl(thisUrl, thisType, changeElement) {
 		},
 		success: function(data) {
 			console.log("호출성공");
-			console.log(data);
 		},
 		error: function(jqXHR) {
 			console.log("호출실패");
 		}
 	}).done(function(result) {
 		$(changeElement).replaceWith(result);
+	});
+}
+
+function loadAjaxFromAPI(thisQuery, thisUrl, thisType, changeElement) {
+	$.ajax({
+		url: thisUrl,
+		type: thisType,
+		data: {
+			query: thisQuery
+		},
+		dataType: 'text',
+		beforeSend: function(jqXHR) {
+			console.log("ajax 호출전");
+		},
+		success: function(data) {
+			console.log("호출성공");
+		},
+		error: function(jqXHR) {
+			console.log("호출실패");
+		}
+	}).done(function(result) {
+		$(changeElement).replaceWith(result);
+	});
+}
+
+function loadAjaxAboutController(thisUrl, thisType) {
+	$.ajax({
+		url: thisUrl,
+		type: thisType,
+		data: {
+
+		},
+		success: function(data) {
+			console.log("호출성공");
+			return data;
+		},
+		error: function() {
+			console.log("호출실패");
+		}
 	});
 }
 

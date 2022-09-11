@@ -2,55 +2,52 @@ import {
 	computePosition,
 	flip,
 	shift,
-	offset,
+	offset
 } from 'https://cdn.skypack.dev/@floating-ui/dom@0.2.0';
 
-const button = document.querySelector('#button');
-const tooltip = document.querySelector('#tooltip');
+const dmButton = document.querySelector('#dm-button');
+const dmTooltip = document.querySelector('#dm-tooltip');
+const categoryButton = document.querySelector('#category-button');
+const categoryTooltip = document.querySelector('#category-tooltip');
 
-function setUpTooltip() {
+function setUpTooltip(button, tooltip) {
 	computePosition(button, tooltip, {
 		placement: 'bottom',
-		middleware: [offset(8), flip(), shift({ padding: 5 })],
+		middleware: [offset(8), shift()]
 	}).then(({ x, y }) => {
 		Object.assign(tooltip.style, {
 			left: `${x}px`,
-			top: `${y}px`,
+			top: `${y}px`
 		});
 	});
 }
 
-function update() {
-	computePosition(button, tooltip, {
-
-	}).then(({ x, y, placement, middlewareData }) => {
-
-	});
-
-	console.log("위치 update 성공");
-}
-
-
 /**
  *  AJAX 관련 JS
  */
-$("#button").click(function() {
-	loadAjaxFromUrl("/book/chat/rooms.do", "GET", "#tooltip-content");
+$("#dm-button").click(function() {
+	loadAjaxFromUrl("/book/chat/rooms.do", "GET", "#dm-tooltip-content");
 
-	setUpTooltip();
-	update();
-	$("#tooltip").slideDown();
+	$("#dm-tooltip").slideDown();
+	setUpTooltip(dmButton, dmTooltip);
+});
+
+$("#category-button").click(function() {
+	loadAjaxFromUrl("/book/category.do", "GET", "#category-tooltip-content");
+
+	$("#category-tooltip").slideDown();
+	setUpTooltip(categoryButton, categoryTooltip);
 });
 
 /**
  *  다른 곳 클릭하면 팝업창 사라지는 함수
  */
-function clearBox(targetId) {
+function clearBox(targetId, newId) {
 	$(targetId).html("")
 	console.log("tooltip 지우기 완료");
-	
+
 	var newDiv = document.createElement("div");
-	newDiv.setAttribute("id", "tooltip-content");
+	newDiv.setAttribute("id", newId);
 	document.querySelector(targetId).appendChild(newDiv);
 	console.log("tooltip 생성 완료");
 }
@@ -60,14 +57,26 @@ $("body")
 		"click",
 		function(e) {
 			var $tgPoint = $(e.target);
-			var $popCallBtn = ((($tgPoint.attr('id') === "button") || $tgPoint.attr('id') === "dm-icon") ? true
+			// DM창일 경우
+			var $popCallBtn = ((($tgPoint.attr('id') === "dm-button")) ? true
 				: false);
-			var $popArea = (($tgPoint.closest("#tooltip")
-				.attr('id') === "tooltip") ? true
+			var $popArea = (($tgPoint.closest("#dm-tooltip")
+				.attr('id') === "dm-tooltip") ? true
 				: false);
-			console.log($tgPoint.attr('id') + " " + $popCallBtn + " " + $popArea);
 			if (!$popCallBtn && !$popArea) {
-				$("#tooltip").slideUp();
-				clearBox("#tooltip");
+				$("#dm-tooltip").slideUp();
+				clearBox("#dm-tooltip", "dm-tooltip-content");
+			}
+
+			// 카테고리창일 경우
+			$popCallBtn = ((($tgPoint.attr('id') === "category-button") || $tgPoint.attr('id') === "category-icon") ? true
+				: false);
+			$popArea = (($tgPoint.closest("#category-tooltip")
+				.attr('id') === "category-tooltip") ? true
+				: false);
+			console.log($popCallBtn + ", " + $popArea);
+			if (!$popCallBtn && !$popArea) {
+				$("#category-tooltip").slideUp();
+				clearBox("#category-tooltip", "category-tooltip-content");
 			}
 		});

@@ -53,12 +53,12 @@ public class MainController {
 		mav.setViewName("thymeleaf/main");
 		mav.addObject("recommendList", recommendList);
 		mav.addObject("newBookList", newBookList);
-		//mav.addObject("uploadDirLocal", uploadDirLocal);	// 일단 주석처리했는데 나중에 오류나면 수정하겠음
+		// mav.addObject("uploadDirLocal", uploadDirLocal); // 일단 주석처리했는데 나중에 오류나면 수정하겠음
 		return mav;
 	}
-	
+
 	/*
-	 *  header and footer
+	 * header and footer
 	 */
 	@RequestMapping("/book/header.do")
 	public ModelAndView loadHeader() {
@@ -66,7 +66,14 @@ public class MainController {
 		mav.setViewName("thymeleaf/fragments/header");
 		return mav;
 	}
-	
+
+	@RequestMapping("/book/category.do")
+	public ModelAndView loadCategory() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("thymeleaf/category");
+		return mav;
+	}
+
 	@RequestMapping("/book/footer.do")
 	public ModelAndView loadFooter() {
 		ModelAndView mav = new ModelAndView();

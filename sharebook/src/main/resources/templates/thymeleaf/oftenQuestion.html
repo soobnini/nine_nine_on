@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>이웃 책장 : 종이책 공유 플랫폼</title>
+<!-- CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
+<link th:href="@{/css/oftenQuestion.css}" rel="stylesheet" />
+
+<!-- JS -->
+<script defer
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script defer
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer th:src="@{/js/loadAjax.js}" type="text/javascript"
+	charset="UTF-8"></script>
+<script defer th:src="@{/js/loadHeaderAndFooter.js}" type="module"
+	charset="UTF-8"></script>
+</head>
+<body>
+	<div id="header"></div>
+	<div class="often-question-body">
+		<div class="often-question-title mt-5 mb-2 pt-3">
+			<div id="often-question-title-text">자주하는 질문</div>
+		</div>
+		<div class="often-question-box my-5">
+			<div class="often-question-inner-box py-5">
+				<div class="often-question-main mb-2">Q. 매장 이용시간은 어떻게 되나요?</div>
+				<div class="often-question-sub ps-4">
+					이웃책장은 8:00부터 22:00까지 이용 가능해요.<br>매장 특성에 따라 조금 더 일찍 닫는 곳도 있고, 좀
+					더 일찍 여는 곳도 있으니 반드시 확인 부탁드려요!
+				</div>
+				<div class="often-question-main mb-2 mt-4 pt-2">Q. 반드시 집 주변에
+					있는 매장만 이용해야 하나요?</div>
+				<div class="often-question-sub ps-4">
+					아닙니다! 전국 어디에서나 이용할 수 있어요.<br>다만 대여 시스템을 보다 효율적으로 이용하기 위해서는 쉽게
+					이동할 수 있는 곳에서 이용하는 게 훨씬 편할 거예요.
+				</div>
+				<div class="often-question-main mb-2 mt-4 pt-2">Q. 대여 기간을 늘릴
+					수도 있나요?</div>
+				<div class="often-question-sub ps-4">이용자간의 합의만 있다면 가능합니다!</div>
+				<div class="often-question-main mb-2 mt-4 pt-2">Q. 반드시 빌렸던
+					지점에서만 반납이 가능한가요?</div>
+				<div class="often-question-sub ps-4">가능합니다! 다만 원래 지점으로 보내기 위한
+					추가적인 택배비가 발생합니다.</div>
+				<div class="often-question-main mb-2 mt-4 pt-2">Q. 반드시 집 주변에
+					있는 매장만 이용해야 하나요?</div>
+				<div class="often-question-sub ps-4">
+					아닙니다! 전국 어디에서나 이용할 수 있어요.<br>다만 대여 시스템을 보다 효율적으로 이용하기 위해서는 쉽게
+					이동할 수 있는 곳에서 이용하는 게 훨씬 편할 거예요.
+				</div>
+				<div class="often-question-main mb-2 mt-4 pt-2">Q. 연체비는 어느
+					정도인가요?</div>
+				<div class="often-question-sub ps-4">
+					연체된 지 3일까지는 하루에 천 원이지만 그 후부터는 하루에 삼천 원씩으로 늘어나요.<br> 예를 들어 총 5일
+					연체가 되었다면 3일치 3,000원 + 그 후 2일치 6,000원을 더해 총 9,000원의 연체비가 발생해요.
+				</div>
+			</div>
+		</div>
+		<div class="often-question-small-box my-5 pt-2 pb-4">
+			<div class="often-question-small-text mt-2 mb-2">다른 질문이 궁금하다면?</div>
+			<button id="question-button" class="py-2"
+				th:onclick="|location.href='@{/book/search/api.do}'|">이웃책장에게
+				물어보기</button>
+		</div>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

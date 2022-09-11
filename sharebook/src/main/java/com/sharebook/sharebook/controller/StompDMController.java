@@ -1,9 +1,15 @@
 package com.sharebook.sharebook.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.WebUtils;
+
+import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Message;
 import com.sharebook.sharebook.service.Chat_roomService;
 import com.sharebook.sharebook.service.MemberService;
@@ -36,5 +42,11 @@ public class StompDMController {
 		chat_roomService.saveMessage(message);
 		System.out.println(message.getMember().getNickname() + ": " + message.getContent());
 		template.convertAndSend("/topic/book/chat/room/" + message.getChatRoom().getChat_room_id() + ".do", message);
+	}
+	
+	@RequestMapping("/book/chat/member.do")
+	public Member getMemberForDM(HttpServletRequest request) {
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		return userSession.getMember();
 	}
 }

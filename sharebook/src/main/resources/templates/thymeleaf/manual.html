@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>이웃 책장 : 종이책 공유 플랫폼</title>
+<!-- CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
+<link th:href="@{/css/manual.css}" rel="stylesheet" />
+
+<!-- JS -->
+<script defer
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script defer
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer th:src="@{/js/loadAjax.js}" type="text/javascript"
+	charset="UTF-8"></script>
+<script defer th:src="@{/js/loadHeaderAndFooter.js}" type="module"
+	charset="UTF-8"></script>
+<script defer type="module">
+	$(document).ready(function() {
+		$("#manual-go-up-arrow").click(function(e) {
+			e.preventDefault();
+			$("html, body").animate({
+				scrollTop : 0
+			}, 200);
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="header"></div>
+	<div class="manual-body">
+		<div class="manual-text-box mt-5 mb-2 pt-3">
+			<div id="manual-main">이웃책장 이용방법을 알려드릴게요.</div>
+		</div>
+		<div class="manual-large-box">
+			<img class="manual-image my-5"
+				th:src="@{/images/brand/manualRent.png}" /> <img
+				class="manual-image my-5 pt-2" th:src="@{/images/brand/manualLend.png}" />
+		</div>
+		<div class="manual-small-box my-5 pb-4">
+			<img id="manual-go-up-arrow" th:src="@{/images/icon/goUpArrow.png}"
+				alt="mdo" />
+		</div>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

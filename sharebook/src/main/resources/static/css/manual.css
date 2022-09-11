@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+}
+
+.manual-body {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+}
+
+.manual-text-box {
+	width: 66%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#manual-main {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #1C1B1F;
+}
+
+.manual-large-box {
+	width: 66%;
+	margin: 0 auto;
+}
+
+.manual-image {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.manual-small-box {
+	width: 33%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#manual-go-up-arrow {
+	width: 10%;
+	cursor: pointer;
+}

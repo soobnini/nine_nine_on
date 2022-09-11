@@ -1,37 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>이웃 책장 - header</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="이웃책장-김은진/김진아/조수빈/최가희">
-<meta name="keywords" content="이웃책장">
-<meta name="description" content="책 공유 플랫폼">
-
-<!-- sns share -->
-<meta property="og:url" content="http://localhost:8080/book.do" />
-<meta property="og:title" content="이웃책장" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="책 공유 플랫폼" />
-<meta property="og:image" content="/images/book.png" />
-
-<!-- favicon -->
-<link rel="shortcut icon" href="/images/book.png">
-<link rel="apple-touch-icon-precomposed" href="/images/book.png">
-
-<!-- CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-	rel="stylesheet">
 <link th:href="@{/css/header.css}" rel="stylesheet" />
+<!-- JS -->
+<script th:src="@{/js/header.js}" type="module" charset="UTF-8"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
-	<header th:fragment="header" id="main-header" class="mb-4">
+	<header th:fragment="header" id="main-header" class="py-4 mb-4">
 		<div class="header container">
 			<!-- main icon -->
 			<div id="main-icon-container"
@@ -43,10 +22,11 @@
 				<!-- main menu bar -->
 				<ul id="main-menu-bar"
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a th:href="@{/book/search.do}"
+					<li><a id="category-button"
 						class="main-menu-bar-item nav-link px-3 link-secondary">카테고리 <img
-							class="pb-1" th:src="@{/images/icon/tempIcon.png}" width="10" /></a></li>
-					<li><a th:href="@{/book/view/create.do}"
+							id="category-icon" class="pb-1"
+							th:src="@{/images/icon/greenDownArrow.png}" width="10" /></a></li>
+					<li><a th:href="@{/book/ideology.do}"
 						class="main-menu-bar-item nav-link px-3 link-secondary">이웃책장</a></li>
 					<li><a th:href="@{/book/funding.do}"
 						class="main-menu-bar-item nav-link px-3 link-secondary">책 대여</a></li>
@@ -55,25 +35,26 @@
 				</ul>
 				<!-- main search bar -->
 				<form id="main-search-container"
-					class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST"
+					class="d-flex flex-wrap justify-content-center me-3" method="POST"
 					th:action="@{/book/search.do}">
-					<input id="search-box" type="search" name="keyword"
-						class="form-control" aria-label="Search">
+					<div id="search-bar-box">
+						<input id="search-bar" type="search" name="keyword" class="ps-3"
+							aria-label="Search"> <img id="search-icon"
+							th:src="@{/images/icon/searchSmall.png}" class="mx-2" width="15" />
+					</div>
 				</form>
 				<!-- main profile icon and dropdown -->
-				<div id="main-profile-container" class="dropdown text-end">
+				<div id="main-profile-container"
+					class="d-flex flex-wrap align-items-center justify-content-center">
 					<div id="not-login" th:unless="${session.member}">
 						<a id="login-link" href="/book/login.do">로그인/회원가입</a>
 					</div>
 					<div id="now-login" th:if="${session.member}">
-						<a id="button" class="ps-2 pe-3"> <img id="dm-icon"
-							th:src="@{/images/icon/tempIcon.png}" width="25" height="25"
-							class="rounded-circle" />
-						</a><a href="/book/mypage.do" aria-expanded="false"><img
-							src="https://github.com/mdo.png" alt="mdo" width="25" height="25"
-							class="rounded-circle"></a>
-					</div>
-					<!--
+						<img id="dm-button" class="ms-2 me-3"
+							th:src="@{/images/icon/dmIcon.png}" width="25" height="25" /> <a
+							href="/book/mypage.do" aria-expanded="false"><img
+							th:src="@{/images/profile/profile1.jpg}" alt="mdo" width="25"
+							height="25" class="dropdown rounded-circle"> <!--
 					<ul class="dropdown-menu text-small"
 						aria-labelledby="dropdownUser1" style="">
 						<li><a class="dropdown-item" href="/book/mypage.do">마이
@@ -86,22 +67,17 @@
 						<li th:unless="${session.member}"><a class="dropdown-item"
 							href="/book/login.do">Log In</a></li>
 					</ul>
-					-->
+					--> </a>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div id="tooltip" role="tooltip">
-			<div id="tooltip-content"></div>
+		<div id="dm-tooltip" role="tooltip">
+			<div id="dm-tooltip-content"></div>
 		</div>
-
-		<!-- JS -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script th:src="@{/js/loadAjax.js}" type="text/javascript"
-			charset="UTF-8"></script>
-		<script th:src="@{/js/header.js}" type="module" charset="UTF-8"></script>
+		<div id="category-tooltip" role="tooltip">
+			<div id="category-tooltip-content"></div>
+		</div>
 	</header>
 </body>
 </html>
