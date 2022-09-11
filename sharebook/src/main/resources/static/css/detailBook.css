@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 body {
-	width: 100%;
+	width: 80%;
 	height: 100%;
 	min-width: 1300px;
-	margin: 0px;
+	margin: auto;
 	padding: 0px;
 }
 
@@ -33,7 +33,6 @@ body {
 
 #title {
 	font-size: 30px;
-	color: #468f36;
 }
 
 #title2 {
@@ -42,7 +41,6 @@ body {
 
 #content {
 	font-size: 20px;
-	color: #70D047;
 }
 
 #rent-button{
@@ -69,4 +67,15 @@ body {
 
 .row {
 	margin-bottom: 15px;
+}
+.startBtn {
+  background-color: #80C40A;
+  border-radius: 10px;
+  display: block;
+  width: 100xp;
+  height: 70px;
+  border: 0px;
+  font-size: 20px;
+  color: white;
+  margin: auto;
 }

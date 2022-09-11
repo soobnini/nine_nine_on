@@ -20,7 +20,6 @@ public class MemberFormValidator implements Validator {
 	}
 
 	public void validateMemberCommand(MemberCommand memberCommand, Errors errors) {
-
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "EMAIL_REQUIRED", "이메일은 필수 항목입니다");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "PASSWORD_REQUIRED", "비밀번호는 필수 항목입니다");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordCheck", "PASSWORDCHECK_REQUIRED", "비밀번호 확인은 필수 항목입니다");
