@@ -47,7 +47,7 @@ public class LendBookController implements ApplicationContextAware {
 	public String viewCreateBook(HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 
-		if (userSession == null) { // 로그인이 안되어있는 경우 
+		if (userSession == null) { // 로그인이 안되어있는 경우
 			return "login";
 		}
 
@@ -78,7 +78,7 @@ public class LendBookController implements ApplicationContextAware {
 
 	@RequestMapping("/book/create.do")
 	public ModelAndView createBook(String title, String author, String publisher, MultipartFile image,
-			String description, String store, HttpServletRequest request) {
+			String description, String isbn, int publishYear, String store, HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
 
@@ -88,8 +88,9 @@ public class LendBookController implements ApplicationContextAware {
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
 
 			String filename = uploadFile(image);
-			Book book = new Book(0, title, author, filename, description, 0, true, member, null); // genre null값 추후 수정
-																									// 필요
+			Book book = new Book(0, title, author, publisher, filename, description, isbn, publishYear, 0, true, member,
+					null, null); // genre null값 추후 수정
+			// 필요
 			int bookId = bookService.saveBook(book).getBook_id();
 
 			mav.setViewName("redirect:/book/view/" + bookId + ".do");

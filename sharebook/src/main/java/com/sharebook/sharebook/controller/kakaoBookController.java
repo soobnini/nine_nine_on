@@ -37,7 +37,7 @@ import org.json.JSONObject;
 public class kakaoBookController {
 
 	private final String url = "https://dapi.kakao.com/v3/search/book";
-	private final String key = "46988fda87fb89c623200cd06a6b623d"; 
+	private final String key = "46988fda87fb89c623200cd06a6b623d";
 
 	@GetMapping("/book/search/api.do")
 	public ModelAndView viewCreateBook1(HttpServletRequest request) {
@@ -75,28 +75,30 @@ public class kakaoBookController {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject obj = jsonArray.getJSONObject(i);
 				String title = obj.getString("title");
-				
+
 				String author = obj.getJSONArray("authors").toString();
 				author = author.replace("[\"", "");
 				author = author.replace("\"]", "");
-				
-				if(author.contains("/")) {
+
+				if (author.contains("/")) {
 					int idx = author.indexOf("/");
 					author = author.substring(0, idx);
 					author = author + " 외";
 				}
-				
-				if(author.contains(",")) {
+
+				if (author.contains(",")) {
 					int idx = author.indexOf(",");
-					author = author.substring(0, idx-1);
+					author = author.substring(0, idx - 1);
 					author = author + " 외";
 				}
-				
-				String isbn = obj.getString("isbn").split(" ")[0];
+
 				String publisher = obj.getString("publisher");
 				String imgUrl = obj.getString("thumbnail");
 				String description = obj.getString("contents");
-				Book book = Book.builder().title(title).author(author).image(imgUrl).description(description).build();
+				String isbn = obj.getString("isbn").split(" ")[0];
+				int publishYear = Integer.parseInt(String.valueOf(obj.getString("datetime")).substring(0, 4));
+				Book book = Book.builder().title(title).author(author).publisher(publisher).image(imgUrl)
+						.description(description).isbn(isbn).publishYear(publishYear).build();
 				bookList.add(book);
 			}
 			mav.setViewName("thymeleaf/searchPartial");

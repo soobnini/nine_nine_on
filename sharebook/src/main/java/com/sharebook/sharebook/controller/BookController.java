@@ -83,39 +83,6 @@ public class BookController implements ApplicationContextAware {
 		return mav;
 	}
 
-	//@RequestMapping("/book/view/create.do")
-	public String viewCreateBook(HttpServletRequest request) {
-		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
-
-		if (userSession == null) { // 로그인이 안되어있는 경우
-			return "login";
-		}
-
-		return "thymeleaf/createBook";
-	}
-
-	//@RequestMapping("/book/create.do")
-	public ModelAndView createBook(String title, String author, String description, MultipartFile image,
-			HttpServletRequest request) {
-		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		ModelAndView mav = new ModelAndView();
-
-		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
-		} else { // 로그인이 되어있는 경우
-			Member member = memberService.getMember(userSession.getMember().getMember_id());
-
-			String filename = uploadFile(image);
-			Book book = new Book(0, title, author, filename, description, 0, true, member, null); // genre null값 추후 수정 필요
-			int bookId = bookService.saveBook(book).getBook_id();
-
-			mav.setViewName("redirect:/book/view/" + bookId + ".do");
-			mav.addObject("uploadDirLocal", uploadDirLocal);
-		}
-
-		return mav;
-	}
-
 	@RequestMapping("/book/view/{bookId}.do")
 	public ModelAndView viewDetailBook(@PathVariable int bookId, HttpServletRequest request) {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
@@ -163,20 +130,6 @@ public class BookController implements ApplicationContextAware {
 		}
 
 		return mav;
-	}
-
-	private String uploadFile(MultipartFile image) {
-		String filename = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-		System.out.println(this.uploadDir + filename + " 업로드");
-
-		File file = new File(this.uploadDir + filename);
-
-		try {
-			image.transferTo(file);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		return filename;
 	}
 
 }

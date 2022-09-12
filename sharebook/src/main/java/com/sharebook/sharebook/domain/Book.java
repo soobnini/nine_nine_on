@@ -34,11 +34,20 @@ public class Book {
 	@Column(name="AUTHOR")
 	String author;
 	
+	@Column(name="PUBLISHER")
+	String publisher;
+	
 	@Column(name="IMAGE")
 	String image;
 	
 	@Column(name="DESCRIPTION")
 	String description;
+	
+	@Column(name="ISBN")
+	String isbn;
+	
+	@Column(name="PUBLISH_YEAR")
+	int publishYear;
 	
 	@Column(name="VIEWS")
 	int views;
@@ -54,4 +63,8 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name="GENRE_ID")
 	Genre genre;
+	
+	@ManyToOne
+	@JoinColumn(name="STORE_ID")
+	Store store;
 }
