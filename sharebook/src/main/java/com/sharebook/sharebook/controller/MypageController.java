@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import com.sharebook.sharebook.domain.Comments;
 import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
@@ -89,10 +90,24 @@ public class MypageController {
 	}
 	@GetMapping("/book/myPage/listPartial.do")
 	public String listPartial(@RequestParam(value = "page", required = false, defaultValue = "0") int page
-			,@RequestParam(value = "category", required = false, defaultValue = "1") int orderBy
-			, ModelMap model)
+			,@RequestParam(value = "category", required = false, defaultValue = "1") int category
+			, ModelMap model,HttpServletRequest request)
 	{
-		return"thymeleaf/listPartial";
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		Member member = memberService.getMember(userSession.getMember().getMember_id());
+		if(category == 2) {
+			return"thymeleaf/listPartial2";
+		}
+		else if(category == 3) {
+			List<Comments> commentList = communityService.findCommentByMember(member);
+			model.addAttribute("commentList", commentList);
+			return"thymeleaf/listPartial3";
+		}
+		else {
+		List<Community> communityList =  communityService.findCommunityByUser(0, member).getContent();
+		model.addAttribute("communityList", communityList);
+		return"thymeleaf/listPartial";}
 	}
 	
 	@GetMapping("/book/mypage/member/check.do")

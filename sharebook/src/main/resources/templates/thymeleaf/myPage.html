@@ -80,7 +80,7 @@
 						<li class="nav-item"><span class="nav-link">|</span></li>
 						<li class="nav-item"><a class="nav-link" href="#rentDiv">대여목록</a></li>
 						<li class="nav-item"><span class="nav-link">|</span></li>
-						<li class="nav-item"><a class="nav-link" href="#likeDiv">찜목록</a></li>
+						<li class="nav-item"><a class="nav-link" href="#likesDiv">찜목록</a></li>
 						<li class="nav-item"><span class="nav-link">|</span></li>
 						<li class="nav-item"><a class="nav-link" href="#ListPartial">나의
 								활동</a></li>
@@ -92,9 +92,9 @@
 			</div>
 			<hr />
 			<div id="scrollspace" data-bs-spy="scroll"
-				data-bs-target="#navbar-example" data-bs-offset="0"
-				class="scrollspy-example" tabindex="0">
-				<div style="width: 96%; margin: auto;" id="memberDiv">
+				data-bs-target="#navbar-example" data-bs-offset="10"
+				class="scrollspy-example" tabindex="1">
+				<div id="memberDiv">
 					<div>
 						<span><h5>회원정보 수정</h5></span>
 						<div class="container py-5 w-50">
@@ -106,7 +106,7 @@
 											id="floatingPassword" placeholder="Password" name="password">
 										<label for="floatingPassword">비밀번호를 입력해주세요.</label><br> <input
 											type="button" value="로그인" onClick="loginAction()"
-											class="startBtn" style="width: 420px;"> <br>
+											class="startBtn" style="width: 100%;"> <br>
 									</div>
 								</form>
 							</main>
@@ -117,82 +117,160 @@
 				<br> <br>
 
 				<div id="rentDiv">
-
-					<span><h5>대여목록</h5></span>
+					<span><h5>대여목록</h5></span> <br>
 					<div>- 빌렸어요</div>
 					<div>
-					<ul class="list-group list-group-horizontal">
-						<li  th:each= "rent:${rentList}"class="card" style="width: 300px; height:150px;border:none;">
-							<div class="row g-0">
-								<div class="col-md-4">
-									<img th:src="${rent.book.image}"  class="img-fluid rounded-start" alt="..." >
-								</div>
-								<div class="col-md-6" >
-									<div class="card-body">
-										<h6 class="card-title" th:text="${rent.book.title}">Card title</h6>
-										<p class="card-text"><small class="text-muted" th:text="${rent.book.author}+' / '+${rent.book.publisher}">This is a wider card with supporting</small></p>
-										<p class="card-text"th:text="${rent.book.store.name}">
-										<p class="card-text"th:text="'반납기한'+${rent.book.store.name}">
-										</p>
+						<ul class="list-group list-group-horizontal">
+							<li th:if="${#lists.size(rentList) > 0}"
+								th:each="rent:${rentList}" class="card"
+								style="width: 300px; height: 150px; border: none;">
+								<div class="row g-0">
+									<div class="col-md-4">
+										<img th:src="${rent.book.image}"
+											class="img-fluid rounded-start" alt="...">
 									</div>
-								</div>
+									<div class="col-md-6">
+										<div class="card-body">
+											<h5 class="card-title" th:text="${rent.book.title}">Card
+												title</h5>
+											<p class="card-text" style="margin-top: -2px;">
+												<small class="text-muted"
+													th:text="${rent.book.author}+' / '+${rent.book.publisher}">This
+													is a wider card with supporting</small>
+											</p>
+											<p class="card-text"
+												style="margin-top: 10px; color: #80C40A;"
+												th:text="${rent.book.store.name}">
+											<p class="card-text"
+												th:if="${#dates.createToday() <= rent.end_day}"
+												style="color: #80C40A;"
+												th:text="'반납기한 '+${#dates.format(rent.end_day, 'MM월 dd일')}">
+											<p class="card-text"
+												th:unless="${#dates.createToday() <= rent.end_day}"
+												style="color: #FF0000;"
+												th:text="'반납기한 '+${#dates.format(rent.end_day, 'MM월 dd일')}">
+											</p>
+										</div>
+									</div>
 								</div>
 							</li>
-							<li class="card" style="width: 300px; height:150px;">
-							<div class="row g-0">
-								<div class="col-md-5">
-									<img src="..."  class="img-fluid rounded-start" alt="..." >
-								</div>
-								<div class="col-md-6" >
-									<div class="card-body">
-										<h5 class="card-title">Card title</h5>
-										<p class="card-text">This is a wider card with supporting</p>
-										<p class="card-text">
-											<small class="text-muted">Last updated</small>
-										</p>
+							<li th:unless="${#lists.size(rentList)> 0}" class="card"
+								style="width: 300px; height: 150px; border: none;"><br>
+								<div class="row g-0">
+									<p class="card-text" style="margin-top: -2px;">
+										<span class="text-muted">&nbsp;&nbsp;&nbsp;현재 빌린 책이
+											없어요. 이웃에게 책을 한번 빌려보세요!</span>
+									</p>
+								</div></li>
+						</ul>
+						<br>
+						<div>- 빌려줬어요</div>
+						<ul class="list-group list-group-horizontal">
+							<li th:if="${#lists.size(myRentList) > 0}"
+								th:each="rent:${myRentList}" class="card"
+								style="width: 300px; height: 150px; border: none;">
+								<div class="row g-0">
+									<div class="col-md-4">
+										<img th:src="${rent.book.image}"
+											class="img-fluid rounded-start" alt="...">
 									</div>
-								</div>
-								</div>
-							</li><li class="card" style="width: 300px; height:150px;">
-							<div class="row g-0">
-								<div class="col-md-5">
-									<img src="..."  class="img-fluid rounded-start" alt="..." >
-								</div>
-								<div class="col-md-6" >
-									<div class="card-body">
-										<h5 class="card-title">Card title</h5>
-										<p class="card-text">This is a wider card with supporting</p>
-										<p class="card-text">
-											<small class="text-muted">Last updated</small>
-										</p>
+									<div class="col-md-6">
+										<div class="card-body">
+											<h5 class="card-title" th:text="${rent.book.title}">Card
+												title</h5>
+											<p class="card-text" style="margin-top: -2px;">
+												<small class="text-muted"
+													th:text="${rent.book.author}+' / '+${rent.book.publisher}">This
+													is a wider card with supporting</small>
+											</p>
+											<p class="card-text"
+												style="margin-top: 10px; color: #80C40A;"
+												th:text="${rent.book.store.name}">
+											<p class="card-text"
+												th:if="${#dates.createToday() <= rent.end_day}"
+												style="color: #80C40A;"
+												th:text="'반납기한 '+${#dates.format(rent.end_day, 'MM월 dd일')}">
+											<p class="card-text"
+												th:unless="${#dates.createToday() <= rent.end_day}"
+												style="color: #FF0000;"
+												th:text="'반납기한 '+${#dates.format(rent.end_day, 'MM월 dd일')}">
+											</p>
+										</div>
 									</div>
-								</div>
 								</div>
 							</li>
-						
-					</ul>
-					<div>빌려줬어요</div>
+							<li th:unless="${#lists.size(myRentList)> 0}" class="card"
+								style="width: 300px; height: 150px; border: none;"><br>
+								<div class="row g-0">
+									<p class="card-text" style="margin-top: -2px;">
+										<span class="text-muted">&nbsp;&nbsp;&nbsp;아직 빌려준 책이
+											없어요. 이웃과 책을 나눠보세요!</span>
+									</p>
+								</div></li>
+						</ul>
+					</div>
 				</div>
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br> <br>
-				<div id="likeDiv">
+				<div id="likesDiv">
 					<span><h5>찜목록</h5></span>
-					<form>글, 댓글 나눠야 함</form>
+					<div id="book-list-result">
+						<ul class="book-list mb-5">
+							<li class="book-list-content" th:each="like : ${likeList}"
+								th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${like.book.bookId})}'|"><div
+									class="book-list-img-wrap">
+									<img class="book-list-img" th:src="${like.book.image}" />
+								</div>
+								<div class="book-list-text mt-3">
+									<p class="book-list-main-text">
+										<span class="book-list-title"><b>[[${like.book.title}]]</b></span>
+										<span class="book-list-year">[[${like.book.publishYear}]]</span>
+									</p>
+									<p class="book-list-info mt-1">
+										<span class="book-list-year">[[${like.book.author}]] /</span>
+										<span class="book-list-year">[[${like.book.publisher}]]</span>
+									</p>
+								</div></li>
+							<!-- 
+								<li class="list-empty" th:if="${#lists.size(likeList) % 5 ne 0}"
+									th:each="empty : ${#numbers.sequence(1, 5 - (#lists.size(likeList) % 5))}"><div
+										class="book-list-img-wrap">
+										<img class="book-list-empty-img"
+											th:src="@{/images/book/bookWhiteImage.png}" />
+									</div></li> -->
+						</ul>
+					</div>
 				</div>
-				<br /> <br />
-
 				<div id="ListPartial">
 					<span><h5>나의 활동</h5></span>
-					<form>글, 댓글 나눠야 함</form>
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							<button class="nav-link active" id="nav-home-tab"
+								data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+								role="tab" aria-controls="nav-home" aria-selected="true">글</button>
+							<button class="nav-link" id="nav-profile-tab"
+								data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+								role="tab" aria-controls="nav-profile" aria-selected="false">독후감</button>
+							<button class="nav-link" id="nav-contact-tab"
+								data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
+								role="tab" aria-controls="nav-contact" aria-selected="false">댓글</button>
+						</div>
+					</nav>
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="nav-home"
+							role="tabpanel" aria-labelledby="nav-home-tab" style="height:300;">...</div>
+						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+							aria-labelledby="nav-profile-tab">...</div>
+						<div class="tab-pane fade" id="nav-contact" role="tabpanel"
+							aria-labelledby="nav-contact-tab">...</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<br> <br>
+		<br>
 
 	</div>
-	<div id="top">위로</div>
+	<div id="top">^top</div>
 	<!-- JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -213,6 +291,10 @@
 		 var scrollSpy = new bootstrap.ScrollSpy(document.body, {
 		 target: '#navbar-example2'
 		 }) */
+		 $(document).ready( function() {
+			    $("#nav-home").load("/book/myPage/listPartial.do"); 
+			    $("#nav-contact").load("/book/myPage/listPartial.do?category=3");
+			  });
 	</script>
 </body>
 </html>
