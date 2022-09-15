@@ -36,9 +36,10 @@
 				<!-- main search bar -->
 				<form id="main-search-container"
 					class="d-flex flex-wrap justify-content-center me-3" method="POST"
-					th:action="@{/book/search.do}">
+					th:action="@{/book/direct/search.do}" name="searchForm"
+					accept-charset="utf-8">
 					<div id="search-bar-box">
-						<input id="search-bar" type="search" name="keyword" class="ps-3"
+						<input id="search-bar" type="search" name="query" class="ps-3"
 							aria-label="Search"> <img id="search-icon"
 							th:src="@{/images/icon/searchSmall.png}" class="mx-2" width="15" />
 					</div>
@@ -54,20 +55,7 @@
 							th:src="@{/images/icon/dmIcon.png}" width="25" height="25" /> <a
 							href="/book/mypage.do" aria-expanded="false"><img
 							th:src="@{/images/profile/profile1.jpg}" alt="mdo" width="25"
-							height="25" class="dropdown rounded-circle"> <!--
-					<ul class="dropdown-menu text-small"
-						aria-labelledby="dropdownUser1" style="">
-						<li><a class="dropdown-item" href="/book/mypage.do">마이
-								페이지</a></li>
-						<li><hr class="dropdown-divider"></li>
-
-						<li th:if="${session.member}"><a class="dropdown-item"
-							href="/book/logout.do">Log Out</a></li>
-
-						<li th:unless="${session.member}"><a class="dropdown-item"
-							href="/book/login.do">Log In</a></li>
-					</ul>
-					--> </a>
+							height="25" class="dropdown rounded-circle"> </a>
 					</div>
 				</div>
 			</div>

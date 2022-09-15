@@ -15,4 +15,6 @@ public interface ReviewRepository  extends JpaRepository<Review, Integer> {
 	List<Review> findByMember(Member member) throws DataAccessException;//멤버별 독후감찾기
 	Page<Review> findAll(Pageable pagealbe)throws DataAccessException;
 	Page<Review> findByTitleContainingIgnoreCase(@Param("keyWord") String title, Pageable pagealbe) throws DataAccessException;//키워드검색
+	
+	List<Review> findFirst4ByOrderByViewsDesc();
 }

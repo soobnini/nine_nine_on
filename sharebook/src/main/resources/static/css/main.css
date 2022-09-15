@@ -17,8 +17,18 @@ body {
 	margin: 0 auto;
 }
 
-#event-carousel, .carousel-event-image {
+.carousel-item {
+	height: 300px;
+}
+
+#event-carousel {
 	width: 100%;
+}
+
+.carousel-event-image {
+	width: 100%;
+	object-fit: cover;
+	cursor: pointer;
 }
 
 #carousel-prev {
@@ -54,6 +64,7 @@ ul.book-list {
 	display: table-cell;
 	border: 1vw solid white;
 	width: 50%;
+	cursor: pointer;
 }
 
 .book-list-img {
@@ -111,9 +122,17 @@ ul.book-list {
 }
 
 .book-list-more {
+	text-align: right;
+}
+
+.book-list-link {
 	font-size: 0.9rem;
 	color: #9A9A9A;
-	text-align: right;
+	text-decoration: none;
+}
+
+.book-list-link:hover {
+	color: #1C1B1F;
 }
 
 /* 이용방법 bar */
@@ -137,23 +156,39 @@ ul.review-list {
 	display: table-cell;
 	border: 1vw solid white;
 	width: 50%;
+	cursor: pointer;
+}
+
+.review-list-img-wrap {
+	height: 300px;
 }
 
 .review-list-img {
 	width: 100%;
 	height: 100%;
+	object-fit: cover;
 	background: #D9D9D9;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-	padding-top: 70%;
+	height: 100%;
+}
+
+.review-list-img:hover {
+	outline: 3px solid #80C40A;
 }
 
 .review-list-title {
 	font-size: 1.1rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .review-list-writer, .review-list-desc {
 	font-size: 0.7rem;
 	color: #9A9A9A;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .review-list-pick {

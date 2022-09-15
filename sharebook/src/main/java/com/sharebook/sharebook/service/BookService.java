@@ -119,8 +119,8 @@ public class BookService {
 		return bookRepository.findAllByMember_Address1AndMember_Address2(member.getAddress1(), member.getAddress2());
 	}
 	
-	public List<Book> findSameRegionBookList(Region region){
-		return bookRepository.findAllByStore_Region(region);
+	public List<Book> findSameRegionBookList(Store store){
+		return bookRepository.findAllByStore_Region(store.getRegion());
 	}
 	
 	public List<Book> findBookListByTitle(String title){
@@ -139,6 +139,8 @@ public class BookService {
 			return (List<Book>) bookRepository.findAll(Sort.by(Sort.Direction.DESC, "views"));
 		case 3:
 			return (List<Book>) bookRepository.findAll(Sort.by(Sort.Direction.DESC, "bookId"));
+		case 4:
+			return (List<Book>) bookRepository.findAll(Sort.by(Sort.Direction.DESC, "author"));
 		default:
 			return (List<Book>) bookRepository.findAll();
 		}
