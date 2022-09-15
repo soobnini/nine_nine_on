@@ -164,3 +164,12 @@ $("body")
 				clearBox("#community-tooltip", "community-tooltip-content");
 			}
 		});
+
+/**
+ * 검색차		
+ */
+ $("#search-bar").keyup(function(e) {
+	if (e.keyCode == 13) {
+		searchForm.submit();
+	}
+});

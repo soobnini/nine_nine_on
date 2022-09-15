@@ -10,6 +10,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Region;
+import com.sharebook.sharebook.domain.Review;
 import com.sharebook.sharebook.domain.Store;
 import com.sharebook.sharebook.service.BookService;
 import com.sharebook.sharebook.service.MemberService;
@@ -46,11 +48,33 @@ public class BookController {
 
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 
-		if (flashMap == null) {
-			List<Book> bookList = bookService.findBookListSorted(2);
-			List<List<Book>> totalBookList = divideList(bookList);
-			mav.addObject("bookList", totalBookList);
+		if (flashMap != null) {
+			String query = (String)flashMap.get("query");
+			mav.addObject("query", query);
 		}
+
+		List<Book> bookList = bookService.findBookListSorted(2);
+		
+		Page<Book> bookPage = null;
+		//List<Book> bookList = null;
+		int totalPage = 0;
+		//bookPage = bookService.getAllReview(page, orderBy);
+
+
+		//totalPage = resultPage.getTotalPages();
+		
+		List<List<Book>> totalBookList = divideList(bookList);
+		mav.addObject("bookList", totalBookList);
+
+		List<Book> allRecommendBookList = bookService.findBookListSorted(4);
+		List<Book> recommendBookList = new ArrayList<>();
+		for (int i = 0; i < allRecommendBookList.size(); i++) {
+			if (i >= 5) {
+				break;
+			}
+			recommendBookList.add(allRecommendBookList.get(i));
+		}
+		mav.addObject("recommendBookList", recommendBookList);
 
 		mav.setViewName("thymeleaf/bookList");
 		mav.addObject("regionList", regionList);
@@ -81,14 +105,38 @@ public class BookController {
 		mav.addObject("bookList", searchResult);
 		return mav;
 	}
-	
+
+	@RequestMapping("/book/direct/search.do")
+	public ModelAndView searchDirectBook(String query, RedirectAttributes redirectAttr) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("redirect:/book/list.do");
+		redirectAttr.addFlashAttribute("query", query);
+		return mav;
+	}
+
 	@RequestMapping("/book/list/condition/region.do")
 	public ModelAndView regionConditionBookList(String query) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		Region region = storeService.findRegionById(Integer.parseInt(query));
-		Book book = bookService.findBookById(1);
-		List<Book> bookList = bookService.findSameRegionBookList(book.getStore().getRegion());
+		List<Store> storeList = storeService.findStoreListByRegion(region);
+
+		List<Book> bookList = bookService.findSameRegionBookList(storeList.get(0));
+		List<List<Book>> totalBookList = divideList(bookList);
+
+		mav.setViewName("thymeleaf/bookListResult");
+		mav.addObject("bookList", totalBookList);
+		return mav;
+	}
+
+	@RequestMapping("/book/list/condition/genre.do")
+	public ModelAndView genreConditionBookList(String query) {
+		ModelAndView mav = new ModelAndView();
+
+		Genre genre = bookService.findGenreById(Integer.parseInt(query));
+
+		List<Book> bookList = bookService.findBookListByGenre(genre);
 		List<List<Book>> totalBookList = divideList(bookList);
 
 		mav.setViewName("thymeleaf/bookListResult");
@@ -130,7 +178,7 @@ public class BookController {
 			similarBookList.add(allSimilarBookList.get(i));
 		}
 
-		List<Book> allRegionBookList = bookService.findSameRegionBookList(book.getStore().getRegion());
+		List<Book> allRegionBookList = bookService.findSameRegionBookList(book.getStore());
 		List<Book> regionBookList = new ArrayList<>();
 		for (int i = 0; i < allRegionBookList.size(); i++) {
 			if (i >= 5) {

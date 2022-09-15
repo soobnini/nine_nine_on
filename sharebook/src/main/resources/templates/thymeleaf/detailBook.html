@@ -40,7 +40,7 @@
 									th:if="${#strings.startsWith(book.image,'https')}"
 									th:src="${book.image}" /> <img class="book-info-img"
 									th:unless="${#strings.startsWith(book.image,'https')}"
-									th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
+									th:src="'/book/images'+ ${book.image}" />
 							</div>
 						</div></td>
 					<td id="book-info-text-box" class="ps-5">
@@ -115,11 +115,7 @@
 							th:if="${#strings.startsWith(book.image,'https')}"
 							th:src="${book.image}" /> <img class="book-list-img"
 							th:unless="${#strings.startsWith(book.image,'https')}"
-							th:if="${session.member}"
-							th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
-						<img class="book-list-img"
-							th:unless="${#strings.startsWith(book.image,'https')} or ${session.member}"
-							th:src="@{/images/book/bookTempImage.png}" />
+							th:src="'/book/images'+ ${book.image}" />
 					</div>
 					<div class="book-list-text mt-3">
 						<p class="book-list-main-text">
@@ -152,11 +148,7 @@
 							th:if="${#strings.startsWith(book.image,'https')}"
 							th:src="${book.image}" /> <img class="book-list-img"
 							th:unless="${#strings.startsWith(book.image,'https')}"
-							th:if="${session.member}"
-							th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
-						<img class="book-list-img"
-							th:unless="${#strings.startsWith(book.image,'https')} or ${session.member}"
-							th:src="@{/images/book/bookTempImage.png}" />
+							th:src="'/book/images'+ ${book.image}" />
 					</div>
 					<div class="book-list-text mt-3">
 						<p class="book-list-main-text">
