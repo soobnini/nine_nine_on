@@ -13,12 +13,11 @@ $(".list-content-link").click(function() {
 		},
 		success: function(data) {
 			console.log("호출성공");
-			console.log(data);
 		},
 		error: function(jqXHR) {
 			console.log("호출실패");
 		}
 	}).done(function(result) {
-		$("#room-list").replaceWith(result);
+		$("#dm-tooltip-content").replaceWith(result);
 	});
 }); 

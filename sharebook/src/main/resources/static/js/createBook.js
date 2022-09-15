@@ -18,3 +18,7 @@ $(document).ready(function() {
 		visibleInput.val(filename);
 	});
 });
+
+function toEnabled() {
+    $("#form-upload-file-name").attr("disabled", false);
+}

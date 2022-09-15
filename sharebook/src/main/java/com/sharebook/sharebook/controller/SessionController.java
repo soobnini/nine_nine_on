@@ -6,12 +6,17 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sharebook.sharebook.domain.Member;
@@ -19,9 +24,21 @@ import com.sharebook.sharebook.service.MemberService;
 
 @Controller
 @SessionAttributes("userSession")
-public class SessionController {
+public class SessionController implements ApplicationContextAware {
 	@Autowired
 	private MemberService memberService;
+	
+	@Value("/upload/")
+	private String uploadDirLocal;
+	private WebApplicationContext context;
+	private String uploadDir;
+
+	@Override // life-cycle callback method
+	public void setApplicationContext(ApplicationContext appContext) throws BeansException {
+		this.context = (WebApplicationContext) appContext;
+		this.uploadDir = context.getServletContext().getRealPath(this.uploadDirLocal);
+		System.out.println(this.uploadDir);
+	}
 	
 	@PostMapping("/book/login.do")
 	public ModelAndView handleRequest(
@@ -45,11 +62,12 @@ public class SessionController {
 			out.flush();
 		}
 		else {
-			UserSession userSession = new UserSession(member);
+			UserSession userSession = new UserSession(member, uploadDirLocal);
 			model.addAttribute("userSession", userSession);
 			mav.setViewName("redirect:/book.do");
 		}
 		session.setAttribute("member", member);
+		session.setAttribute("uploadDirLocal", uploadDirLocal);
 		return mav;
 	}
 

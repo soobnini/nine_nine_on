@@ -28,7 +28,7 @@
 	<div id="header"></div>
 	<div id="create-book-body">
 		<div id="create-book-title" class="my-5 pt-5">
-			<div id="create-book-main">"책은 나눌수록 커지잖아요."</div>
+			<div id="create-book-main">“책은 나눌수록 커지잖아요.”</div>
 			<div id="create-book-sub">이웃님의 참여가 우리 사회를 더 빛나게 해줄 거예요!</div>
 			<div id="create-book-manual" class="mt-2">
 				빌려주는 절차가 궁금하다면? <a id="create-book-manual-link"
@@ -43,7 +43,7 @@
 				기재해주세요!</div>
 		</div>
 		<div id="create-book-form">
-			<form name="create-book" method="POST" th:action="@{/book/create.do}"
+			<form name="create-book" method="POST" th:action="@{/book/create.do}" onsubmit="toEnabled()"
 				enctype="multipart/form-data">
 				<div class="form-content mt-1 mb-5">
 					<div class="form-title mb-1">
@@ -73,6 +73,12 @@
 					<div class="form-error mt-2">! 책을 고르거나 직접 입력해주세요.</div>
 				</div>
 				<div class="form-content mt-1 mb-5">
+					<div class="form-title mb-1">발행연도</div>
+					<input type="text" name="publishYear" class="form-input p-2"
+						th:unless="${isAPI}" /> <input type="text" name="publishYear"
+						class="form-input p-2" th:if="${isAPI}" th:value="${publishYear}" />
+				</div>
+				<div class="form-content mt-1 mb-5">
 					<div class="form-title mb-1">
 						이미지<span class="form-must-mark">*</span>
 					</div>
@@ -81,18 +87,31 @@
 							class="py-2">파일 가져오기</label> <input type="file"
 							id="form-upload-image" name="image"> <input
 							id="form-upload-file-name" class="form-input image-input p-2"
-							disabled="disabled" th:unless="${isAPI}" /> <input
+							disabled="disabled" th:unless="${isAPI}" /> <input type="url"
 							id="form-upload-file-name" class="form-input image-input p-2"
-							disabled="disabled" th:if="${isAPI}" th:value="${image}" />
+							name="imageUrl" disabled="disabled" th:if="${isAPI}"
+							th:value="${image}" />
 					</div>
 					<div class="form-error mt-2">! 책을 고르거나 사진을 첨부해주세요.</div>
 				</div>
+				<div class="form-content mt-1 mb-5">
+					<div class="form-title mb-1">
+						장르<span class="form-must-mark">*</span>
+					</div>
+					<select name="genreId" class="form-input p-2"
+						th:style="'background:url('+ @{/images/icon/greenDownArrow.png} +') no-repeat 97% 50%/15px auto;'">
+						<option value="" hidden="" disabled="disabled" selected></option>
+						<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.name}]]</option>
+					</select>
+					<div class="form-error mt-2">! 책의 장르를 선택헤주세요.</div>
+				</div>
+				<input type="hidden" name="description" th:if="${isAPI}" th:value="${description}" />
 				<div class="form-content mt-1 mb-3">
 					<div class="form-title mb-1">
 						책 설명<span class="form-must-mark">*</span>
 					</div>
-					<textarea name="description" class="form-input-textarea p-2"
-						rows="7"></textarea>
+					<textarea name="introduce" class="form-input-textarea p-2" rows="7"
+						cols="20" wrap="hard"></textarea>
 					<div class="form-desc pt-1">최소 20자부터 최대 500자까지 입력이 가능해요.</div>
 					<div class="form-error mt-2">! 최소 20자 이상의 설명이 필요해요.</div>
 				</div>
@@ -100,13 +119,15 @@
 					<div class="form-title mb-1">
 						매장 등록<span class="form-must-mark">*</span>
 					</div>
-					<select name="store" class="form-input p-2"
+					<select name="store_id" class="form-input p-2"
 						th:style="'background:url('+ @{/images/icon/greenDownArrow.png} +') no-repeat 97% 50%/15px auto;'">
 						<option value="" hidden="" disabled="disabled" selected></option>
-						<option value="1">대전성남사거리점</option>
+						<option th:each="store : ${storeList}"
+							th:value="${store.store_id}">[[${store.name}]]</option>
 					</select>
 					<div class="form-error mt-2">! 정확한 매장의 위치를 선택해주세요.</div>
 				</div>
+				<input type="hidden" name="isbn" th:if="${isAPI}" th:value="${isbn}" />
 				<div id="form-submit-box" class="pb-4 mb-5">
 					<input type="submit" value="등록하기" id="form-submit-button"
 						class="py-1 mt-3" />

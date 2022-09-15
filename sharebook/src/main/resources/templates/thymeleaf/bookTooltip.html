@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/tooltip.css}" rel="stylesheet" />
+</head>
+<body>
+	<div id="book-tooltip-content" class="tooltip-content">
+		<div class="tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/list.do}'|">
+			<span class="px-3">빌리고 싶어요</span>
+		</div>
+		<div class="last-tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/view/create.do}'|">
+			<span class="px-3">빌려주고 싶어요</span>
+		</div>
+	</div>
+</body>

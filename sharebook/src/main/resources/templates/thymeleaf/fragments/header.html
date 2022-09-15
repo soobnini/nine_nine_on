@@ -26,11 +26,11 @@
 						class="main-menu-bar-item nav-link px-3 link-secondary">카테고리 <img
 							id="category-icon" class="pb-1"
 							th:src="@{/images/icon/greenDownArrow.png}" width="10" /></a></li>
-					<li><a th:href="@{/book/ideology.do}"
+					<li><a id="brand-button"
 						class="main-menu-bar-item nav-link px-3 link-secondary">이웃책장</a></li>
-					<li><a th:href="@{/book/funding.do}"
+					<li><a id="book-button"
 						class="main-menu-bar-item nav-link px-3 link-secondary">책 대여</a></li>
-					<li><a th:href="@{/book/funding/view/create.do}"
+					<li><a id="community-button"
 						class="main-menu-bar-item nav-link px-3 link-secondary">소식마당</a></li>
 				</ul>
 				<!-- main search bar -->
@@ -73,10 +73,19 @@
 			</div>
 		</div>
 		<div id="dm-tooltip" role="tooltip">
-			<div id="dm-tooltip-content"></div>
+			<div id="dm-tooltip-content" class="tooltip-content"></div>
 		</div>
 		<div id="category-tooltip" role="tooltip">
-			<div id="category-tooltip-content"></div>
+			<div id="category-tooltip-content" class="tooltip-content"></div>
+		</div>
+		<div id="brand-tooltip" role="tooltip">
+			<div id="brand-tooltip-content" class="tooltip-content"></div>
+		</div>
+		<div id="book-tooltip" role="tooltip">
+			<div id="book-tooltip-content" class="tooltip-content"></div>
+		</div>
+		<div id="community-tooltip" role="tooltip">
+			<div id="community-tooltip-content" class="tooltip-content"></div>
 		</div>
 	</header>
 </body>

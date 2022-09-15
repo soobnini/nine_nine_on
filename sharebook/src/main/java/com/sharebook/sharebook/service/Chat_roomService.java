@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sharebook.sharebook.domain.Chat_room;
@@ -121,7 +122,7 @@ public class Chat_roomService {
 	}
 
 	public List<Message> findMessageListByChatRoom(Chat_room chat_room) {
-		return messageRepository.findAllByChatRoom(chat_room);
+		return messageRepository.findAllByChatRoom(chat_room, Sort.by(Sort.Direction.ASC, "messageId"));
 	}
 
 	public List<Message> findMessageListByMember(Member member) {

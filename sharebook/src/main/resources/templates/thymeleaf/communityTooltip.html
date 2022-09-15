@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/tooltip.css}" rel="stylesheet" />
+</head>
+<body>
+	<div id="community-tooltip-content" class="tooltip-content">
+		<div class="tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/community/List.do}'|">
+			<span class="px-3">이웃소식</span>
+		</div>
+		<div class="tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/Notice/List.do}'|">
+			<span class="px-3">알려드려요</span>
+		</div>
+		<div class="last-tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/Review/List.do}'|">
+			<span class="px-3">독후감</span>
+		</div>
+	</div>
+</body>

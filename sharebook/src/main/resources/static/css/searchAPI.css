@@ -20,7 +20,7 @@ body {
 
 /* 검색창 */
 #search-bar-box {
-	display: flex; 
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 1;
@@ -113,13 +113,13 @@ body {
 	color: #1C1B1F;
 }
 
-#result-bar-author, #result-bar-year {
+#result-bar-author, #result-bar-publisher, #result-bar-year {
 	font-size: 0.7rem;
 	font-weight: 400;
 	color: #9A9A9A;
 }
 
-#result-form{
+#result-form {
 	display: inline-block;
 	width: 12%;
 }

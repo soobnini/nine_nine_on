@@ -9,15 +9,25 @@ import com.sharebook.sharebook.domain.Member;
 public class UserSession implements Serializable {
 
 	private Member member;
+	private String uploadDirLocal;
 
 //	private PagedListHolder<Product> myList;
 
 	public UserSession(Member member) {
 		this.member = member;
 	}
+	
+	public UserSession(Member member, String uploadDirLocal) {
+		this.member = member;
+		this.uploadDirLocal = uploadDirLocal;
+	}
 
 	public Member getMember() {
 		return member;
+	}
+	
+	public String getUploadDirLocal() {
+		return uploadDirLocal;
 	}
 
 	/*

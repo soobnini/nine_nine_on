@@ -45,6 +45,29 @@ function loadAjaxFromAPI(thisQuery, thisUrl, thisType, changeElement) {
 	});
 }
 
+function loadAjaxAboutDM(thisUrl, thisOtherMemberId, thisBookId, changeElement) {
+	$.ajax({
+		url: thisUrl,
+		type: "GET",
+		data: {
+			otherMemberId: thisOtherMemberId,
+			bookId: thisBookId
+		},
+		dataType: 'text',
+		beforeSend: function(jqXHR) {
+			console.log("ajax 호출전");
+		},
+		success: function(data) {
+			console.log("호출성공");
+		},
+		error: function(jqXHR) {
+			console.log("호출실패");
+		}
+	}).done(function(result) {
+		$(changeElement).replaceWith(result);
+	});
+}
+
 function loadAjaxAboutController(thisUrl, thisType) {
 	$.ajax({
 		url: thisUrl,

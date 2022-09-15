@@ -4,13 +4,13 @@
 <link th:href="@{/css/DMRoom.css}" rel="stylesheet" />
 </head>
 <body>
-	<div id="room" th:fragment="dmRoom">
+	<div id="dm-tooltip-content" class="tooltip-content">
 		<div id="room-header" class="pt-4 pb-3 px-3">
-			<img class="pb-1 me-3" th:src="@{/images/icon/tempIcon.png}"
-				width="25" />[[${otherMember.nickname}]]
+			<span id="prev-icon"> <img class="pb-1 me-3"
+				th:src="@{/images/icon/prevArrow.png}" width="23" /></span>[[${otherMember.nickname}]]
 		</div>
-		<div id="room-book-header" class="py-2 px-3">러브 레플리카 * 윤이형
-			저/문학동네</div>
+		<div id="room-book-header" class="py-2 px-3">[[${room.book.title}]]
+			* [[${room.book.author}]] 저 / [[${room.book.publisher}]]</div>
 		<div id="message-box" class="pt-3">
 			<div id="msgArea">
 				<table id="prevMsg" th:if="${messageList}">
@@ -71,19 +71,19 @@
 					var str = '';
 
 					if (writer === memberName) {
-						str = "<tr>"
-						str += "<td class='my-img-wrap py-2 ps-3'>";
-						str += "<img th:src='@{/images/icon/tempIcon.png}' class='my-img' width='30' height='30' /></td>";
+						str = "<tr>";
+						str += "<td class='my-margin p-2'></td></tr>";
 						
 						str += "<td class='my-message-content py-2 ps-2 pe-3'>";
 						str += "<b class='my-message-text p-2'>" + message.content + "</b></td>";
 						
-						str += "<td class='my-margin p-2'></td></tr>";
+						str += "<td class='my-img-wrap py-2 ps-3'>";
+						str += "<img src='/images/icon/tempIcon.png' class='my-img' width='30' height='30' /></td>";
 					}
 					
 					
 					else {
-						str = "<tr>"
+						str = "<tr>";
 						str += "<td class='other-img-wrap py-2 ps-3'>";
 						str += "<img th:src='@{/images/icon/tempIcon.png}' class='other-img' width='30' height='30' /></td>";
 						
@@ -108,6 +108,10 @@
 				stomp.send('/app/book/chat/message.do', {}, JSON.stringify({ sent_time: now, content: msg.value, chatRoom: [[${ room }]], member: member }));
 				msg.value = '';
 				console.log("전송 완료");
+			});
+			
+			$("#prev-icon").on("click", function(e) {
+				loadAjaxFromUrl("/book/chat/rooms.do", "GET", "#dm-tooltip-content");
 			});
 		});
 		</script>

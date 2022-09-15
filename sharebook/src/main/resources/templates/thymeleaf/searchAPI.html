@@ -54,14 +54,17 @@
 			<div id="result-bar-box">
 				<span id="result-bar-text"> <span id="result-bar-title"
 					class="me-1"></span> <span id="result-bar-author" class="mx-1"></span>
-					<span id="result-bar-year" class="ms-1">2021</span>
+					<span id="result-bar-publisher"></span> <span id="result-bar-year"
+					class="ms-1"></span>
 				</span>
 				<form id="result-form" name="result-form" method="POST"
 					th:action="@{/book/view/create/api.do}">
 					<input type="hidden" id="hidden-title" name="title"> <input
 						type="hidden" id="hidden-author" name="author"> <input
 						type="hidden" id="hidden-publisher" name="publisher"> <input
-						type="hidden" id="hidden-image-url" name="image">
+						type="hidden" id="hidden-publish-year" name="publishYear">
+					<input type="hidden" id="hidden-image-url" name="image"> <input
+						type="hidden" id="hidden-isbn" name="isbn">
 					<button type="submit" id="result-submit-button">등록하기</button>
 				</form>
 			</div>
