@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Chat_room;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Membership;
 import com.sharebook.sharebook.domain.Message;
+import com.sharebook.sharebook.service.BookService;
 import com.sharebook.sharebook.service.Chat_roomService;
 import com.sharebook.sharebook.service.MemberService;
 
@@ -28,6 +30,36 @@ public class DMRoomController {
 	private final Chat_roomService chat_roomService;
 	@Autowired
 	private final MemberService memberService;
+	@Autowired
+	private final BookService bookService;
+	
+	// detail Book 대여문의 -> 채팅방 생성
+	@GetMapping(value = "/book/chat/create.do")
+	public ModelAndView createRoom(String otherMemberId, String bookId, HttpServletRequest request) {
+		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		ModelAndView mav = new ModelAndView();
+
+		if (userSession == null) { // 로그인이 안되어있는 경우 
+			mav.setViewName("login");
+			return mav;
+		}
+		
+		Member member = memberService.getMember(userSession.getMember().getMember_id());
+		Member otherMember = memberService.getMember(Integer.parseInt(otherMemberId));
+		
+		Book book = bookService.findBookById(Integer.parseInt(bookId));
+		
+		Chat_room room = new Chat_room(0, book);
+		int roomId = chat_roomService.saveChatRoom(room).getChat_room_id();
+		
+		Membership myMembership = new Membership(room, member);
+		Membership otherMembership = new Membership(room, otherMember);
+		chat_roomService.saveMembership(myMembership);
+		chat_roomService.saveMembership(otherMembership);
+
+		mav.setViewName("redirect:/book/chat/room/" + roomId + ".do");
+		return mav;
+	}
 
 	// 채팅방 목록 조회
 	@GetMapping(value = "/book/chat/rooms.do")

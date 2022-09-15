@@ -59,7 +59,7 @@ public class kakaoBookController {
 
 			HttpEntity<String> httpEntity = new HttpEntity<>(httpHeaders);
 			URI targetUrl = UriComponentsBuilder.fromUriString(url) // 기본 url
-					.queryParam("query", query) // 인자
+					.queryParam("query", query).queryParam("size", 20) // 인자
 					.build().encode(StandardCharsets.UTF_8) // 인코딩
 					.toUri();
 
@@ -94,9 +94,10 @@ public class kakaoBookController {
 
 				String publisher = obj.getString("publisher");
 				String imgUrl = obj.getString("thumbnail");
+				System.out.println(obj.getString("thumbnail"));
 				String description = obj.getString("contents");
 				String isbn = obj.getString("isbn").split(" ")[0];
-				int publishYear = Integer.parseInt(String.valueOf(obj.getString("datetime")).substring(0, 4));
+				String publishYear = String.valueOf(obj.getString("datetime")).substring(0, 4);
 				Book book = Book.builder().title(title).author(author).publisher(publisher).image(imgUrl)
 						.description(description).isbn(isbn).publishYear(publishYear).build();
 				bookList.add(book);

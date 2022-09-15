@@ -49,7 +49,7 @@ $(document).ready(function() {
 		console.log("전송 시작");
 		var msg = document.getElementById("msg");
 		var now = new Date();
-		console.log([[${member}]]);
+		console.log([[${ member }]]);
 		var member = [[${ member }]];
 
 		console.log([[${ member.nickname }]] + ":" + msg.value);
@@ -57,5 +57,8 @@ $(document).ready(function() {
 		msg.value = '';
 		console.log("전송 완료");
 	});
-});
 
+	$("#prev-icon").on("click", function(e) {
+		loadAjaxFromUrl("/book/chat/rooms.do", "GET", "#dm-tooltip-content");
+	});
+});

@@ -2,72 +2,215 @@
 
 body {
 	width: 100%;
-	height: 100%;
-	min-width: 1300px;
-	margin: 0px;
-	padding: 0px;
 }
 
-#result-book {
-	width: 90%;
+.list-body {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
 }
 
-#result-sort-form {
-	display: grid;
-	justify-items: end;
-	margin-right: 2%;
+#list-title {
+	width: 66%;
+	margin: 0 auto;
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #1C1B1F;
 }
 
-#result-sort-select {
-	border: solid 1px grey;
-	border-radius: 4px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-
-ul.result-list {
-	display: table;
-	table-layout: fixed;
+/* 검색창 */
+#list-bar-box {
+	display: flex;
 	justify-content: center;
-	margin-top: 2%;
-	margin-right: 5%;
-	margin-left: 6%;
-	overflow:hidden;
+	align-items: center;
+	z-index: 1;
+	opacity: 1;
+	width: 66%;
+	margin: 0 auto;
+	height: 45px;
+	border: 0.25px solid #E1E1E1;
+	border-radius: 12px;
+	font-size: 1.1rem;
+	font-weight: 400;
+	color: #1C1B1F
+}
+
+#list-bar {
+	width: 100%;
+	height: 100%;
+	border: none;
+	-webkit-appearance: none;
+	text-align: left;
+	overflow: auto;
+	z-index: 2;
+	border: none;
+	border-radius: 12px;
+}
+
+#list-bar:focus {
+	outline: none;
+	text-align: left;
+}
+
+#list-icon-box {
+	border-left: 1px solid #E1E1E1;
+	cursor: pointer;
+}
+
+/* 검색조건 */
+#list-condition-box {
+	width: 66%;
+	margin: 0 auto;
+	vertical-align: -webkit-baseline-middle;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.condition-box {
 	width: 100%;
 }
 
-li.result-list-content {
+.condition-title {
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: #1C1B1F;
+	width: 12%;
+	vertical-align: top;
+}
+
+.condition-content {
+	vertical-align: top;
+}
+
+.condition-label {
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: #5C5C5C;
+	cursor: pointer;
+}
+
+.condition-checkbox {
+	display: none;
+}
+
+/* 검색결과 (API 결과) */
+.book-list-main-title {
+	font-size: 1.2rem;
+}
+
+#list-recommend-box, #book-list-result {
+	width: 66%;
+	margin: 0 auto;
+}
+
+ul.book-list {
+	display: inline-table;
+	table-layout: fixed;
+	padding: 0px;
+	width: 100%;
+	height: 38vh;
+	margin-bottom: 0px;
+}
+
+.book-list-content {
+	position: relative;
 	display: table-cell;
-	padding-left: 45px;
-	padding-right: 45px;
-	margin-bottom: 20px;
-	width: 20%;
-	float : left;
+	border: 1vw solid white;
+	width: 50%;
+	cursor: pointer;
+}
+
+.book-list-img {
+	width: 100%;
+	height: 100%;
+	background: #D9D9D9;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.book-list-img:hover {
+	outline: 3px solid #80C40A;
+}
+
+.book-list-empty-img {
+	width: 100%;
+	height: 100%;
+}
+
+.list-empty {
+	position: relative;
+	display: table-cell;
+	border: 1vw solid white;
+	width: 50%;
+}
+
+}
+.book-list-main-text {
+	width: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+.book-list-title {
+	font-size: 0.9rem;
+	width: 82%;
+	float: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-img.result-list-img {
-	display: table;
-	table-layout: fixed;
-	height: 200px;
-	justify-content: center;
+.book-list-year {
+	font-size: 0.7rem;
+	color: #9A9A9A;
+	width: 17%;
+	text-align: right;
+	vertical-align: -webkit-baseline-middle;
 }
 
-p.result-list-img-writer {
-	font-size: small;
-	color: grey;
-	display: flex;
-	justify-content: center;
+.book-list-info {
+	font-size: 0.7rem;
+	color: #9A9A9A;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-p.result-list-img-desc {
-	font-size: x-small;
-	color: grey;
-	display: flex;
-	justify-content: center;
-	margin-top: 5px;
-	margin-bottom: 0px;
-	justify-content: center;
+#sort-text {
+	width: 66%;
+	margin: 0 auto;
+	font-size: 0.8rem;
+	color: #9A9A9A;
+}
+
+#left-sort {
+	float: left;
+	overflow: hidden;
+}
+
+#right-sort {
+	text-align: right;
+	vertical-align: -webkit-baseline-middle;
+}
+
+.sort-condition {
+	cursor: pointer;
+}
+
+#popular-sort {
+	color: #1C1B1F;
+}
+
+#recent-sort {
+	
+}
+
+#big-view {
+	
+}
+
+#little-view {
+	color: #1C1B1F;
+}
+
+.middle-bar {
+	color: #E1E1E1;
 }

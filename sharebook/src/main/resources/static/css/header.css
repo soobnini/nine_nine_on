@@ -3,7 +3,7 @@
 #main-header {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 10px;
-	width: 100%; 
+	width: 100%;
 	background: #FFFFFF;
 	border-bottom: 1px solid #E1E1E1;
 }
@@ -79,7 +79,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	border-radius: 10px;
+	border-radius: 0px 0px 10px 10px;
 	height: 500px;
 	width: 350px;
 	overflow: auto;
@@ -93,8 +93,50 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	border-radius: 10px;
+	border-radius: 0px 0px 10px 10px;
 	height: 250px;
 	width: 350px;
+	overflow: auto;
+}
+
+#brand-tooltip {
+	display: none;
+	z-index: 3;
+	background: white;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 0px 0px 10px 10px;
+	height: 102px;
+	width: 120px;
+	overflow: auto;
+}
+
+#book-tooltip {
+	display: none;
+	z-index: 3;
+	background: white;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 0px 0px 10px 10px;
+	height: 68px;
+	width: 120px;
+	overflow: auto;
+}
+
+#community-tooltip {
+	display: none;
+	z-index: 3;
+	background: white;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 0px 0px 10px 10px;
+	height: 102px;
+	width: 120px;
 	overflow: auto;
 }

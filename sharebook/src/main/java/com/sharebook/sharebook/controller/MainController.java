@@ -1,5 +1,6 @@
 package com.sharebook.sharebook.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.sharebook.sharebook.domain.Book;
+import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Member;
+import com.sharebook.sharebook.domain.Member_genre;
 import com.sharebook.sharebook.service.BookService;
 import com.sharebook.sharebook.service.MemberService;
 
@@ -38,22 +41,34 @@ public class MainController {
 			mav.addObject("isLogin", false);
 		} else { // 로그인이 되어있는 경우
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
-			System.out.println(member.getName());
 			mav.addObject("isLogin", true);
-			mav.addObject("address1", member.getAddress1());
-			mav.addObject("address2", member.getAddress2());
 
-			List<Book> nearBookList = bookService.findNearBookList(member);
-			mav.addObject("nearBookList", nearBookList);
+			List<Member_genre> memberGenreList = memberService.findMember_genreListByMember(member);
+			if(memberGenreList.size() > 0) {
+				//int randomNum = (int) (Math.random() * memberGenreList.size()) - 1;
+				Genre genre = memberGenreList.get(0).getGenre();
+
+				List<Book> allRecommendBookList = bookService.findBookListByGenre(genre);
+				List<Book> recommendBookList = new ArrayList<>();
+				for(int i = 0; i < allRecommendBookList.size(); i++) {
+					if(i >= 5) {
+						break;
+					}
+					recommendBookList.add(allRecommendBookList.get(i));
+				}
+				
+				mav.addObject("myGenre", genre);
+				mav.addObject("recommendBookList", recommendBookList);
+			}
 		}
 
-		List<Book> recommendList = bookService.findRecommendBookList();
-		List<Book> newBookList = bookService.findBookList();
+		List<Book> popularBookList = bookService.findPopularBookList();
+		List<Book> allRecentBookList = bookService.findBookListSorted(3);
+		List<Book> recentBookList = new ArrayList<>(allRecentBookList.subList(0, 5));
 
 		mav.setViewName("thymeleaf/main");
-		mav.addObject("recommendList", recommendList);
-		mav.addObject("newBookList", newBookList);
-		// mav.addObject("uploadDirLocal", uploadDirLocal); // 일단 주석처리했는데 나중에 오류나면 수정하겠음
+		mav.addObject("popularBookList", popularBookList);
+		mav.addObject("recentBookList", recentBookList);
 		return mav;
 	}
 
@@ -71,6 +86,27 @@ public class MainController {
 	public ModelAndView loadCategory() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("thymeleaf/category");
+		return mav;
+	}
+
+	@RequestMapping("/book/brand/menu.do")
+	public ModelAndView loadBrandMenu() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("thymeleaf/brandTooltip");
+		return mav;
+	}
+
+	@RequestMapping("/book/menu.do")
+	public ModelAndView loadBookMenu() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("thymeleaf/bookTooltip");
+		return mav;
+	}
+
+	@RequestMapping("/book/community/menu.do")
+	public ModelAndView loadCommunityMenu() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("thymeleaf/communityTooltip");
 		return mav;
 	}
 

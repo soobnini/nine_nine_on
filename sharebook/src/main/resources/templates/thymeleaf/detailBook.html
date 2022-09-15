@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<!-- Required meta tags -->
 <meta charset="utf-8">
-<title>책 상세</title>
+<title>이웃 책장 : 종이책 공유 플랫폼</title>
 <!-- CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -11,202 +10,181 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet">
-<link th:href="@{/css/main.css}" rel="stylesheet" />
-
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
 <link th:href="@{/css/detailBook.css}" rel="stylesheet" />
+
+<!-- JS -->
+<script defer
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script defer
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer th:src="@{/js/loadAjax.js}" type="text/javascript"
+	charset="UTF-8"></script>
+<script defer th:src="@{/js/loadHeaderAndFooter.js}" type="module"
+	charset="UTF-8"></script>
+<script defer th:src="@{/js/detailBook.js}" type="module"
+	charset="UTF-8"></script>
 </head>
 <body>
-	<div th:replace="thymeleaf/fragments/header.html :: header"></div>
-	<div class="book-container">
-		<div class="row">
-			<!-- 책 이미지 -->
-			<div class="col-5">
-				<div id=bookImage>
-					<img th:src="@{{localDir}/{imageAddress}(localDir=${uploadDirLocal}, imageAddress=${book.image})}" alt="책 이미지" id=bookimg>
-				</div>
-			</div>
-			<!-- 책정보 -->
-			<div class="col-6" id="book-info-container">
-				<div class="row d-flex align-items-end">
-					<div class="col-8">
-						<span id="title" th:text="${book.title}"></span>
-					</div>
-					<div class="col">
-						<img src="/images/조회수.png" alt="조회수" id=icons> <span
-							id=content th:text="${book.views}"></span> <span id="likes-span">
-							<img src="/images/좋아요 수.png" alt="좋아요" id=icons
-							th:unless="${isLike}"
-							th:onclick="|location.href='@{/book/like/{bookId}.do(bookId=${book.book_id})}'|">
-							<img src="/images/좋아요 수.png" alt="좋아요" id=icons
-							th:if="${isLike}"> <span id=content th:text="${likesCount}"></span>
-						</span>
-					</div>
-				</div>
-				
-				<span id=title2 th:text="${book.author}"></span>
-				<span> / 출판사 명</span><br><br>
-				
-				<div>
-					책 설명 책 설명~~~
-				</div>
-				<hr><br>
-				
-				<div class="col">
-					<b><span id=title2 th:text="${book.member.nickname}"></span></b>
-					<b><span style="color:black; font-size:15px; vertical-align:top;" th:text="${book.member.temperature}"></span></b>
-				</div>
-				
-				<div>
-					어쩌구아파트점 · 저쩌구역점 · 냠냠우체국점
-				</div><br>
-				
-				<div>
-					책설명<br>
-					책설명<br>
-					책설명<br>
-					책설명<br>
-				</div><br>
-					
-					<div class="row">
-						<div class="col-md-3" style="text-align : center;">
-							<img src="/images/좋아요 라인.png" width="50%">
-						</div>
-						<div class="col-md-9">
-							<form action="${checkMemberUrl}" method="post" class="d-block" name="loginForm">
-									<input type="button" value="대여 문의하기" onClick="loginAction()" class="startBtn" style="width:420px;"> <br>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				
-				<div id="main-preference-book mt-2" class="book-list"
-					th:if="${session.member}">
-					<h4 class="book-list-main-title">
-						<!-- SF 장르? 선호하는 장르에 대한 건 member_genre에서 랜덤으로 가져오면 되나?ㄹ -->
-						<b th:text="|선택하신 책과 유사한 책이에요.|"></b>
-					</h4>
-					<ul class="book-list mt-1">
-						<li class="book-list-content"
-							th:each="book : ${#numbers.sequence(1, 5)}"><div
-								class="book-list-img-wrap">
-								<div class="book-list-img"></div>
+	<div id="header"></div>
+	<div class="detail-book-body pt-3">
+		<div id="book-info-box">
+			<table id="book-info-table">
+				<colgroup>
+					<col style="width: 42%">
+					<col style="width: 58%">
+				</colgroup>
+				<tr id="book-info-table-row">
+					<td id="book-info-img-box"><div class="book-info-img-wrap">
+							<div class="book-info-img">
+								<img class="book-info-img"
+									th:if="${#strings.startsWith(book.image,'https')}"
+									th:src="${book.image}" /> <img class="book-info-img"
+									th:unless="${#strings.startsWith(book.image,'https')}"
+									th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
 							</div>
-							<div class="book-list-text mt-3">
-								<p class="book-list-main-text">
-									<span class="book-list-title"><b>러브 레플리카</b></span> <span
-										class="book-list-year">2016</span>
-								</p>
-								<p class="book-list-writer mt-1">윤이형 저 / 문학동네</p>
-							</div></li>
-					</ul>
-					<div class="book-list-more mb-4">
-						<a>더보기</a>
-					</div>
-				</div>
-				
-				<div id="main-preference-book mt-2" class="book-list"
-					th:if="${session.member}">
-					<h4 class="book-list-main-title">
-						<!-- SF 장르? 선호하는 장르에 대한 건 member_genre에서 랜덤으로 가져오면 되나?ㄹ -->
-						<b th:text="|같은 매장에 있는 책을 알려드려요.|"></b>
-					</h4>
-					<ul class="book-list mt-1">
-						<li class="book-list-content"
-							th:each="book : ${#numbers.sequence(1, 5)}"><div
-								class="book-list-img-wrap">
-								<div class="book-list-img"></div>
+						</div></td>
+					<td id="book-info-text-box" class="ps-5">
+						<div id="book-info-text-inner-box">
+							<div id="book-info-main">
+								<input id="hidden-book-id" type="hidden"
+									th:value="${book.bookId}" /> <span id="book-info-title"
+									class="pe-3">[[${book.title}]]</span><span
+									id="book-info-count-box" class="ms-2"><span
+									id="book-views-span" class="me-2"><img class="pb-1 pe-1"
+										th:src="@{/images/icon/viewIcon.png}" alt="조회수" width="20" />
+										[[${book.views}]]</span> <span id="book-likes-span"> <img
+										class="pb-1 pe-1" th:src="@{/images/icon/likesIcon.png}"
+										alt="좋아요" width="20" />[[${likesCount}]]
+								</span></span>
 							</div>
-							<div class="book-list-text mt-3">
-								<p class="book-list-main-text">
-									<span class="book-list-title"><b>러브 레플리카</b></span> <span
-										class="book-list-year">2016</span>
-								</p>
-								<p class="book-list-writer mt-1">윤이형 저 / 문학동네</p>
-							</div></li>
-					</ul>
-					<div class="book-list-more mb-4">
-						<a>더보기</a>
+							<div id="book-info-sub" class="pt-2">
+								<span id="book-info-author">[[${book.author}]]</span> 저 / <span
+									id="book-info-publisher">[[${book.publisher}]]</span>
+							</div>
+							<div id="book-info-desc" class="pt-4 pb-4 mb-4">[[${book.description}]]</div>
+							<div id="book-info-register">
+								<input id="hidden-register-id" type="hidden"
+									th:value="${book.member.member_id}" />
+								[[${book.member.nickname}]]<span id="book-info-page"
+									class="ms-2"><img class="pe-1"
+									th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25" />21페이지</span>
+							</div>
+							<div id="book-info-store" class="pt-1">[[${book.store.name}]]</div>
+							<div id="book-info-introduce" class="py-4">[[${book.introduce}]]</div>
+							<div id="book-info-button-box">
+								<table id="book-info-button-table">
+									<tr>
+										<td id="book-likes-button"><img th:if="${isLike}"
+											th:src="@{/images/icon/filledLikes.png}" width="50"
+											th:onclick="|location.href='@{/book/unlike/{bookId}.do(bookId=${book.bookId})}'|"><img
+											th:unless="${isLike}" th:src="@{/images/icon/lineLikes.png}"
+											width="50"
+											th:onclick="|location.href='@{/book/like/{bookId}.do(bookId=${book.bookId})}'|"></td>
+										<td id="book-dm-button-box"><button id="book-dm-button"
+												class="py-3">대여 문의하기</button></td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td id="book-share-box" class="pt-2"><img class="me-1"
+											th:src="@{/images/icon/shareKakao.png}" alt="카카오"
+											id="kakaoIcon" onclick="js:shareKakao()" width="20"><img
+											class="me-1" th:src="@{/images/icon/shareTwitter.png}"
+											alt="트위터" id="twitterIcon" onclick="js:shareTwitter()"
+											width="20"><img
+											th:src="@{/images/icon/shareFacebook.png}" alt="페이스북"
+											id="facebookIcon" onclick="js:shareFacebook()" width="20">
+											<img class="me-1" th:src="@{/images/icon/shareLink.png}"
+											alt="url" id="linkIcon" onclick="js:shareURL()" width="20"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="list-recommend-box" class="pt-5 mt-5">
+			<h4 class="book-list-main-title">
+				<b>선택하신 책과 유사한 책이에요.</b>
+			</h4>
+			<ul class="book-list mt-1 mb-1">
+				<li class="book-list-content" th:each="book : ${similarBookList}"
+					th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.bookId})}'|"><div
+						class="book-list-img-wrap">
+						<img class="book-list-img"
+							th:if="${#strings.startsWith(book.image,'https')}"
+							th:src="${book.image}" /> <img class="book-list-img"
+							th:unless="${#strings.startsWith(book.image,'https')}"
+							th:if="${session.member}"
+							th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
+						<img class="book-list-img"
+							th:unless="${#strings.startsWith(book.image,'https')} or ${session.member}"
+							th:src="@{/images/book/bookTempImage.png}" />
 					</div>
-				</div>
-				
-				<div id=title2 class="col" th:text="${book.description}"></div>
-				
-				<div class="row">
-					<br />
-				</div>
-				<div class="row d-flex align-items-end">
-					<div class="col-3">
-						<span id=content>저자</span>
+					<div class="book-list-text mt-3">
+						<p class="book-list-main-text">
+							<span class="book-list-title"><b>[[${book.title}]]</b></span> <span
+								class="book-list-year">[[${book.publishYear}]]</span>
+						</p>
+						<p class="book-list-info mt-1">
+							<span class="book-list-author">[[${book.author}]]</span> / <span
+								class="book-list-publisher">[[${book.publisher}]]</span>
+						</p>
+					</div> <input type="hidden" id="hiddenBookInfo" th:value="${book}"></li>
+				<li class="list-empty"
+					th:if="${#lists.size(similarBookList) % 5 ne 0}"
+					th:each="empty : ${#numbers.sequence(1, 5 - (#lists.size(similarBookList) % 5))}"><div
+						class="book-list-img-wrap">
+						<img class="book-list-empty-img"
+							th:src="@{/images/book/bookWhiteImage.png}" />
+					</div></li>
+			</ul>
+		</div>
+		<div id="list-recommend-box" class="pt-5 pb-5">
+			<h4 class="book-list-main-title">
+				<b>같은 매장에 있는 책을 알려드려요.</b>
+			</h4>
+			<ul class="book-list mt-1 mb-1">
+				<li class="book-list-content" th:each="book : ${regionBookList}"
+					th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.bookId})}'|"><div
+						class="book-list-img-wrap">
+						<img class="book-list-img"
+							th:if="${#strings.startsWith(book.image,'https')}"
+							th:src="${book.image}" /> <img class="book-list-img"
+							th:unless="${#strings.startsWith(book.image,'https')}"
+							th:if="${session.member}"
+							th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
+						<img class="book-list-img"
+							th:unless="${#strings.startsWith(book.image,'https')} or ${session.member}"
+							th:src="@{/images/book/bookTempImage.png}" />
 					</div>
-					<div class="col">
-						<span id=title2 th:text="${book.author}"></span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-3">
-						<span id=content>설명</span>
-					</div>
-					<div id=title2 class="col" th:text="${book.description}"></div>
-				</div>
-				<div class="row d-flex align-items-end">
-					<div class="col-3">
-						<span id=content>올린 사람</span>
-					</div>
-					<div class="col">
-						<span id=title2 th:text="${book.member.nickname}"></span>
-					</div>
-				</div>
-				<div class="row d-flex align-items-end">
-					<div class="col-3">
-						<span id=content>지역</span>
-					</div>
-					<div class="col">
-						<span id=title2 th:text="${book.member.address1}"></span> <span
-							id=title2 th:text="${book.member.address2}"></span>
-					</div>
-				</div>
-				<div id="row">
-					<br />
-					<div class="d-grid gap-2 col-8">
-						<button id="rent-button" class="btn btn-success btn-lg" type="button"
-							th:onclick="|location.href='@{/book/dm/start/{otherMemberId}/{bookId}.do(otherMemberId=${book.member.member_id}, bookId=${book.book_id})}'|">대여하기(DM)</button>
-					</div>
-					<br />
-				</div>
-				<div id="row">
-					<div class="col" align="center">
-						<img src="/images/facebook.jpg" alt="페이스북" id=shareicons style="margin-left: 0px;" onclick="js:shareFacebook()"> 
-						<img src="/images/kakao.png" alt="카카오" id=shareicons onclick="js:shareKakao()"> 
-							<img src="/images/twitter.png" alt="트위터" id=shareicons onclick="js:shareTwitter()"> 
-							<img src="/images/url.png" alt="url" id=shareicons onclick="js:shareURL()">
-					</div>
-				</div>
-			</div>
+					<div class="book-list-text mt-3">
+						<p class="book-list-main-text">
+							<span class="book-list-title"><b>[[${book.title}]]</b></span> <span
+								class="book-list-year">[[${book.publishYear}]]</span>
+						</p>
+						<p class="book-list-info mt-1">
+							<span class="book-list-author">[[${book.author}]]</span> / <span
+								class="book-list-publisher">[[${book.publisher}]]</span>
+						</p>
+					</div> <input type="hidden" id="hiddenBookInfo" th:value="${book}"></li>
+				<li class="list-empty"
+					th:if="${#lists.size(regionBookList) % 5 ne 0}"
+					th:each="empty : ${#numbers.sequence(1, 5 - (#lists.size(regionBookList) % 5))}"><div
+						class="book-list-img-wrap">
+						<img class="book-list-empty-img"
+							th:src="@{/images/book/bookWhiteImage.png}" />
+					</div></li>
+			</ul>
 		</div>
 	</div>
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+	<div id="footer"></div>
 </body>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-        Kakao.init('476a4c18380b56b521177a94457bb719');
-        Kakao.isInitialized();
-    </script>
-    
-    <script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
   	 	/*<![CDATA[*/
 	    const prefix = "http://localhost:8080/book/view/";
-	    const book_Id = [[${book.book_id}]];
+	    const book_Id = [[${book.bookId}]];
 	    const suffix = ".do";
 	    const shareUrl = prefix + book_Id + suffix;
 	    const title = '[[${book.title}]]';
@@ -243,7 +221,7 @@
 	
 		    
 	    function shareTwitter() {
-	        var sendText = "이웃책장";
+	        var sendText = "이웃책장과 함께해요! ";
 	        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + shareUrl);
 	    }
 	    

@@ -26,7 +26,7 @@ public class Book {
 	@Column(name="BOOK_ID")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BOOK_SEQ")
 	@SequenceGenerator(name="BOOK_SEQ", allocationSize=1)
-	int book_id;
+	int bookId;
 	
 	@Column(name="TITLE")
 	String title;
@@ -43,11 +43,14 @@ public class Book {
 	@Column(name="DESCRIPTION")
 	String description;
 	
+	@Column(name="INTRODUCE")
+	String introduce;
+	
 	@Column(name="ISBN")
 	String isbn;
 	
 	@Column(name="PUBLISH_YEAR")
-	int publishYear;
+	String publishYear;
 	
 	@Column(name="VIEWS")
 	int views;

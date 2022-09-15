@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<link th:href="@{/css/footer.css}" rel="stylesheet"  />
+<link th:href="@{/css/footer.css}" rel="stylesheet" />
 </head>
 <body>
 	<footer th:fragment="footer" id="main-footer" class="mb-5 pt-4">
 		<div class="footer container">
 			<table id="footer-table">
 				<tr>
-					<td class="left-footer p-1"><span class="me-2">(주) 이웃책장</span> <span
-						class="me-2">서울특별시 냠냠구 땡땡동 111-23 3층 (11111) </span> <span
+					<td class="left-footer p-1"><span class="me-2">(주) 이웃책장</span>
+						<span class="me-2">서울특별시 냠냠구 땡땡동 111-23 3층 (11111) </span> <span
 						class="me-2">본사 02-333-2344</span></td>
 					<td class="right-footer p-1"><img id="footer-banner"
 						th:src="@{/images/icon/characterLogo.png}" /></td>
 				</tr>
 				<tr>
-					<td class="left-footer p-1">상담센터 1544-1111 (평일 9:00 ~ 18:00 / 공휴일
-						9:00 ~ 13:00)</td>
+					<td class="left-footer p-1">상담센터 1544-1111 (평일 9:00 ~ 18:00 /
+						공휴일 9:00 ~ 13:00)</td>
 					<td class="right-footer p-1">이웃책장은 지역사회를 위해 힘씁니다.</td>
 				</tr>
 				<tr>
 					<td class="left-footer p-1"><span class="me-2">이용약관 ></span> <span
 						class="me-2">개인정보처리방침 ></span> <span class="me-2">위치기반서비스이용약관
 							></span></td>
-					<td class="right-footer p-1"><span class="footer-link me-2">카테고리</span>
-						<span class="footer-link me-2">이웃책장</span> <span
-						class="footer-link me-2">책 대여</span> <span class="footer-link">커뮤니티</span></td>
+					<td class="right-footer p-1"><span id="category-link"
+						class="footer-link me-2"
+						th:onclick="|location.href='@{/book/list.do}'|">카테고리</span> <span
+						id="brand-link" class="footer-link me-2"
+						th:onclick="|location.href='@{/book/ideology.do}'|">이웃책장</span> <span
+						id="book-link" class="footer-link me-2"
+						th:onclick="|location.href='@{/book/list.do}'|">책 대여</span> <span
+						id="community-link" class="footer-link"
+						th:onclick="|location.href='@{/book/community/List.do}'|">커뮤니티</span></td>
 				</tr>
 			</table>
 		</div>

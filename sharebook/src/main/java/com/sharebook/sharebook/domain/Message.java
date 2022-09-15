@@ -26,7 +26,7 @@ public class Message {
 	@Column(name="MESSAGE_ID")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MESSAGE_SEQ")
 	@SequenceGenerator(name="MESSAGE_SEQ", allocationSize=1)
-	int message_id;
+	int messageId;
 	
 	@Column(name="SENT_TIME")
 	Date sent_time;

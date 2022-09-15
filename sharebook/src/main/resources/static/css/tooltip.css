@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+#brand-tooltip-content, #book-tooltip-content,
+	#community-tooltip-content {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 10px;
+	width: 100%;
+}
+
+.tooltip-menu-item{
+	font-weight: 500;
+	font-size: 0.8rem;
+	line-height: 25px;
+	letter-spacing: -0.05em;
+	color: #1C1B1F;
+	border-bottom: 1px solid #E1E1E1;
+	cursor: pointer;
+}
+
+.last-tooltip-menu-item{
+	font-weight: 500;
+	font-size: 0.8rem;
+	line-height: 25px;
+	letter-spacing: -0.05em;
+	color: #1C1B1F;
+	cursor: pointer;
+}

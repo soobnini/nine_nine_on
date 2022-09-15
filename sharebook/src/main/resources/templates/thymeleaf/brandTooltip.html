@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/tooltip.css}" rel="stylesheet" />
+</head>
+<body>
+	<div id="brand-tooltip-content" class="tooltip-content">
+		<div class="tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/ideology.do}'|">
+			<span class="px-3">이념</span>
+		</div>
+		<div class="tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/manual.do}'|">
+			<span class="px-3">이용방법</span>
+		</div>
+		<div class="last-tooltip-menu-item py-1"
+			th:onclick="|location.href='@{/book/question/often.do}'|">
+			<span class="px-3">자주하는 질문</span>
+		</div>
+	</div>
+</body>
