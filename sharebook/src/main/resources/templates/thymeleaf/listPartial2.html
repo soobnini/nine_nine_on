@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<br />
+		<table class="table table-hover mt-3">
+			<thead>
+				<tr>
+					<th width="5%">번호</th>
+					<th width="10%">분류</th>
+					<th width="40%">제목</th>
+					<th width="15%">작성자</th>
+					<th width="10%">작성일</th>
+					<th width="10%">조회</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="comm : ${reviewList}" style="cursor: hand">
+					<td><span th:text="${comm.reviewId}">1</span></td>
+					<td><span>독후감</span></td>
+					<td><span class="title" th:text="${comm.title}">제목</span></td>
+					<td><span class="tb2" th:text="${comm.member.nickname}">닉네임</span></td>
+					<td><span class="tb2"
+						th:text="${#dates.format(comm.upload_date, 'yyyy.MM.dd')}">업로드일</span></td>
+					<td><span class="tb2" th:text="${comm.views}">조회수</span></td>
+				</tr>
+				
+
+				<!-- <tr>
+					<th><span th:text="${comm.communityId}">커뮤니티 고유번호</span></th>
+					<td><span th:if="${comm.category == '1'}">구해요</span>
+						<span th:if="${comm.category == '2'}">찾아요</span>
+						<span th:if="${comm.category == '3'}">이벤트</span>
+						<span th:if="${comm.category == '4'}">소개</span>
+					</td>
+					<td><a th:href="@{/book/community/detail.do?commId={cId}(cId=${comm.communityId})}">
+						<span th:text="${comm.title}">제목</span>
+						</a>
+					</td>
+					<td><span th:text="${comm.member.nickname}">닉네임</span></td>
+					<td><span th:text="${comm.upload_date}">업로드일</span></td>
+					<td><span th:text="${comm.views}">조회수</span></td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

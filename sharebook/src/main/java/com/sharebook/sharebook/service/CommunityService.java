@@ -127,6 +127,10 @@ public class CommunityService {
 	public List<Comments> findCommentByCommunity(Community community) {
 		return commentsRepository.findAllByCommunity(community);
 	}// 댓글 리스트
+	
+	public List<Comments> findCommentByMember(Member member) {
+		return commentsRepository.findAllByMember(member);
+	}// 댓글 리스트
 
 	@Transactional
 	public void createComment(Comments comment) {
