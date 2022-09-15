@@ -16,6 +16,7 @@ public class MemberCommand implements Serializable {
 	private String address2;
 	private float temperature;
 	private String image;
+	
 
 	public String getEmail() {
 		return email;

@@ -24,21 +24,10 @@ import com.sharebook.sharebook.service.MemberService;
 
 @Controller
 @SessionAttributes("userSession")
-public class SessionController implements ApplicationContextAware {
+public class SessionController {
 	@Autowired
 	private MemberService memberService;
 	
-	@Value("/upload/")
-	private String uploadDirLocal;
-	private WebApplicationContext context;
-	private String uploadDir;
-
-	@Override // life-cycle callback method
-	public void setApplicationContext(ApplicationContext appContext) throws BeansException {
-		this.context = (WebApplicationContext) appContext;
-		this.uploadDir = context.getServletContext().getRealPath(this.uploadDirLocal);
-		System.out.println(this.uploadDir);
-	}
 	
 	@PostMapping("/book/login.do")
 	public ModelAndView handleRequest(
@@ -62,12 +51,11 @@ public class SessionController implements ApplicationContextAware {
 			out.flush();
 		}
 		else {
-			UserSession userSession = new UserSession(member, uploadDirLocal);
+			UserSession userSession = new UserSession(member);
 			model.addAttribute("userSession", userSession);
 			mav.setViewName("redirect:/book.do");
 		}
 		session.setAttribute("member", member);
-		session.setAttribute("uploadDirLocal", uploadDirLocal);
 		return mav;
 	}
 

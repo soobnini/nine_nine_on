@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,16 +68,31 @@ public class MypageController {
 		ModelAndView mav = new ModelAndView();
 	
 		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 		}
-		else { // 로그인이 되어있는 경우
+		else { // 로그인이 되어있는 경우;
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
 //			System.out.println(member.getMember_id());
-			mav.setViewName("myPage");
+			List<Rent> rentList = rentService.getRentList(member);
+			List<Rent> myRentList = rentService.getMyRentList(member);
+			List<Likes> likeList = bookService.findLikesListByMember(member);
+			
+			mav.setViewName("thymeleaf/myPage");
 			mav.addObject("member", member);
+			mav.addObject("rentList",rentList);
+			mav.addObject("myRentList", myRentList);
+			mav.addObject("likeList", likeList);
+			
 		}	
 		
 		return mav;
+	}
+	@GetMapping("/book/myPage/listPartial.do")
+	public String listPartial(@RequestParam(value = "page", required = false, defaultValue = "0") int page
+			,@RequestParam(value = "category", required = false, defaultValue = "1") int orderBy
+			, ModelMap model)
+	{
+		return"thymeleaf/listPartial";
 	}
 	
 	@GetMapping("/book/mypage/member/check.do")
@@ -310,7 +326,7 @@ public class MypageController {
 			mav.addObject("member", member);
 			mav.addObject("category","community");
 			
-			List<Community> communityList =  communityService.findCommunityByUser(member);
+			List<Community> communityList =  communityService.findCommunityByUser(0, member).getContent();
 			System.out.println(communityList.size());
 			System.out.println(communityList);
 			mav.addObject("communityList", communityList);

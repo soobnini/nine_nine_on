@@ -116,8 +116,8 @@ public class CommunityService {
 	 public List<Community> findCommunityByKeyword( String Keyword) { return
 	communityRepository.findByTitle(Keyword); }//제목 키워드로 찾기
 	 
-	public List<Community> findCommunityByUser(Member member) {
-		return communityRepository.findByMember(member);
+	public Page<Community> findCommunityByUser(int preq,Member member) {
+		return communityRepository.findByMember(member, PageRequest.of(preq, 10, Sort.by("communityId").descending()));
 	}// 작성자로 찾기
 
 	public List<Community> findCommunityByCategory(int category) {

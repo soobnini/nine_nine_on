@@ -195,5 +195,8 @@ public class BookService {
 	public List<Genre> findGenreList() {
 		return (List<Genre>) genreRepository.findAll();
 	}
+	public Genre getGenre(int genreId) {
+		return genreRepository.getById(genreId);
+	}
 	
 }

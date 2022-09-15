@@ -59,6 +59,7 @@ h1 {
 				<h1 class="h2 mb-3 fw-normal fw-bold">로그인</h1><br><br>
 
 				<div class="form-floating">
+				<p> dsf<p/>
 					<input type="email" class="form-control" id="floatingInput"
 						placeholder="name@example.com" name="id"> <label for="floatingInput" >아이디를 입력해주세요.</label>
 				</div><br>
