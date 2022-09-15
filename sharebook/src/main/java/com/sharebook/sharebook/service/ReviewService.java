@@ -1,5 +1,7 @@
 package com.sharebook.sharebook.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Review;
 import com.sharebook.sharebook.repository.ReviewRepository;
 @Service
@@ -36,6 +39,10 @@ public class ReviewService {
 		Review review = null;
 		review = reviewRepository.getById(reviewId);
 		return review;
+	}
+	
+	public List<Review> getReviewByMember(Member member) {
+		return (List<Review>) reviewRepository.findByMember(member);
 	}
 
 	public Page<Review> getAllReview(int preq, int orderBy) {
@@ -74,5 +81,8 @@ public class ReviewService {
 		return reviewPage;
 	}// 검색 목록
 	
+	public List<Review> findRecommendReview(){
+		return (List<Review>) reviewRepository.findFirst4ByOrderByViewsDesc();
+	}
 	
 }

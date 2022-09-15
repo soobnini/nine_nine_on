@@ -7,16 +7,13 @@
 	<div id="book-list-result" class="mt-3">
 		<ul class="book-list mt-1 mb-5" th:each="books : ${bookList}">
 			<li class="book-list-content" th:each="book : ${books}"><div
-					class="book-list-img-wrap">
+					class="book-list-img-wrap"
+					th:onclick="|location.href='@{/book/view/{bookId}.do(bookId=${book.bookId})}'|">
 					<img class="book-list-img"
 						th:if="${#strings.startsWith(book.image,'https')}"
 						th:src="${book.image}" /> <img class="book-list-img"
-						th:unless="${#strings.startsWith(book.image,'https')}"
-						th:if="${session.member}"
-						th:src="@{{localDir}/{imageAddress}(localDir=${session.uploadDirLocal}, imageAddress=${book.image})}" />
-					<img class="book-list-img"
-						th:unless="${#strings.startsWith(book.image,'https')} or ${session.member}"
-						th:src="@{/images/book/bookTempImage.png}" /> <input
+							th:unless="${#strings.startsWith(book.image,'https')}"
+							th:src="'/book/images'+ ${book.image}" /> <input
 						type="hidden" id="hidden-api-isbn" th:value="${book.isbn}">
 				</div>
 				<div class="book-list-text mt-3">

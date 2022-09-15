@@ -6,7 +6,6 @@ function loadAjaxFromUrl(thisUrl, thisType, changeElement) {
 		url: thisUrl,
 		type: thisType,
 		data: {
-			query: 'ajax'
 		},
 		dataType: 'text',
 		beforeSend: function(jqXHR) {

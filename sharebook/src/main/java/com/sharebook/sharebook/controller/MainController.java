@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,8 +16,12 @@ import com.sharebook.sharebook.domain.Book;
 import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Member_genre;
+import com.sharebook.sharebook.domain.Notice;
+import com.sharebook.sharebook.domain.Review;
 import com.sharebook.sharebook.service.BookService;
 import com.sharebook.sharebook.service.MemberService;
+import com.sharebook.sharebook.service.NoticeService;
+import com.sharebook.sharebook.service.ReviewService;
 
 @Controller
 public class MainController {
@@ -24,6 +29,10 @@ public class MainController {
 	public BookService bookService;
 	@Autowired
 	public MemberService memberService;
+	@Autowired
+	public ReviewService reviewService;
+	@Autowired
+	public NoticeService noticeService;
 
 	@RequestMapping("/")
 	public ModelAndView handleRequest() {
@@ -44,19 +53,19 @@ public class MainController {
 			mav.addObject("isLogin", true);
 
 			List<Member_genre> memberGenreList = memberService.findMember_genreListByMember(member);
-			if(memberGenreList.size() > 0) {
-				//int randomNum = (int) (Math.random() * memberGenreList.size()) - 1;
+			if (memberGenreList.size() > 0) {
+				// int randomNum = (int) (Math.random() * memberGenreList.size()) - 1;
 				Genre genre = memberGenreList.get(0).getGenre();
 
 				List<Book> allRecommendBookList = bookService.findBookListByGenre(genre);
 				List<Book> recommendBookList = new ArrayList<>();
-				for(int i = 0; i < allRecommendBookList.size(); i++) {
-					if(i >= 5) {
+				for (int i = 0; i < allRecommendBookList.size(); i++) {
+					if (i >= 5) {
 						break;
 					}
 					recommendBookList.add(allRecommendBookList.get(i));
 				}
-				
+
 				mav.addObject("myGenre", genre);
 				mav.addObject("recommendBookList", recommendBookList);
 			}
@@ -66,9 +75,27 @@ public class MainController {
 		List<Book> allRecentBookList = bookService.findBookListSorted(3);
 		List<Book> recentBookList = new ArrayList<>(allRecentBookList.subList(0, 5));
 
+		// Review
+		List<Review> reviewList = reviewService.findRecommendReview();
+		String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+
+		for (int i = 0; i < reviewList.size(); i++) {
+			String content = reviewList.get(i).getContent().replaceAll(regex, "");
+			reviewList.get(i).setContent(content);
+		}
+
+		List<Review> partialReviewList1 = new ArrayList<>(reviewList.subList(0, 2));
+		List<Review> partialReviewList2 = new ArrayList<>(reviewList.subList(2, 4));
+
+		// Notice
+		List<Notice> noticeList = noticeService.getpinList();
+
 		mav.setViewName("thymeleaf/main");
 		mav.addObject("popularBookList", popularBookList);
 		mav.addObject("recentBookList", recentBookList);
+		mav.addObject("reviewList1", partialReviewList1);
+		mav.addObject("reviewList2", partialReviewList2);
+		mav.addObject("noticeList", noticeList);
 		return mav;
 	}
 

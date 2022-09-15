@@ -22,6 +22,21 @@ $("#recent-sort").click(function(e) {
 });
 
 $(".condition-label.region").click(function() {
+	console.log($(this));
 	var conditionValue = $(this).find(".condition-checkbox").val();
+	
+	$(this).css("display", "none");
+	$(this).next().css("display", "inline");
+	
 	loadAjaxFromAPI(conditionValue, "/book/list/condition/region.do", "POST", "#book-list-result");
+}); 
+
+$(".condition-label.genre").click(function() {
+	console.log($(this));
+	var conditionValue = $(this).find(".condition-checkbox").val();
+	
+	$(this).css("display", "none");
+	$(this).next().css("display", "inline");
+	
+	loadAjaxFromAPI(conditionValue, "/book/list/condition/genre.do", "POST", "#book-list-result");
 }); 

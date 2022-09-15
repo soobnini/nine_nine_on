@@ -88,6 +88,14 @@ body {
 	cursor: pointer;
 }
 
+.condition-label.region.chekced {
+	display: none;
+}
+
+.condition-label.genre.checked {
+	display: none;
+}
+
 .condition-checkbox {
 	display: none;
 }
@@ -213,4 +221,15 @@ ul.book-list {
 
 .middle-bar {
 	color: #E1E1E1;
+}
+
+.arrow-box {
+	width: 33%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#go-up-arrow {
+	width: 10%;
+	cursor: pointer;
 }
