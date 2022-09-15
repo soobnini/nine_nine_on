@@ -51,6 +51,8 @@ public class reviewController {
 		totalPage = resultPage.getTotalPages();
 
 		result = resultPage.getContent();
+		String regex = "<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>";
+		result.forEach(content -> content.setContent(content.getContent().replaceAll(regex, "")));
 		model.addAttribute("reviewList", result);
 
 		model.addAttribute("searchText", searchText);

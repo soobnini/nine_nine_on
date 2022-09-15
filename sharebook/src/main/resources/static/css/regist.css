@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+h1 {
+	text-align : center;
+}
+.step1 {
+	text-align:center;
+	display:table-cell;
+	vertical-align:middle;
+	width: 150px;
+	height: 100px;
+	background-color: #80C40A;
+	border-radius: 20px;
+}
+.total_step1 {
+	text-align: center;
+	 margin: auto;
+}
+.description {
+	overflow: scroll; 
+	width: 520px; 
+	height: 100px; 
+	padding: 10px;
+	margin: auto;
+}
+.main {
+	width: 40%;
+	margin: auto;
+}
+label {
+
+}
+button {
+	border-radius: 10px;
+ 	width: 45%;
+ 	height: 50px;
+	border: 0px;
+	font-size: 20px;
+}
+.cancel_btn {
+	color: #9A9A9A;
+}
+.ok_btn {
+	color: white;
+	background-color: #80C40A;
+}
+.button_div {
+	text-align : center;
+	margin: auto;
+}

@@ -40,6 +40,9 @@ public class RentService {
 	public List<Rent> getRentList(Member member) {
 		return rentRepository.findByMember(member);
 	}
+	public List<Rent> getMyRentList(Member member) {
+		return rentRepository.findAllByBook_Member(member);
+	}
 	
 	public int isOverdue(Rent rent) {
 		Date today = new Date();

@@ -31,30 +31,26 @@
 	<div id="header"></div>
 	<div class="container">
 		<div class="row">
-			<span class="category" th:if="${Notice.category == 1}">[공지]</span> <span
-				class="category" th:if="${Notice.category == 2}">[이벤트]</span>
-		</div>
-		<div class="row">
 			<div class="col">
 				<h5>
-					<span class="title"><b th:text="${Notice.title}">독서모임
+					<span class="title"><b th:text="${Review.title}">독서모임
 							해피하우스에서 멤버를 모집합니다</b></span>
 				</h5>
 			</div>
 			<div class="col-sm-2 align-self-end" id="right">
 				<span
-					th:text="${Notice.views > 999} ? '999+ 읽음' : ${Notice.views} + ' 읽음'">999
+					th:text="${Review.views > 999} ? '999+ 읽음' : ${Review.views} + ' 읽음'">999
 					읽음</span>
 				<!-- TODO:999이상은 999+,줄바꿈x,align right -->
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<span><b th:text="${Notice.Member.nickname}">고길동</b></span>
+				<span><b th:text="${Review.Member.nickname}">고길동</b></span>
 				<button type="button" id="sendDm" class="btn btn-secondary btn-sm">쪽지
 					보내기</button>
 				&nbsp;<span class="date"
-					th:text="${#dates.format(Notice.upload_date, 'yyyy.MM.dd')}">2022.07.22</span>
+					th:text="${#dates.format(Review.upload_date, 'yyyy.MM.dd')}">2022.07.22</span>
 			</div>
 			<div class="col-sm-2 align-self-end" id="right">
 				<!-- TODO:999이상은 999+,줄바꿈x,align right -->
@@ -64,7 +60,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="row">
-					<div class="ck-content" th:utext="${Notice.content}">
+					<div class="ck-content" th:utext="${Review.content}">
 						<br /> <br />안녕하세요~~~~ 독서모임 해피하우스의 대장이에요 ^^ 혹시 독서모임 구하고 계신 분
 						있으신가요?<br /> 그렇다면 해피하우스 어떠신가요? 해피하우스는 직장인으로 이루어진 독서모임으로 각자의 사정을
 						존중해주고 있답니다 ^^<br /> <br /> 감사합니다~~^^ 관심 있으신 분들은 댓글 남겨주세요~

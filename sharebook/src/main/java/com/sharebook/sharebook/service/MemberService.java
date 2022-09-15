@@ -33,6 +33,11 @@ public class MemberService {
 	public int createMember(Member member) {
 		return memberRepository.save(member).getMember_id();// pk없으면 persistance 실행 후 id 반환(create)
 	}
+	@Transactional
+	public void createMemberGenre(List<Member_genre> genreList) {
+		Member_genre item = new Member_genre();
+		 member_genreRepository.saveAll(genreList);// pk없으면 persistance 실행 후 id 반환(create)
+	}
 
 	@Transactional
 	public void updateMember(Member member) {

@@ -12,4 +12,5 @@ import com.sharebook.sharebook.domain.Rent;
 public interface RentRepository extends JpaRepository<Rent, Integer> {
 	Optional<Rent> findByBook(Book book);
 	List<Rent> findByMember(Member member);
+	List<Rent> findAllByBook_Member(Member member);
 }
