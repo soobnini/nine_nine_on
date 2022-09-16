@@ -18,7 +18,7 @@
 						<!-- other message  -->
 						<td class="other-img-wrap py-2 ps-3"
 							th:if="${message.member.member_id} ne ${member.member_id}"><img
-							th:src="@{/images/icon/tempIcon.png}" class="other-img"
+							th:src="${message.member.image}" class="other-img"
 							width="30" height="30" /></td>
 						<td th:if="${message.member.member_id} ne ${member.member_id}"
 							class='other-message-content py-2 ps-2 pe-3'><b
@@ -33,7 +33,7 @@
 							class="my-message-text p-2">[[${message.content}]]</b></td>
 						<td class="my-img-wrap py-2 pe-3"
 							th:if="${message.member.member_id} eq ${member.member_id}"><img
-							th:src="@{/images/icon/tempIcon.png}" class="my-img" width="30"
+							th:src="${message.member.image}" class="my-img" width="30"
 							height="30" /></td>
 					</tr>
 				</table>
@@ -85,7 +85,7 @@
 					else {
 						str = "<tr>";
 						str += "<td class='other-img-wrap py-2 ps-3'>";
-						str += "<img th:src='@{/images/icon/tempIcon.png}' class='other-img' width='30' height='30' /></td>";
+						str += "<img src='/images/icon/tempIcon.png' class='other-img' width='30' height='30' /></td>";
 						
 						str += "<td class='other-message-content py-2 ps-2 pe-3'>";
 						str += "<b class='other-message-text p-2'>" + message.content + "</b></td>";

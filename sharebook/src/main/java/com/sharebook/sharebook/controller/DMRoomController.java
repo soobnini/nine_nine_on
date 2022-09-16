@@ -40,7 +40,7 @@ public class DMRoomController {
 		ModelAndView mav = new ModelAndView();
 
 		if (userSession == null) { // 로그인이 안되어있는 경우 
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 			return mav;
 		}
 		
@@ -68,7 +68,7 @@ public class DMRoomController {
 		ModelAndView mav = new ModelAndView();
 
 		if (userSession == null) { // 로그인이 안되어있는 경우 
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 			return mav;
 		}
 		
@@ -88,7 +88,7 @@ public class DMRoomController {
 		ModelAndView mav = new ModelAndView();
 
 		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 			return mav;
 		}
 		

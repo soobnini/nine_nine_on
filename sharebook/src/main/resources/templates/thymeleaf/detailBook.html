@@ -67,7 +67,7 @@
 									th:value="${book.member.member_id}" />
 								[[${book.member.nickname}]]<span id="book-info-page"
 									class="ms-2"><img class="pe-1"
-									th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25" />21페이지</span>
+									th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25" /><span th:text="|${book.member.temperature} 페이지|"></span></span>
 							</div>
 							<div id="book-info-store" class="pt-1">[[${book.store.name}]]</div>
 							<div id="book-info-introduce" class="py-4">[[${book.introduce}]]</div>

@@ -30,10 +30,16 @@
 				data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<!-- 나중에 notice의 이미지 링크로 교체 -->
-					<div class="carousel-item active" th:each="notice : ${noticeList}"
-						th:onclick="|location.href='@{/book/Notice/detail.do?(noticeId=${notice.noticeId})}'|">
-						<img class="carousel-event-image" th:src="${notice.image}" />
-					</div>
+					<th:block th:each="notice, stat : ${noticeList}">
+						<div th:if="${stat.first}" class="carousel-item active"
+							th:onclick="|location.href='@{/book/Notice/detail.do?(noticeId=${notice.noticeId})}'|">
+							<img class="carousel-event-image" th:src="${notice.image}" />
+						</div>
+						<div th:unless="${stat.first}" class="carousel-item"
+							th:onclick="|location.href='@{/book/Notice/detail.do?(noticeId=${notice.noticeId})}'|">
+							<img class="carousel-event-image" th:src="${notice.image}" />
+						</div>
+					</th:block>
 					<button class="carousel-button carousel-control-prev" type="button"
 						data-bs-target="#event-carousel" data-bs-slide="prev">
 						<img id="carousel-prev"

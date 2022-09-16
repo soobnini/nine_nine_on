@@ -43,7 +43,7 @@ public class LendBookController {
 		ModelAndView mav = new ModelAndView();
 
 		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 			return mav;
 		}
 
@@ -63,7 +63,7 @@ public class LendBookController {
 		ModelAndView mav = new ModelAndView();
 
 		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 			return mav;
 		}
 
@@ -88,7 +88,7 @@ public class LendBookController {
 		ModelAndView mav = new ModelAndView();
 
 		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/login");
 		} else { // 로그인이 되어있는 경우
 
 			Member member = memberService.getMember(userSession.getMember().getMember_id());

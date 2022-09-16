@@ -54,7 +54,7 @@
 						<img id="dm-button" class="ms-2 me-3"
 							th:src="@{/images/icon/dmIcon.png}" width="25" height="25" /> <a
 							href="/book/mypage.do" aria-expanded="false"><img
-							th:src="@{/images/profile/profile1.jpg}" alt="mdo" width="25"
+							th:src="${session.member.image}" alt="mdo" width="25"
 							height="25" class="dropdown rounded-circle"> </a>
 					</div>
 				</div>
