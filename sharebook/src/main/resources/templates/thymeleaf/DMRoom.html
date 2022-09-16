@@ -51,6 +51,7 @@
 			var roomId = [[${ roomId }]];
 			var memberId = [[${ member.member_id }]];
 			var memberName = [[${ member.nickname }]];
+			var memberImage = [[${member.image}]];
 
 			console.log(roomId + ", " + memberName);
 
@@ -72,13 +73,13 @@
 
 					if (writer === memberName) {
 						str = "<tr>";
-						str += "<td class='my-margin p-2'></td></tr>";
+						str += "<td class='my-margin p-2'></td>";
 						
-						str += "<td class='my-message-content py-2 ps-2 pe-3'>";
+						str += "<td class='my-message-content py-2 ps-3 pe-2'>";
 						str += "<b class='my-message-text p-2'>" + message.content + "</b></td>";
 						
-						str += "<td class='my-img-wrap py-2 ps-3'>";
-						str += "<img src='/images/icon/tempIcon.png' class='my-img' width='30' height='30' /></td>";
+						str += "<td class='my-img-wrap py-2 pe-3'>";
+						str += "<img src='" + memberImage + "' class='my-img' width='30' height='30' /></td></tr>";
 					}
 					
 					
