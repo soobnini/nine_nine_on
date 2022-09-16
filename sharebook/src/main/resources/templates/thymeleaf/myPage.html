@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이웃 책장 : 종이책 공유 플랫폼</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -35,7 +35,7 @@
 				</div>
 				<div class="row">
 					<div id=nick>
-						<b style="font-size:150%;"th:text="${member.name}"></b> <span id="book-info-page"
+						<b style="font-size:150%;"th:text="${member.nickname}"></b> <span id="book-info-page"
 									class="ms-2"><img class="pe-1"
 									th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25" style="text-align:top; color:#80C40A;"/><span style="text-align:top; color:#80C40A;" th:text="${member.temperature}+' 페이지'"></span></span>
 					</div>
