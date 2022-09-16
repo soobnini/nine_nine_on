@@ -168,3 +168,16 @@ ul.book-list {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+.nav.nav-tabs>.nav-link.active{
+
+	text-decoration: none;
+	color: black;
+	background-color:white;
+}
+.nav.nav-tabs>.nav-link {
+	width:33.333333%;
+	text-decoration: none;
+	color: white;
+	background-color:#E7EBE4;
+}

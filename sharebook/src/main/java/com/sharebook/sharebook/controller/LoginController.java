@@ -85,7 +85,7 @@ public class LoginController {
 			member.setAddress1(memberCommand.getAddress1());
 			member.setAddress2(memberCommand.getAddress2());
 			member.setTemperature(0.0f);
-			member.setImage("/images/ex_image.png");
+			member.setImage("../images/icon/characterLogo.png");
 			member.setAdmin(0);
 			
 			memberService.createMember(member);

@@ -21,6 +21,7 @@ import org.springframework.web.util.WebUtils;
 import com.sharebook.sharebook.service.CommunityService;
 import com.sharebook.sharebook.service.MemberService;
 import com.sharebook.sharebook.service.RentService;
+import com.sharebook.sharebook.service.ReviewService;
 import com.sharebook.sharebook.service.BookService;
 
 import java.io.File;
@@ -33,6 +34,7 @@ import com.sharebook.sharebook.domain.Community;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
 import com.sharebook.sharebook.domain.Rent;
+import com.sharebook.sharebook.domain.Review;
 
 @Controller
 public class MypageController {
@@ -48,6 +50,9 @@ public class MypageController {
 	
 	@Autowired
 	private RentService rentService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@Value("/upload/")
 	private String uploadDirLocal;
@@ -77,12 +82,18 @@ public class MypageController {
 			List<Rent> rentList = rentService.getRentList(member);
 			List<Rent> myRentList = rentService.getMyRentList(member);
 			List<Likes> likeList = bookService.findLikesListByMember(member);
+			int reviewCount = reviewService.getReviewByMember(member).size()+1;
+			int commentCount = communityService.findCommentByMember(member).size()+1;
+			int  communityCount =  communityService.findCommunityByUser(member).size()+1;
 			
 			mav.setViewName("thymeleaf/myPage");
 			mav.addObject("member", member);
 			mav.addObject("rentList",rentList);
 			mav.addObject("myRentList", myRentList);
 			mav.addObject("likeList", likeList);
+			mav.addObject("reviewCount", reviewCount);
+			mav.addObject("commentCount", commentCount);
+			mav.addObject("communityCount", communityCount);
 			
 		}	
 		
@@ -97,6 +108,8 @@ public class MypageController {
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		Member member = memberService.getMember(userSession.getMember().getMember_id());
 		if(category == 2) {
+			List<Review> reviewList = reviewService.getReviewByMember(member);
+			model.addAttribute("reviewList", reviewList);
 			return"thymeleaf/listPartial2";
 		}
 		else if(category == 3) {
@@ -105,7 +118,7 @@ public class MypageController {
 			return"thymeleaf/listPartial3";
 		}
 		else {
-		List<Community> communityList =  communityService.findCommunityByUser(0, member).getContent();
+		List<Community> communityList =  communityService.findCommunityByUser(member);
 		model.addAttribute("communityList", communityList);
 		return"thymeleaf/listPartial";}
 	}
@@ -341,7 +354,7 @@ public class MypageController {
 			mav.addObject("member", member);
 			mav.addObject("category","community");
 			
-			List<Community> communityList =  communityService.findCommunityByUser(0, member).getContent();
+			List<Community> communityList =  communityService.findCommunityByUser(member);
 			System.out.println(communityList.size());
 			System.out.println(communityList);
 			mav.addObject("communityList", communityList);

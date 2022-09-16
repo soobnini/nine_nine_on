@@ -14,7 +14,7 @@ import com.sharebook.sharebook.domain.Member;
 
 public interface CommunityRepository extends JpaRepository<Community, Integer>{
 	List<Community> findByTitle(String title) throws DataAccessException;
-	Page<Community> findByMember(Member member,Pageable pagealbe)throws DataAccessException;
+	List<Community> findByMember(Member member)throws DataAccessException;
 	List<Community> findByCategory(int category) throws DataAccessException;
 	
 	Page<Community> findAll(Pageable pagealbe)throws DataAccessException;

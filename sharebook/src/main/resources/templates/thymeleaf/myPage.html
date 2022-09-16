@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-3">
 				<div id=circle>
-					<img src="/images/ex_image.png" alt="프로필 이미지" id=profile>
+					<img th:src="${member.image}" alt="프로필 이미지" id=profile>
 				</div>
 			</div>
 			<div class="col-8">
@@ -34,10 +34,9 @@
 				</div>
 				<div class="row">
 					<div id=nick>
-						<b th:text="${member.name}"></b> <span
-							th:text="${member.temperature}"
-							style="color: black; font-size: 15px; vertical-align: top;">몇페이지
-							읽었는지 추가 요망</span>
+						<b style="font-size:150%;"th:text="${member.name}"></b> <span id="book-info-page"
+									class="ms-2"><img class="pe-1"
+									th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25" style="text-align:top; color:#80C40A;"/><span style="text-align:top; color:#80C40A;" th:text="${member.temperature}+' 페이지'"></span></span>
 					</div>
 				</div>
 			</div>
@@ -92,8 +91,8 @@
 			</div>
 			<hr />
 			<div id="scrollspace" data-bs-spy="scroll"
-				data-bs-target="#navbar-example" data-bs-offset="10"
-				class="scrollspy-example" tabindex="1">
+				data-bs-target="#navbar-example" data-bs-offset="1"
+				class="scrollspy-example" tabindex="0">
 				<div id="memberDiv">
 					<div>
 						<span><h5>회원정보 수정</h5></span>
@@ -209,7 +208,7 @@
 								</div></li>
 						</ul>
 					</div>
-				</div>
+				</div><br> <br>
 				<div id="likesDiv">
 					<span><h5>찜목록</h5></span>
 					<div id="book-list-result">
@@ -245,13 +244,13 @@
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 							<button class="nav-link active" id="nav-home-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-								role="tab" aria-controls="nav-home" aria-selected="true">글</button>
+								role="tab" aria-controls="nav-home" aria-selected="true"><br/>글<p style="font-size:200%;"th:text = "${communityCount} +'개'"></p></button>
 							<button class="nav-link" id="nav-profile-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
-								role="tab" aria-controls="nav-profile" aria-selected="false">독후감</button>
+								role="tab" aria-controls="nav-profile" aria-selected="false"><br/>독후감<p style="font-size:200%;"th:text = "${reviewCount} +'개'"></p></button>
 							<button class="nav-link" id="nav-contact-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
-								role="tab" aria-controls="nav-contact" aria-selected="false">댓글</button>
+								role="tab" aria-controls="nav-contact" aria-selected="false"><br/>댓글<p style="font-size:200%;" th:text = "${commentCount} +'개'"></p></button>
 						</div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
@@ -293,6 +292,7 @@
 		 }) */
 		 $(document).ready( function() {
 			    $("#nav-home").load("/book/myPage/listPartial.do"); 
+			    $("#nav-profile").load("/book/myPage/listPartial.do?category=2"); 
 			    $("#nav-contact").load("/book/myPage/listPartial.do?category=3");
 			  });
 	</script>
