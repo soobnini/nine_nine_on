@@ -11,10 +11,10 @@
 				<tr th:each="membership : ${membershipList}"
 					class="room-list-content">
 					<td class="room-list-image-wrap p-3"><img
-						th:src="@{/images/icon/tempIcon.png}" class="list-content-img" /></td>
+						th:src="${membership.member.image}" class="list-content-img" /></td>
 					<td class="room-list-link-wrap py-3 pe-3"><a
 						class="list-content-link"><span class="list-content-name pb-1">[[${membership.member.nickname}]]</span>
-							<span class="list-content-message pt-1"><br>최근 메시지</span> <input
+							<span class="list-content-message pt-1"><br>[[${membership.chatRoom.book.title}]]</span> <input
 							type="hidden" id="hiddenRoomId"
 							th:value="${membership.chatRoom.chat_room_id}"></a></td>
 				</tr>

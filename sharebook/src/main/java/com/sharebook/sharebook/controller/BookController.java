@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -40,7 +41,9 @@ public class BookController {
 	public StoreService storeService;
 
 	@RequestMapping("/book/list.do")
-	public ModelAndView viewBookList(HttpServletRequest request) {
+	public ModelAndView viewBookList(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "2") int orderBy,
+			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
 		List<Region> regionList = storeService.findRegionList();
@@ -49,23 +52,27 @@ public class BookController {
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 
 		if (flashMap != null) {
-			String query = (String)flashMap.get("query");
+			String query = (String) flashMap.get("query");
 			mav.addObject("query", query);
 		}
 
-		List<Book> bookList = bookService.findBookListSorted(2);
-		
+		// Paging
 		Page<Book> bookPage = null;
-		//List<Book> bookList = null;
+		List<Book> bookList = null;
 		int totalPage = 0;
-		//bookPage = bookService.getAllReview(page, orderBy);
 
+		bookPage = bookService.findPagingBookListSorted(page, 2);
+		totalPage = bookPage.getTotalPages();
+		bookList = bookPage.getContent();
 
-		//totalPage = resultPage.getTotalPages();
-		
 		List<List<Book>> totalBookList = divideList(bookList);
 		mav.addObject("bookList", totalBookList);
 
+		mav.addObject("currentPage", page);
+		mav.addObject("totalPage", totalPage);
+		mav.addObject("orderBy", orderBy);
+
+		// 이런 책은 어떠세요?
 		List<Book> allRecommendBookList = bookService.findBookListSorted(4);
 		List<Book> recommendBookList = new ArrayList<>();
 		for (int i = 0; i < allRecommendBookList.size(); i++) {
@@ -79,6 +86,7 @@ public class BookController {
 		mav.setViewName("thymeleaf/bookList");
 		mav.addObject("regionList", regionList);
 		mav.addObject("genreList", genreList);
+
 		return mav;
 	}
 

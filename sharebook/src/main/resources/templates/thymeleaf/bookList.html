@@ -189,17 +189,17 @@
                   end=(${(totalPage == 0) ? 1 : (start + (5 - 1) < totalPage ? start + (5 - 1) : totalPage)})">
 					<li th:if="${currentPage > 0}" class="page-item"><a
 						class="page-link"
-						th:href="@{/book/Review/List.do?(page=${currentPage - 1},searchText=${searchText},orderBy=${orderBy})}"
+						th:href="@{/book/list.do?(page=${currentPage - 1}, orderBy=${orderBy})}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 					<li th:each="page: ${#numbers.sequence(start, end)}"
 						th:attr="class=${page == (currentPage + 1)} ? 'page-item active' : 'page-item'"><a
 						class="page-link"
-						th:href="@{/book/Review/List.do?(page=${page-1},searchText=${searchText},orderBy=${orderBy})}"
+						th:href="@{/book/list.do?(page=${page-1}, orderBy=${orderBy})}"
 						th:text="${page}"></a></li>
 					<li class="page-item" th:if="${currentPage}!= ${totalPage - 1}"><a
 						class="page-link"
-						th:href="@{/book/Review/List.do?(page=${currentPage + 1},searchText=${searchText},orderBy=${orderBy})}"
+						th:href="@{/book/list.do?(page=${currentPage + 1}, orderBy=${orderBy})}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</ul>

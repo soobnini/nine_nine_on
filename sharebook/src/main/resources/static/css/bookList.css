@@ -233,3 +233,21 @@ ul.book-list {
 	width: 10%;
 	cursor: pointer;
 }
+
+/* Pagint Number */
+.page-link {
+	border: none;
+	color: silver;
+}
+
+.page-link:hover {
+	background-color: #fff;
+	color: black;
+}
+
+.page-item.active .page-link {
+	z-index: 3;
+	color: black;
+	background-color: #fff;
+	border: none;
+}
