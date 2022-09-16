@@ -18,6 +18,7 @@
 <script type="text/javascript" th:src="@{/js/mypage.js}"></script>
 </head>
 <body>
+<div id="header"></div>
 
 	<div class="main">
 
@@ -91,7 +92,7 @@
 			</div>
 			<hr />
 			<div id="scrollspace" data-bs-spy="scroll"
-				data-bs-target="#navbar-example" data-bs-offset="1"
+				data-bs-target="#navbar-example" data-bs-offset="2"
 				class="scrollspy-example" tabindex="0">
 				<div id="memberDiv">
 					<div>
@@ -269,7 +270,8 @@
 		<br>
 
 	</div>
-	<div id="top">^top</div>
+	<div id="top">top</div>
+	<div id="footer"></div>
 	<!-- JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -277,8 +279,7 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script th:src="@{/js/loadAjax.js}" type="text/javascript"
 		charset="UTF-8"></script>
-	<script th:src="@{/js/loadHeaderAndFooter.js}" type="module"
-		charset="UTF-8"></script>
+	
 	<script type="text/javascript">
 		$("#top").click(function() {
 			$("html, #scrollspace").animate({
@@ -296,5 +297,7 @@
 			    $("#nav-contact").load("/book/myPage/listPartial.do?category=3");
 			  });
 	</script>
+	<script th:src="@{/js/loadHeaderAndFooter.js}" type="module"
+		charset="UTF-8"></script>
 </body>
 </html>
