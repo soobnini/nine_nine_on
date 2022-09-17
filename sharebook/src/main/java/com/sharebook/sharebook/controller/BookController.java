@@ -122,16 +122,41 @@ public class BookController {
 		redirectAttr.addFlashAttribute("query", query);
 		return mav;
 	}
-
-	@RequestMapping("/book/list/condition/region.do")
-	public ModelAndView regionConditionBookList(String query) {
+	
+	@RequestMapping("/book/direct/condition/region.do")
+	public ModelAndView regionConditionDirectBookList(String condition, String regionId, RedirectAttributes redirectAttr) {
 		ModelAndView mav = new ModelAndView();
 
-		Region region = storeService.findRegionById(Integer.parseInt(query));
-		List<Store> storeList = storeService.findStoreListByRegion(region);
+		mav.setViewName("redirect:/book/list.do");
+		redirectAttr.addFlashAttribute("condition", condition);
+		redirectAttr.addFlashAttribute("regionId", regionId);
+		return mav;
+	}
+	
+	@RequestMapping("/book/direct/condition/genre.do")
+	public ModelAndView genreConditionDirectBookList(String condition, String genreId, RedirectAttributes redirectAttr) {
+		ModelAndView mav = new ModelAndView();
 
-		List<Book> bookList = bookService.findSameRegionBookList(storeList.get(0));
-		List<List<Book>> totalBookList = divideList(bookList);
+		mav.setViewName("redirect:/book/list.do");
+		redirectAttr.addFlashAttribute("condition", condition);
+		redirectAttr.addFlashAttribute("genreId", genreId);
+		return mav;
+	}
+
+	@RequestMapping("/book/list/condition/region.do")
+	public ModelAndView regionConditionBookList(@RequestParam(value = "query") List<String> query) {
+		ModelAndView mav = new ModelAndView();
+
+		List<Book> totalResultList = new ArrayList<>();
+		for (int i = 0; i < query.size(); i++) {
+			Region region = storeService.findRegionById(Integer.parseInt(query.get(i)));
+			List<Store> storeList = storeService.findStoreListByRegion(region);
+
+			List<Book> bookList = bookService.findSameRegionBookList(storeList.get(0));
+			totalResultList.addAll(bookList);
+		}
+
+		List<List<Book>> totalBookList = divideList(totalResultList);
 
 		mav.setViewName("thymeleaf/bookListResult");
 		mav.addObject("bookList", totalBookList);
@@ -139,13 +164,17 @@ public class BookController {
 	}
 
 	@RequestMapping("/book/list/condition/genre.do")
-	public ModelAndView genreConditionBookList(String query) {
+	public ModelAndView genreConditionBookList(@RequestParam(value = "query") List<String> query) {
 		ModelAndView mav = new ModelAndView();
 
-		Genre genre = bookService.findGenreById(Integer.parseInt(query));
+		List<Book> totalResultList = new ArrayList<>();
+		for (int i = 0; i < query.size(); i++) {
+			Genre genre = bookService.findGenreById(Integer.parseInt(query.get(i)));
+			List<Book> bookList = bookService.findBookListByGenre(genre);
+			totalResultList.addAll(bookList);
+		}
 
-		List<Book> bookList = bookService.findBookListByGenre(genre);
-		List<List<Book>> totalBookList = divideList(bookList);
+		List<List<Book>> totalBookList = divideList(totalResultList);
 
 		mav.setViewName("thymeleaf/bookListResult");
 		mav.addObject("bookList", totalBookList);

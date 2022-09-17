@@ -213,6 +213,26 @@ public class BookService {
 		Page<Book> bookPage = bookRepository.findAll(p);
 		return bookPage;
 	}
+	
+	public Page<Book> findPagingBookListByRegionSorted(int preq, int sortType, Store store) {
+		Pageable p = null;
+		switch (sortType) {
+		case 1:
+			p = PageRequest.of(preq, 15, Sort.by("title").ascending());
+			break;
+		case 2:
+			p = PageRequest.of(preq, 15, Sort.by("views").ascending());
+			break;
+		case 3:
+			p = PageRequest.of(preq, 15, Sort.by("bookId").ascending());
+			break;
+		case 4:
+			p = PageRequest.of(preq, 15, Sort.by("author").ascending());
+			break;
+		}
+		Page<Book> bookPage = bookRepository.findAllByStore_Region(p, store.getRegion());
+		return bookPage;
+	}
 
 	public List<Likes> findLikesListByMember(Member member) {
 		return likesRepository.findAllByMember(member);

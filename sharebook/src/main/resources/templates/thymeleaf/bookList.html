@@ -28,6 +28,40 @@
 			$("#list-recommend-box").css("display", "none");
 			loadAjaxFromAPI([[${query}]], "/book/search.do", "POST", "#book-list-result");
 		}
+		else if([[${condition}]]){
+			if([[${condition}]] === "region"){
+				var id = "label.class-label-region, #" + [[${regionId}]];
+				var checkedLabel = $(id);
+
+				checkedLabel.css("display", "none");
+				checkedLabel.next().css("display", "inline");
+				checkedLabel.next().children(".condition-checkbox").attr("checked", true);
+
+				var checkedList = [];
+				$("input:checkbox[name=addressCondition]:checked").each(function(i) {
+					checkedList.push($(this).val());
+				});
+				console.log(checkedList);
+
+				loadAjaxAboutArray(checkedList, "/book/list/condition/region.do", "POST", "#book-list-result");
+			}
+			else if([[${condition}]] === "genre"){
+				var id = "label.class-label-genre, #" + [[${genreId}]];
+				var checkedLabel = $(id);
+
+				checkedLabel.css("display", "none");
+				checkedLabel.next().css("display", "inline");
+				checkedLabel.next().children(".condition-checkbox").attr("checked", true);
+
+				var checkedList = [];
+				$("input:checkbox[name=genreCondition]:checked").each(function(i) {
+					checkedList.push($(this).val());
+				});
+				console.log(checkedList);
+
+				loadAjaxAboutArray(checkedList, "/book/list/condition/genre.do", "POST", "#book-list-result");
+			}
+		}
 
 		$("#go-up-arrow").click(function(e) {
 			e.preventDefault();
@@ -36,7 +70,6 @@
 				}, 200);
 			});
 		});
-
 </script>
 </head>
 <body>
@@ -56,35 +89,36 @@
 				<tr>
 					<td class="condition-title pb-3"><span>지역 설정</span></td>
 					<td id="region-condition" class="condition-content"><span
-						th:each="region : ${regionList}"><label
-							th:id="|${region.region_id}Label|" th:for="${region.region_id}"
-							class="condition-label region ms-3 me-1 mb-2"
+						th:each="region : ${regionList}" class="condition-span-region"><label
+							th:for="${region.region_id}" th:id="${region.region_id}"
+							class="condition-label-region ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${region.region_id}" class="condition-checkbox"
 								type="checkbox" name="addressCondition"
 								th:value="${region.region_id}"><span class="ms-4">[[${region.name}]]</span></label>
-							<label th:id="|${region.region_id}Label|"
-							th:for="${region.region_id}"
-							class="condition-label region chekced ms-3 me-1 mb-2"
-							th:style="'background:url('+ @{/images/icon/checkedBox.png} +') no-repeat left center/15px auto;'"><span
-								class="ms-4">[[${region.name}]]</span></label></span></td>
+							<label th:for="${region.region_id}"
+							class="condition-label-region-chekced ms-3 me-1 mb-2"
+							th:style="'background:url('+ @{/images/icon/checkedBox.png} +') no-repeat left center/15px auto;'"><input
+								th:id="${region.region_id}" class="condition-checkbox"
+								type="checkbox" name="addressCondition"
+								th:value="${region.region_id}"><span class="ms-4">[[${region.name}]]</span></label></span></td>
 				</tr>
 				<tr>
 					<td class="condition-title pb-3"><span>검색조건 설정</span></td>
 					<td class="condition-content"><label
-						class="condition-label search ms-3 me-1 mb-2"
+						class="condition-label-search ms-3 me-1 mb-2"
 						th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 							class="condition-checkbox" type="checkbox" name="searchCondition"
 							value="title"><span class="ms-4">제목</span></label> <label
-						class="condition-label search ms-3 me-1 mb-2"
+						class="condition-label-search ms-3 me-1 mb-2"
 						th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 							class="condition-checkbox" type="checkbox" name="searchCondition"
 							value="author"><span class="ms-4">저자</span></label> <label
-						class="condition-label search ms-3 me-1 mb-2"
+						class="condition-label-search ms-3 me-1 mb-2"
 						th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 							class="condition-checkbox" type="checkbox" name="searchCondition"
 							value="publisher"><span class="ms-4">출판사</span></label> <label
-						class="condition-label search ms-3 me-1 mb-2"
+						class="condition-label-search ms-3 me-1 mb-2"
 						th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 							class="condition-checkbox" type="checkbox" name="searchCondition"
 							value="isbn"><span class="ms-4">isbn</span></label></td>
@@ -92,15 +126,15 @@
 				<tr>
 					<td class="condition-title pb-3"><span>카테고리 설정</span></td>
 					<td class="condition-content"><span
-						th:each="genre : ${genreList}"><label
-							th:id="|${genre.genreId}Label|" th:for="${genre.genreId}"
-							class="condition-label genre ms-3 me-1 mb-2"
+						th:each="genre : ${genreList}" class="condition-span-genre"><label
+							th:for="${genre.genreId}" th:id="${genre.genreId}"
+							class="condition-label-genre ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${genre.genreId}" class="condition-checkbox"
 								type="checkbox" name="genreCondition"
 								th:value="${genre.genreId}"><span class="ms-4">[[${genre.name}]]</span></label><label
-							th:id="|${genre.genreId}Label|" th:for="${genre.genreId}"
-							class="condition-label genre checked ms-3 me-1 mb-2"
+							th:for="${genre.genreId}"
+							class="condition-label-genre-checked ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/checkedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${genre.genreId}" class="condition-checkbox"
 								type="checkbox" name="genreCondition"
@@ -181,29 +215,29 @@
 							th:src="@{/images/book/bookWhiteImage.png}" />
 					</div></li>
 			</ul>
-		</div>
-		<div class="text-center">
-			<nav aria-label="Page navigation">
-				<ul class="pagination justify-content-center"
-					th:with="start=${(currentPage/5)* 5 + 1},
+			<div class="text-center">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center"
+						th:with="start=${(currentPage/5)* 5 + 1},
                   end=(${(totalPage == 0) ? 1 : (start + (5 - 1) < totalPage ? start + (5 - 1) : totalPage)})">
-					<li th:if="${currentPage > 0}" class="page-item"><a
-						class="page-link"
-						th:href="@{/book/list.do?(page=${currentPage - 1}, orderBy=${orderBy})}"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li th:each="page: ${#numbers.sequence(start, end)}"
-						th:attr="class=${page == (currentPage + 1)} ? 'page-item active' : 'page-item'"><a
-						class="page-link"
-						th:href="@{/book/list.do?(page=${page-1}, orderBy=${orderBy})}"
-						th:text="${page}"></a></li>
-					<li class="page-item" th:if="${currentPage}!= ${totalPage - 1}"><a
-						class="page-link"
-						th:href="@{/book/list.do?(page=${currentPage + 1}, orderBy=${orderBy})}"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+						<li th:if="${currentPage > 0}" class="page-item"><a
+							class="page-link"
+							th:href="@{/book/list.do?(page=${currentPage - 1}, orderBy=${orderBy})}"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						</a></li>
+						<li th:each="page: ${#numbers.sequence(start, end)}"
+							th:attr="class=${page == (currentPage + 1)} ? 'page-item active' : 'page-item'"><a
+							class="page-link"
+							th:href="@{/book/list.do?(page=${page-1}, orderBy=${orderBy})}"
+							th:text="${page}"></a></li>
+						<li class="page-item" th:if="${currentPage}!= ${totalPage - 1}"><a
+							class="page-link"
+							th:href="@{/book/list.do?(page=${currentPage + 1}, orderBy=${orderBy})}"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 	</div>
 	<div class="arrow-box my-5 pb-4">

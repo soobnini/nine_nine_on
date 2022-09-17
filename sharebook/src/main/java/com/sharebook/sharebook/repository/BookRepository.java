@@ -53,9 +53,11 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	 */
 	Page<Book> findAll(Pageable pagealbe) throws DataAccessException;
 
-	Page<Book> findAllByTitleContaining(Pageable pagealbe, @Param("title") String title)
-			throws DataAccessException;
+	Page<Book> findAllByTitleContaining(Pageable pagealbe, @Param("title") String title) throws DataAccessException;
 
-	Page<Book> findAllByAuthorContaining(Pageable pagealbe, @Param("author") String author)
-			throws DataAccessException;
+	Page<Book> findAllByAuthorContaining(Pageable pagealbe, @Param("author") String author) throws DataAccessException;
+
+	Page<Book> findAllByStore_Region(Pageable pageable, Region region) throws DataAccessException;
+
+	Page<Book> findAllByGenre(Pageable pageable, Genre genre) throws DataAccessException;
 }
