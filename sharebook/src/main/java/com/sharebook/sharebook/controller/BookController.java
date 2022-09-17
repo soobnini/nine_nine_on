@@ -108,9 +108,10 @@ public class BookController {
 
 		List<Book> searchResult = new ArrayList<>();
 		searchResult.addAll(bookService.findBookListByTitle(query));
+		List<List<Book>> totalBookList = divideList(searchResult);
 
 		mav.setViewName("thymeleaf/bookListResult");
-		mav.addObject("bookList", searchResult);
+		mav.addObject("bookList", totalBookList);
 		return mav;
 	}
 
