@@ -81,19 +81,28 @@ body {
 	vertical-align: top;
 }
 
-.condition-label {
+.condition-label-region, .condition-label-genre, .condition-label-search
+	{
 	font-size: 0.9rem;
 	font-weight: 400;
 	color: #5C5C5C;
 	cursor: pointer;
 }
 
-.condition-label.region.chekced {
+.condition-label-region-chekced {
 	display: none;
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: #5C5C5C;
+	cursor: pointer;
 }
 
-.condition-label.genre.checked {
+.condition-label-genre-checked {
 	display: none;
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: #5C5C5C;
+	cursor: pointer;
 }
 
 .condition-checkbox {

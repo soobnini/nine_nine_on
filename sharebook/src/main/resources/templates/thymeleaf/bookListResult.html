@@ -12,9 +12,9 @@
 					<img class="book-list-img"
 						th:if="${#strings.startsWith(book.image,'https')}"
 						th:src="${book.image}" /> <img class="book-list-img"
-							th:unless="${#strings.startsWith(book.image,'https')}"
-							th:src="'/book/images'+ ${book.image}" /> <input
-						type="hidden" id="hidden-api-isbn" th:value="${book.isbn}">
+						th:unless="${#strings.startsWith(book.image,'https')}"
+						th:src="'/book/images'+ ${book.image}" /> <input type="hidden"
+						id="hidden-api-isbn" th:value="${book.isbn}">
 				</div>
 				<div class="book-list-text mt-3">
 					<p class="book-list-main-text">
