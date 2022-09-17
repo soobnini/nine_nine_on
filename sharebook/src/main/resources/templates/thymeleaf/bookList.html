@@ -30,7 +30,7 @@
 		}
 		else if([[${condition}]]){
 			if([[${condition}]] === "region"){
-				var id = "label.class-label-region, #" + [[${regionId}]];
+				var id = "label.condition-label-region#r" + [[${regionId}]];
 				var checkedLabel = $(id);
 
 				checkedLabel.css("display", "none");
@@ -46,8 +46,10 @@
 				loadAjaxAboutArray(checkedList, "/book/list/condition/region.do", "POST", "#book-list-result");
 			}
 			else if([[${condition}]] === "genre"){
-				var id = "label.class-label-genre, #" + [[${genreId}]];
+				var id = "label.condition-label-genre#g" + [[${genreId}]];
 				var checkedLabel = $(id);
+				console.log(id);
+				console.log(checkedLabel);
 
 				checkedLabel.css("display", "none");
 				checkedLabel.next().css("display", "inline");
@@ -90,14 +92,14 @@
 					<td class="condition-title pb-3"><span>지역 설정</span></td>
 					<td id="region-condition" class="condition-content"><span
 						th:each="region : ${regionList}" class="condition-span-region"><label
-							th:for="${region.region_id}" th:id="${region.region_id}"
+							th:for="${region.region_id}" th:id="|r${region.region_id}|"
 							class="condition-label-region ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${region.region_id}" class="condition-checkbox"
 								type="checkbox" name="addressCondition"
 								th:value="${region.region_id}"><span class="ms-4">[[${region.name}]]</span></label>
 							<label th:for="${region.region_id}"
-							class="condition-label-region-chekced ms-3 me-1 mb-2"
+							class="condition-label-region-checked ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/checkedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${region.region_id}" class="condition-checkbox"
 								type="checkbox" name="addressCondition"
@@ -127,13 +129,13 @@
 					<td class="condition-title pb-3"><span>카테고리 설정</span></td>
 					<td class="condition-content"><span
 						th:each="genre : ${genreList}" class="condition-span-genre"><label
-							th:for="${genre.genreId}" th:id="${genre.genreId}"
+							th:for="${genre.genreId}" th:id="|g${genre.genreId}|"
 							class="condition-label-genre ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/notCheckedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${genre.genreId}" class="condition-checkbox"
 								type="checkbox" name="genreCondition"
 								th:value="${genre.genreId}"><span class="ms-4">[[${genre.name}]]</span></label><label
-							th:for="${genre.genreId}"
+							th:for="${genre.genreId}" 
 							class="condition-label-genre-checked ms-3 me-1 mb-2"
 							th:style="'background:url('+ @{/images/icon/checkedBox.png} +') no-repeat left center/15px auto;'"><input
 								th:id="${genre.genreId}" class="condition-checkbox"

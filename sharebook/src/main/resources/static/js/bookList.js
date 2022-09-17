@@ -61,6 +61,7 @@ $('label[class^=condition-label-region-checked]').unbind("click").on("click", fu
 	console.log($(this));
 	var conditionValue = $(this).children(".condition-checkbox").val();
 
+
 	$(this).css("display", "none");
 	$(this).prev().css("display", "inline");
 	$(this).children(".condition-checkbox").attr("checked", false);
