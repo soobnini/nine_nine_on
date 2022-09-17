@@ -8,11 +8,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,17 +29,23 @@ import com.sharebook.sharebook.service.BookService;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import com.sharebook.sharebook.domain.Comments;
 import com.sharebook.sharebook.domain.Community;
+import com.sharebook.sharebook.domain.Genre;
 import com.sharebook.sharebook.domain.Likes;
 import com.sharebook.sharebook.domain.Member;
+import com.sharebook.sharebook.domain.Member_genre;
 import com.sharebook.sharebook.domain.Rent;
 import com.sharebook.sharebook.domain.Review;
 
 @Controller
-public class MypageController {
+public class MypageController implements ApplicationContextAware{
 	
 	@Autowired
 	private MemberService memberService;
@@ -82,9 +90,9 @@ public class MypageController {
 			List<Rent> rentList = rentService.getRentList(member);
 			List<Rent> myRentList = rentService.getMyRentList(member);
 			List<Likes> likeList = bookService.findLikesListByMember(member);
-			int reviewCount = reviewService.getReviewByMember(member).size()+1;
-			int commentCount = communityService.findCommentByMember(member).size()+1;
-			int  communityCount =  communityService.findCommunityByUser(member).size()+1;
+			int reviewCount = reviewService.getReviewByMember(member).size();
+			int commentCount = communityService.findCommentByMember(member).size();
+			int  communityCount =  communityService.findCommunityByUser(member).size();
 			
 			mav.setViewName("thymeleaf/myPage");
 			mav.addObject("member", member);
@@ -146,29 +154,28 @@ public class MypageController {
 	@PostMapping("/book/mypage/member/check.do")
 	public ModelAndView showMemberUpdatePage (HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam("id") String id,
 			@RequestParam("password") String password) throws IOException {
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
 		
 		if (userSession == null) { // 로그인이 안되어있는 경우
-			mav.setViewName("login");
+			mav.setViewName("thymeleaf/Login");
 		}
 		else { // 로그인이 되어있는 경우
 			Member member = memberService.getMember(userSession.getMember().getMember_id());
-			Member isMember = memberService.findByEmailAndPassword(id, password);
+			boolean isMember = member.getPassword().equals(password);
 			
-			if (isMember == null || member != isMember) {
+			if (isMember == false) {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.println("<script>alert('아이디와 비밀번호가 올바르지 않습니다.'); location.href='/book/mypage/member/check.do';</script>");
+				out.println("<script>alert('비밀번호가 올바르지 않습니다.'); location.href='/book/mypage.do';</script>");
 				out.flush();
 			}
-			
-			mav.setViewName("myPage");
+			List<Genre> genreList= bookService.findGenreList();
+			mav.addObject("genreList",genreList);
+			mav.setViewName("updateForm");
 			mav.addObject("member", member);
-			mav.addObject("category","memberUpdate");
 		}	
 		
 		return mav;
@@ -177,11 +184,12 @@ public class MypageController {
 	@PostMapping("/book/mypage/member/update.do")
 	public ModelAndView showMemberUpdatePage (HttpServletRequest request, 
 			HttpServletResponse response,
-			MemberCommand memberCommand,
-			@RequestParam("uploadImage") MultipartFile uploadImage) throws IOException {		
+			MemberCommand memberCommand,@RequestParam("genreList") int[] genres) throws IOException {		
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		ModelAndView mav = new ModelAndView();
+		List<Member_genre> memberSelect = new ArrayList<Member_genre>();
+		
 	
 		if (userSession == null) { // 로그인이 안되어있는 경우
 			mav.setViewName("login");
@@ -213,13 +221,14 @@ public class MypageController {
 			if (!member.getAddress2().equals(memberCommand.getAddress2())) { // 주소2 변경
 				updateMember.setAddress2(memberCommand.getAddress2());
 			}
-			if (!member.getImage().equals(memberCommand.getImage())) { // 프로필 사진 변경
-				String filename = uploadFile(uploadImage);
-				updateMember.setImage(this.uploadDirLocal + filename);
-				System.out.println(updateMember.getImage());
-			} 
 			
 			memberService.updateMember(updateMember);
+			for(int i = 0; i < genres.length; i++) {
+				memberSelect.add(new Member_genre(member,bookService.getGenre(genres[i])));
+			}
+			if(memberSelect != null) {
+				memberService.createMemberGenre(memberSelect);
+			}
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -233,17 +242,45 @@ public class MypageController {
 		
 		return mav;
 	}
-	
-	private String uploadFile(MultipartFile image) {
-		String filename = image.getOriginalFilename();
-		System.out.println(filename);
-		File file = new File(this.uploadDir + filename);
+	@ResponseBody
+	@PostMapping("/book/mypage/imgupload.do")
+	public ModelAndView imgUpload(HttpServletRequest request,HttpServletResponse response, @RequestParam("upload") MultipartFile image) throws IOException{
+		UserSession userSession = 
+				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
+		ModelAndView mav = new ModelAndView();
+		if (userSession == null) { // 로그인이 안되어있는 경우
+			mav.setViewName("thymeleaf/Login");
+		}
+		else { // 로그인이 되어있는 경우
+		Member member = memberService.getMember(userSession.getMember().getMember_id());
+		Map<String, String> file = uploadFile(image);
+		String url = file.get("url");
+		member.setImage(url);
+		memberService.updateMember(member);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('성공적으로 수정되었습니다'); location.href='/book/mypage.do';</script>");
+		out.flush();
+		}
+		return mav;
+	}
+	private Map<String,String> uploadFile(MultipartFile image) throws IOException{
+		if(image.isEmpty()) {
+			return null;
+		}
+		Map<String,String> map = new HashMap<>();
+		String filename = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+		String folder = this.uploadDir;
+		System.out.print(false);
+		File file = new File(folder + filename);
+
 		try {
 			image.transferTo(file);
+			map.put("url","/book/images/upload/"+filename);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-		return filename;
+		return map;
 	}
 	
 	@GetMapping("/book/mypage/likes/book.do")

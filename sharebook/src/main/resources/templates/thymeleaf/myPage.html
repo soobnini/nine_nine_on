@@ -18,7 +18,7 @@
 <script type="text/javascript" th:src="@{/js/mypage.js}"></script>
 </head>
 <body>
-<div id="header"></div>
+	<div id="header"></div>
 
 	<div class="main">
 
@@ -28,6 +28,19 @@
 				<div id=circle>
 					<img th:src="${member.image}" alt="프로필 이미지" id=profile>
 				</div>
+				<form name="create-book" method="POST" th:action="@{/book/mypage/imgupload.do}"
+				enctype="multipart/form-data" id="imgform">
+				<input type="file" class="real-upload" name="upload" accept="image/*" required
+					multiple style="display: none;"></form>
+				
+				<button type="button" class="btn btn-light"
+					style="width: 45px; height: 45px; border: 1px solid silver; border-radius: 25px; margin-top: -130px; margin-left: 170px;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+  <path
+							d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+</svg>
+				</button>
 			</div>
 			<div class="col-8">
 				<div class="row">
@@ -35,9 +48,12 @@
 				</div>
 				<div class="row">
 					<div id=nick>
-						<b style="font-size:150%;"th:text="${member.nickname}"></b> <span id="book-info-page"
-									class="ms-2"><img class="pe-1"
-									th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25" style="text-align:top; color:#80C40A;"/><span style="text-align:top; color:#80C40A;" th:text="${member.temperature}+' 페이지'"></span></span>
+						<b style="font-size: 150%;" th:text="${member.nickname}"></b> <span
+							id="book-info-page" class="ms-2"><img class="pe-1"
+							th:src="@{/images/icon/myPage.png}" alt="페이지수" width="25"
+							style="text-align: top; color: #80C40A;" /><span
+							style="text-align: top; color: #80C40A;"
+							th:text="${member.temperature}+' 페이지'"></span></span>
 					</div>
 				</div>
 			</div>
@@ -104,9 +120,8 @@
 									<div class="form-floating">
 										<input type="password" class="form-control"
 											id="floatingPassword" placeholder="Password" name="password">
-										<label for="floatingPassword">비밀번호를 입력해주세요.</label><br> <input
-											type="button" value="로그인" onClick="loginAction()"
-											class="startBtn" style="width: 100%;"> <br>
+										<label for="floatingPassword">비밀번호를 입력해주세요.</label><br> <button type="submit"
+											class="startBtn" style="width: 100%;">확인</button> <br>
 									</div>
 								</form>
 							</main>
@@ -209,7 +224,8 @@
 								</div></li>
 						</ul>
 					</div>
-				</div><br> <br>
+				</div>
+				<br> <br>
 				<div id="likesDiv">
 					<span><h5>찜목록</h5></span>
 					<div id="book-list-result">
@@ -245,18 +261,28 @@
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 							<button class="nav-link active" id="nav-home-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-								role="tab" aria-controls="nav-home" aria-selected="true"><br/>글<p style="font-size:200%;"th:text = "${communityCount} +'개'"></p></button>
+								role="tab" aria-controls="nav-home" aria-selected="true">
+								<br />글
+								<p style="font-size: 200%;" th:text="${communityCount} +'개'"></p>
+							</button>
 							<button class="nav-link" id="nav-profile-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
-								role="tab" aria-controls="nav-profile" aria-selected="false"><br/>독후감<p style="font-size:200%;"th:text = "${reviewCount} +'개'"></p></button>
+								role="tab" aria-controls="nav-profile" aria-selected="false">
+								<br />독후감
+								<p style="font-size: 200%;" th:text="${reviewCount} +'개'"></p>
+							</button>
 							<button class="nav-link" id="nav-contact-tab"
 								data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
-								role="tab" aria-controls="nav-contact" aria-selected="false"><br/>댓글<p style="font-size:200%;" th:text = "${commentCount} +'개'"></p></button>
+								role="tab" aria-controls="nav-contact" aria-selected="false">
+								<br />댓글
+								<p style="font-size: 200%;" th:text="${commentCount} +'개'"></p>
+							</button>
 						</div>
 					</nav>
 					<div class="tab-content" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="nav-home"
-							role="tabpanel" aria-labelledby="nav-home-tab" style="height:300;">...</div>
+							role="tabpanel" aria-labelledby="nav-home-tab"
+							style="height: 300;">...</div>
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">...</div>
 						<div class="tab-pane fade" id="nav-contact" role="tabpanel"
@@ -279,7 +305,7 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script th:src="@{/js/loadAjax.js}" type="text/javascript"
 		charset="UTF-8"></script>
-	
+
 	<script type="text/javascript">
 		$("#top").click(function() {
 			$("html, #scrollspace").animate({
@@ -296,6 +322,16 @@
 			    $("#nav-profile").load("/book/myPage/listPartial.do?category=2"); 
 			    $("#nav-contact").load("/book/myPage/listPartial.do?category=3");
 			  });
+
+		    const realUpload = document.querySelector('.real-upload');
+		    const upload = document.querySelector('.btn.btn-light');
+
+		    upload.addEventListener('click', () => realUpload.click());
+		    
+		    $('.real-upload').on('change',function(){
+		    	$('#imgform').submit();
+		    });
+		
 	</script>
 	<script th:src="@{/js/loadHeaderAndFooter.js}" type="module"
 		charset="UTF-8"></script>

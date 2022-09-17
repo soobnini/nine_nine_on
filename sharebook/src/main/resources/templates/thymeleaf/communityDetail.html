@@ -89,7 +89,7 @@
 			th:each="comment : ${Post.commentList}">
 			<div class="col-sm-auto">
 				<img width="50" height="50" class="rounded-circle"
-					th:src="${Post.member.image}" />
+					th:src="${comment.member.image}" style=" object-fit: cover;"/>
 				<!-- <img width="50" height="50" class="rounded-circle"
 					th:src="${comment.member.image}" /> -->
 			</div>
@@ -153,7 +153,7 @@
 									<div class="col-sm-auto">
 										<img th:if="${session.member != null}" width="32" height="32"
 											class="rounded-circle"
-											th:src="${session.member.image}" /> <img
+											th:src="${session.member.image}" style=" object-fit: cover;"/> <img
 											th:unless="${session.member != null}" width="25" height="25"
 											src="/images/icon/id.png" />
 									</div>
